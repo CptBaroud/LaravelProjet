@@ -9,8 +9,10 @@
 
   <title>CESI BDE</title>
 
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <header>
@@ -38,7 +40,17 @@
             </li>
             <li class='nav-item '>
             <a class='nav-link' href='shop'>Shop</a>
-            </li>");
+            </li>
+            </ul>
+
+            <ul class='navbar-nav '>
+            <li class='nav-item'>
+            <a class='nav-link' href='connection'>Connection</a>
+            </li>
+            <li class='nav-item'>
+            <a class='nav-link' href='register'>Register</a>
+            </li>
+            </ul>");
         }
 
         else if($Actualpage == '/index.php/idea_box'){
@@ -51,9 +63,19 @@
             <li class='nav-item '>
             <a class='nav-link' href='activities'>Activities</a>
             </li>
-            <li class='nav-item '>
+            <li class='nav-item'>
             <a class='nav-link' href='shop'>Shop</a>
-            </li>");
+            </li>
+            </ul>
+
+            <ul class='navbar-nav '>
+            <li class='nav-item'>
+            <a class='nav-link' href='connection'>Connection</a>
+            </li>
+            <li class='nav-item'>
+            <a class='nav-link' href='register'>Register</a>
+            </li>
+            </ul>");
 
         }
         else if($Actualpage == '/index.php/shop'){
@@ -68,7 +90,17 @@
             </li>
             <li class='nav-item active'>
             <a class='nav-link' href='shop'>Shop</a>
-            </li>");
+            </li>
+            </ul>
+
+            <ul class='navbar-nav '>
+            <li class='nav-item'>
+            <a class='nav-link' href='connection'>Connection</a>
+            </li>
+            <li class='nav-item'>
+            <a class='nav-link' href='register'>Register</a>
+            </li>
+            </ul>");
 
         }
         else if($Actualpage == '/index.php/activities'){
@@ -83,34 +115,96 @@
             </li>
             <li class='nav-item '>
             <a class='nav-link' href='shop'>Shop</a>
-            </li>");
+            </li>
+            </ul>
+
+
+            <ul class='navbar-nav '>
+            <li class='nav-item'>
+            <a class='nav-link' href='connection'>Connection</a>
+            </li>
+            <li class='nav-item'>
+            <a class='nav-link' href='register'>Register</a>
+            </li>
+            </ul>");
+        }
+        else if($Actualpage == '/index.php/register'){
+          echo("<li class='nav-item'>
+            <a class='nav-link' href='/'> Home </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='idea_box'>Idea-box </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='activities'>Activities</a>
+            </li>
+            <li class='nav-item'>
+            <a class='nav-link' href='shop'>Shop</a>
+            </li>
+            </ul>
+
+            <ul class='navbar-nav '>
+            <li class='nav-item'>
+            <a class='nav-link' href='connection'>Connection</a>
+            </li>
+            <li class='nav-item active'>
+            <a class='nav-link' href='register'>Register</a>
+            </li>
+            </ul>");
+
+        }
+        else if($Actualpage == '/index.php/connection'){
+          echo("<li class='nav-item'>
+            <a class='nav-link' href='/'> Home </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='idea_box'>Idea-box </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='activities'>Activities</a>
+            </li>
+            <li class='nav-item'>
+            <a class='nav-link' href='shop'>Shop</a>
+            </li>
+            </ul>
+
+            <ul class='navbar-nav '>
+            <li class='nav-item active'>
+            <a class='nav-link' href='connection'>Connection</a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='register'>Register</a>
+            </li>
+            </ul>");
 
         }
         ?>
 
-      </ul>
+
+
+      </div>
+    </nav>
+  </header>
+
+
+  <body>
+
+    <br>
+    <br>
+    <br>
+
+    @yield('content')
+
+  </body>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">© 2019 Exia Cesi A2 Groupe 2</span>
     </div>
-  </nav>
-</header>
+  </footer>
 
-
-<body>
-  <br>
-  <br>
-  <br>
-  <br>
-  @yield('content')
-
-</body>
-
-<footer class="footer">
-  <div class="container">
-    <span class="text-muted">© 2019 Exia Cesi A2 Groupe 2</span>
-  </div>
-</footer>
-
-<script src="js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>
