@@ -8,28 +8,12 @@ class PostForm extends Form
 {
     public function buildForm()
     {
-        if($this->getMethod() && $this->getModel()->id){
-            $url = route('posts.update', $this->getModel()->id);
-            $method = 'PUT';
-            $label = "Editer l'article";
-        }else{
-            $url = route('posts.store');
-            $method = 'POST';
-            $label = "Créer l'article";
-        }
-
         $this
-            ->add('name', 'text',[
-                'label' => 'Titre'
-            ])
-            ->add('content', 'textarea',[
-                'label' => 'Content'
-            ])
-            ->add('submit', 'submit', ['label' => $label]);
+            ->add('Nom', "text")
+            ->add('content', 'textarea');
 
-        $this->formsOptions = [
-            'method' => $method,
-            'url' => $url
-        ];
+        if($this->getData('admin') === true){
+            $this->add('created_at', 'date');
+        }
     }
 }

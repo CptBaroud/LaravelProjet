@@ -1,5 +1,6 @@
 @extends('template')
 
 @section('content')
-{!! form($form) !!}
+    {!! form($form) !!}
 @endsection
+

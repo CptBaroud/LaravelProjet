@@ -1,5 +1,5 @@
 @extends('template')
 
-@section('contenu')
-    LES ACTIVITES
+@section('content')
+    Salut les activitées
 @endsection

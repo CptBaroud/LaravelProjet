@@ -9,7 +9,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 
 class PostsController extends Controller
 {
-    private $formBuilder;
+    /*private $formBuilder;
 
     public function __construct(FormBuilder $formBuilder)
     {
@@ -51,5 +51,14 @@ class PostsController extends Controller
         'model' => $post
     ]);
     }
+*/
 
+    public function create(FormBuilder $formBuilder){
+       $form = $formBuilder->create(PostForm::class, [
+            'data' => [
+                'admin' => true
+            ]
+        ]);
+        return view('activities.createActivities', compact('form'));
+    }
 }
