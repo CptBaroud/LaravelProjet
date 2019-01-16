@@ -15,5 +15,10 @@ class PostForm extends Form
             ])
             ->add('content', 'textarea')
             ->add('submit', 'submit');
+
+        $this->formOptions = [
+            'method' => 'POST',
+            'url' => route('create')
+        ];
     }
 }
