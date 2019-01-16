@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Projet web groupe 2.
+                    Projet web groupe 2. MOUNIER
                 </div>
 
                 <div class="links">
