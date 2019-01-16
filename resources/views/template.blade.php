@@ -1,42 +1,62 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>@yield('titre')</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
+  <title>CESI BDE</title>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown link
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-      </li>
-  </ul>
-</div>
-</nav>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/sticky-footer-navbar.css" rel="stylesheet">
 </head>
+
 <body>
-    @yield('contenu')
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="{{ url('welcome') }}">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url('idea_box') }}">Idea-box </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('activities') }}">Activities</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('shop') }}">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('shop') }}">Contact</a>
+          </li>
+          <!--<li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>-->
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <body>
+
+
+    @yield ('content')
+
+
+  </body>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">© 2019 Exia Cesi A2 Groupe 2</span>
+    </div>
+  </footer>
+
+  <script src="js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+
 </body>
 </html>
