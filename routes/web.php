@@ -16,6 +16,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', 'IndexController@index');
 Route::get('/idea_box', 'IdeaBoxController@index');
-Route::get('/register', 'ResgisterController@create');
-Route::post('register', 'ResgisterController@store');
+Route::get('/activities', 'ActivitiesController@index');
+Route::get('/shop', 'ShopController@index');
+Route::get('/register', 'RegistrationController@index');
+

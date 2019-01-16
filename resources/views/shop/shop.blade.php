@@ -1,5 +1,5 @@
 @extends('template')
 
 @section('contenu')
-    ACCEUIL
+    LE SHOP
 @endsection
