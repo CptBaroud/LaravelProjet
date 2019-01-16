@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class IdeaBoxController extends Controller
+class ConnectionController extends Controller
 {
 	public function index(){
 
-		return view('ideabox.ideabox');
+		return view('registration.connection');
 	}
 }
