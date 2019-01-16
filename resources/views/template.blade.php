@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,55 +13,104 @@
   <link href="css/sticky-footer-navbar.css" rel="stylesheet">
 </head>
 
-<body>
-  <header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="{{ url('/') }}">BDE CESI</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url('/') }}">Home</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url('idea_box') }}">Idea-box </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url('activities') }}">Activities</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url('shop') }}">Shop</a>
-          </li>
-          <!--<li class="nav-item">
-            <a class="nav-link" href="{{ url('shop') }}">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>-->
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <body>
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="{{ url('/') }}">BDE CESI</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
 
-    @yield ('content')
+        <?php $Actualpage= $_SERVER['PHP_SELF']; 
+        if($Actualpage == '/index.php'){
 
+          echo("<li class='nav-item active'>
+            <a class='nav-link' href='/'> Home </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='idea_box'>Idea-box </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='activities'>Activities</a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='shop'>Shop</a>
+            </li>");
+        }
 
-  </body>
+        else if($Actualpage == '/index.php/idea_box'){
+          echo("<li class='nav-item'>
+            <a class='nav-link' href='/'> Home </a>
+            </li>
+            <li class='nav-item active'>
+            <a class='nav-link' href='idea_box'>Idea-box </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='activities'>Activities</a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='shop'>Shop</a>
+            </li>");
 
-  <footer class="footer">
-    <div class="container">
-      <span class="text-muted">© 2019 Exia Cesi A2 Groupe 2</span>
+        }
+        else if($Actualpage == '/index.php/shop'){
+          echo("<li class='nav-item '>
+            <a class='nav-link' href='/'> Home </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='idea_box'>Idea-box </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='activities'>Activities</a>
+            </li>
+            <li class='nav-item active'>
+            <a class='nav-link' href='shop'>Shop</a>
+            </li>");
+
+        }
+        else if($Actualpage == '/index.php/activities'){
+          echo("<li class='nav-item '>
+            <a class='nav-link' href='/'> Home </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='idea_box'>Idea-box </a>
+            </li>
+            <li class='nav-item active'>
+            <a class='nav-link' href='activities'>Activities</a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='shop'>Shop</a>
+            </li>");
+
+        }
+        ?>
+
+      </ul>
     </div>
-  </footer>
+  </nav>
+</header>
 
-  <script src="js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
+
+<body>
+  <br>
+  <br>
+  <br>
+  <br>
+  @yield('content')
+
+</body>
+
+<footer class="footer">
+  <div class="container">
+    <span class="text-muted">© 2019 Exia Cesi A2 Groupe 2</span>
+  </div>
+</footer>
+
+<script src="js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>
