@@ -15,3 +15,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/register', 'ResgisterController@create');
+Route::post('register', 'ResgisterController@store');
