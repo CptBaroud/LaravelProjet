@@ -16,5 +16,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/idea_box', 'IdeaBoxController@index');
 Route::get('/register', 'ResgisterController@create');
 Route::post('register', 'ResgisterController@store');
