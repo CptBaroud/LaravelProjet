@@ -81,16 +81,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel slt c franso
+                    Projet web groupe 2
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="">François</a>
+                    <a href="">Gurvan</a>
+                    <a href="">Benjamin</a>
+                    <a href="">Julien</a>
+                    <a href="https://github.com/CptBaroud/LaravelProjet">GitHub</a>
                 </div>
             </div>
         </div>
