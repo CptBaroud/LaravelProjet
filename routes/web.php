@@ -11,17 +11,20 @@
 |
 */
 
-Route::get('/register', 'RegistrationController@index');
-Route::post('/register', 'RegistrationController@processing');
+Route::get('/', array('as' => 'index', 'uses' => 'IndexController@index'));
 
-Route::get('/connection', 'ConnectionController@index');
-Route::post('/connection', 'ConnectionController@processing');
+Route::post('/idea_box/create', array('as' => 'idea_box_create', 'uses' => 'IdeaBoxController@Create'));
+Route::get('/idea_box/create', array('as' => 'idea_box_Form', 'uses' => 'IdeaBoxController@Form'));
 
-Route::get('/', 'IndexController@index');
-
-Route::get('/idea_box', 'IdeaBoxController@index');
+Route::get('/idea_box', array('as' => 'idea_box', 'uses' => 'IdeaBoxController@index'));
 
 Route::get('/activities/store', ['as'=>'store', 'uses'=>'ActivitiesController@store']);
 Route::get('/activities/create', ['as'=>'create', 'uses'=>'PostsController@create']);
 Route::get('/activities', ['as'=>'index', 'uses'=>'ActivitiesController@index']);
 Route::get('/shop', 'ShopController@index');
+
+Route::get('/register', 'RegistrationController@index');
+Route::post('/register', 'RegistrationController@processing');
+
+Route::get('/connection', 'ConnectionController@index');
+Route::post('/connection', 'ConnectionController@processing');

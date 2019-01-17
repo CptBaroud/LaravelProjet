@@ -1,5 +1,5 @@
 @extends('template')
 
-@section('contenu')
-    ideabox
+@section('content')
+
 @endsection
