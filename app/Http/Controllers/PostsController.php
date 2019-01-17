@@ -59,6 +59,15 @@ class PostsController extends Controller
                 'admin' => true
             ]
         ]);
+
+        if(auth()->guest()) {
+    			return redirect('connection')->withErrors([
+    				'password' => 'Please Log In'
+
+    			]);
+
+    		} else {
         return view('activities.createActivities', compact('form'));
+      }
     }
 }

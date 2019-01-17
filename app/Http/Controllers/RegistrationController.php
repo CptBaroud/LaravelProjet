@@ -25,6 +25,6 @@ class RegistrationController extends Controller
 
 		$Users->save();
 
-		return 'Registration form processing';
+		return redirect('/');
 	}
 }

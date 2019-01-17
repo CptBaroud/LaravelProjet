@@ -8,6 +8,15 @@ use App\Http\Controllers\Controller;
 class IndexController extends Controller
 {
 	public function index(){
-		return view('welcome');
+		
+		if(auth()->guest()) {
+			return redirect('connection')->withErrors([
+				'password' => 'Please Log In'
+
+			]);
+
+		} else {
+			return view('welcome');
+		}
 	}
 }
