@@ -8,16 +8,18 @@
   <meta name="author" content="">
 
   <title>CESI BDE</title>
-
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  {!! Html::style('css/bootstrap.min.css') !!}
+  {!! Html::style('css/sticky-footer-navbar.css') !!}
+  {!! Html::style('css/style.css') !!}
+  <!--<link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/sticky-footer-navbar.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">-->
 
 </head>
 
 <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top dark">
     <a class="navbar-brand" href="{{ url('/') }}">BDE CESI</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -176,8 +178,33 @@
             <a class='nav-link' href='register'>Register</a>
             </li>
             </ul>");
+      }
+          else if ($Actualpage == '/index.php/idea_box/create') {
+            echo("<li class='nav-item'>
+            <a class='nav-link' href='/'> Home </a>
+            </li>
+            <li class='nav-item active'>
+            <a class='nav-link' href='idea_box'>Idea-box </a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='activities'>Activities</a>
+            </li>
+            <li class='nav-item'>
+            <a class='nav-link' href='shop'>Shop</a>
+            </li>
+            </ul>
 
-        }
+            <ul class='navbar-nav'>
+            <li class='nav-item '>
+            <a class='nav-link' href='connection'>Connection</a>
+            </li>
+            <li class='nav-item '>
+            <a class='nav-link' href='register'>Register</a>
+            </li>
+            </ul>");
+          }
+
+        
         ?>
 
 
