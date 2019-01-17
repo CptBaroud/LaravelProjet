@@ -11,11 +11,16 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
-Route::get('/idea_box', 'IdeaBoxController@index');
-Route::get('/activities', 'ActivitiesController@index');
-Route::get('/shop', 'ShopController@index');
 Route::get('/register', 'RegistrationController@index');
+Route::post('/register', 'RegistrationController@processing');
+
 Route::get('/connection', 'ConnectionController@index');
+Route::post('/connection', 'ConnectionController@processing');
 
+Route::get('/', 'IndexController@index');
 
+Route::get('/idea_box', 'IdeaBoxController@index');
+
+Route::get('/activities', 'ActivitiesController@index');
+
+Route::get('/shop', 'ShopController@index');
