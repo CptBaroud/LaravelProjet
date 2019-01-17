@@ -18,9 +18,10 @@ Route::get('/idea_box/create', array('as' => 'idea_box_Form', 'uses' => 'IdeaBox
 
 Route::get('/idea_box', array('as' => 'idea_box', 'uses' => 'IdeaBoxController@index'));
 
-Route::get('/activities/store', ['as'=>'store', 'uses'=>'ActivitiesController@store']);
-Route::get('/activities/create', ['as'=>'create', 'uses'=>'PostsController@create']);
-Route::get('/activities', ['as'=>'index', 'uses'=>'ActivitiesController@index']);
+Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
+Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
+Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
+
 Route::get('/shop', 'ShopController@index');
 
 Route::get('/register', 'RegistrationController@index');

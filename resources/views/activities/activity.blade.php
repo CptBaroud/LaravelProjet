@@ -1,5 +1,10 @@
 @extends('template')
 
 @section('content')
-    Salut les activitées
+    <div>
+        <a href= 'activities/create'>
+            <div class="btn-outline-dark">
+                Créer un activitée </div>
+        </a>
+    </div>
 @endsection
