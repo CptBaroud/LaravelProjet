@@ -1,26 +1,65 @@
 @extends('template')
 
-@section('contenu')
-<h2>Register</h2>
-<form method="POST" action="/register">
-    {{ csrf_field() }}
-    <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name">
-    </div>
+@section('content')
 
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="email">
-    </div>
+<form action="/register" method="post" class="section">
+       {{ csrf_field() }}
 
-    <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" class="form-control" id="password" name="password">
-    </div>
+       <div>
+           <label>Last Name</label>
+           <div>
+               <input class="input" type="text" name="last_name">
+           </div>
+           @if($errors->has('last_name'))
+               <p class="help is-danger">{{ $errors->first('last_name') }}</p>
+           @endif
+       </div>
 
-    <div class="form-group">
-        <button style="cursor:pointer" type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</form>
+       <div>
+           <label>First Name</label>
+           <div>
+               <input class="input" type="text" name="first_name">
+           </div>
+           @if($errors->has('first_name'))
+               <p class="help is-danger">{{ $errors->first('first_name') }}</p>
+           @endif
+       </div>
+
+       <div>
+           <label>Location</label>
+           <div>
+               <input class="input" type="text" name="location">
+           </div>
+           @if($errors->has('location'))
+               <p class="help is-danger">{{ $errors->first('location') }}</p>
+           @endif
+       </div>
+
+       <div>
+           <label>E-mail</label>
+           <div>
+               <input class="input" type="email" name="email" value="{{ old('email') }}">
+           </div>
+           @if($errors->has('email'))
+               <p class="help is-danger">{{ $errors->first('email') }}</p>
+           @endif
+       </div>
+
+       <div>
+           <label>Password</label>
+           <div>
+               <input class="input" type="password" name="password">
+           </div>
+           @if($errors->has('password'))
+               <p class="help is-danger">{{ $errors->first('password') }}</p>
+           @endif
+       </div>
+       <br>
+       <div>
+           <div>
+               <button class="button is-link" type="submit">Sign in</button>
+           </div>
+       </div>
+   </form>
+
 @endsection
