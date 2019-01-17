@@ -15,7 +15,6 @@ class IdeaBoxController extends Controller{
 		return view('ideabox.ideabox');
 	}
 
-
 	public function Form(FormBuilder $FormBuilder){
 
 		$Formular = $FormBuilder-> create(IdeaForm::class);

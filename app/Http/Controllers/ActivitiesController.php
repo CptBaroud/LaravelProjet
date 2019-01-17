@@ -10,6 +10,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 class ActivitiesController extends Controller
 {
 	public function index(FormBuilder $formBuilder){
+
         $form = $formBuilder->create(PostForm::class, [
             'data' => [
                 'admin' => true
@@ -25,5 +26,8 @@ class ActivitiesController extends Controller
         } else {
         	return view('activities.createActivities', compact('form'));
         }
+
+        return view('activities.activity');
+
 	}
 }
