@@ -8,13 +8,19 @@ use App\Http\Controllers\Controller;
 use App\Forms\IdeaForm;
 use DB;
 
-class IdeaBoxController extends Controller
-{
-	public function index(FormBuilder $FormBuilder){
+class IdeaBoxController extends Controller{
+
+	public function index(){
+
+		return view('ideabox.ideabox');
+	}
+
+
+	public function Form(FormBuilder $FormBuilder){
 
 		$Formular = $FormBuilder-> create(IdeaForm::class);
 
-		return view('ideabox.ideabox', compact('Formular'));
+		return view('ideabox.ideaboxcreation', compact('Formular'));
 	}
 
 	public function Create(){

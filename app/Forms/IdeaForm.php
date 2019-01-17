@@ -9,14 +9,20 @@ class IdeaForm extends Form
 	public function buildForm()
 	{
 
-		$this->formOptions  =[
+		$this->formOptions =[
 			'method' => 'POST',
 			'url'=>route('idea_box_create')];
 
 
 			$this
-			->add("Name","text")
-			->add("Description","textarea")
+			->add("Name","text",[
+				'label' => 'Idea Name',
+				'rules' => 'required|min:4'
+			])
+			->add("Description","textarea",[
+				'label' => 'Description',
+				'rules' => 'required|min:4'
+			])
 			->add("Free","checkbox")
 			->add('submit', 'submit');
 	}
