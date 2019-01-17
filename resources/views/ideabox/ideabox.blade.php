@@ -1,5 +1,8 @@
 @extends('template')
 
-@section('contenu')
-    ideabox
+@section('content')
+
+<div class="container">
+	{!!form($Formular)!!}
+</div>
 @endsection
