@@ -19,7 +19,7 @@
     <div class="col-lg-3">
 
       <h1 class="my-4">Shop</h1>
-      @foreach($category as $category => $category)
+      @foreach($category as $key => $category)
       <div class="list-group">
         <a href="#" class="list-group-item">{{$category->category_name}}</a>
     </div>
