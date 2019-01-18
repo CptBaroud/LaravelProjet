@@ -30,5 +30,7 @@ Route::post('/shop/create', array('as' => 'Items_create', 'uses' => 'ShopControl
 Route::get('/register', 'RegistrationController@index');
 Route::post('/register', 'RegistrationController@processing');
 
+Route::get('/log_out', 'ConnectionController@log_out');
+
 Route::get('/connection', 'ConnectionController@index');
 Route::post('/connection', 'ConnectionController@processing');

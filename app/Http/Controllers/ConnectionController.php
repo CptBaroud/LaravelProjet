@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ConnectionController extends Controller
 {
+
 	public function index(){
 
 		return view('registration.connection');
+
+	}
+
+	public function log_out(){
+
+			Auth::logout();
+			return redirect('/');
+
 	}
 
 	public function processing(){
@@ -21,14 +31,12 @@ class ConnectionController extends Controller
 
 		]);
 
-		$result = auth()->attempt([
+		$userdata = array(
+    'email'      => request('email'),
+    'password'      => request('password')
+		);
 
-    'email' => request('email'),
-    'password' => request('password'),
-
-		]);
-
-		if($result){
+		if(Auth::attempt($userdata)){
 
 			return redirect('/');
 
@@ -41,7 +49,6 @@ class ConnectionController extends Controller
 			]);
 
 		}
-
 
 	}
 }
