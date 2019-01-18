@@ -184,7 +184,7 @@
             <a class='nav-link' href='/'> Home </a>
             </li>
             <li class='nav-item active'>
-            <a class='nav-link' href='idea_box'>Idea-box </a>
+            <a class='nav-link' href='/'>Idea-box </a>
             </li>
             <li class='nav-item '>
             <a class='nav-link' href='activities'>Activities</a>
