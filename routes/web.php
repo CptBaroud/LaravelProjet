@@ -15,19 +15,26 @@ Route::get('/', array('as' => 'index', 'uses' => 'IndexController@index'));
 
 Route::post('/idea_box/create', array('as' => 'idea_box_create', 'uses' => 'IdeaBoxController@Create'));
 Route::get('/idea_box/create', array('as' => 'idea_box_Form', 'uses' => 'IdeaBoxController@Form'));
-
+Route::get('/idea_box/delete/{id}', array('as' => 'idea_box_delete', 'uses' => 'IdeaBoxController@Delete'));
 Route::get('/idea_box', array('as' => 'idea_box', 'uses' => 'IdeaBoxController@index'));
+Route::get('/idea_box/edit/{id}', array('as' => 'idea_box_Edit', 'uses' => 'IdeaBoxController@Edit'));
+Route::post('/idea_box/update/{id}', array('as' => 'idea_box_update', 'uses' => 'IdeaBoxController@Update'));
 
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
 Route::post('/storeImage', ['as'=>'activitiesStoreImage', 'uses'=>'PostsController@storeImage']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 
+
 Route::get('/shop', 'ShopController@index');
 Route::post('/shop/create', array('as' => 'Items_create', 'uses' => 'ShopController@CreateItems'));
+Route::get('/shop/create', array('as' => 'Items_form', 'uses' => 'ShopController@Itemform'));
+Route::get('/shop/delete/{id}', array('as' => 'Itemsdelete', 'uses' => 'ShopController@Delete'));
 
 Route::get('/register', 'RegistrationController@index');
 Route::post('/register', 'RegistrationController@processing');
+
+Route::get('/log_out', 'ConnectionController@log_out');
 
 Route::get('/connection', 'ConnectionController@index');
 Route::post('/connection', 'ConnectionController@processing');

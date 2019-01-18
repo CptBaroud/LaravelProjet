@@ -20,6 +20,14 @@ class Users extends Model implements Authenticatable
 
     public function getAuthPassword()
     {
+      if($this->password != null){
         return $this->password;
+      }
+    }
+
+    public function getRememberTokenName() {
+
+      return '';
+
     }
 }

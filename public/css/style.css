@@ -4,3 +4,9 @@
 .navbar{
 	background-color: black;
 }
+body {
+	margin-top: 40px;
+}
+.album{
+	margin-top: -35px;
+}

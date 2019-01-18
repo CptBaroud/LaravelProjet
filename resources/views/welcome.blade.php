@@ -1,5 +1,5 @@
 @extends('template')
 
-@section('contenu')
+@section('content')
     ACCEUIL
 @endsection
