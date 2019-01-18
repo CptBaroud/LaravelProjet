@@ -35,8 +35,12 @@ class ShopController extends Controller
 
     public function CreateItems(){
     if(!empty($_POST)){
-      DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'purchase_number'=>$_POST['Purchase_number'],'url_image '=>$_POST['Url_image']));
+      DB::table('categories')->insert(array('category_name'=>$_POST['Category_name']));
+
+      DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'purchase_number'=>$_POST['Purchase_number'],'url_image'=>$_POST['Url_image']));
       return redirect(route('index'));
+
+
     }
   }
 
