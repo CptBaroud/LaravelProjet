@@ -12,7 +12,9 @@ class IdeaBoxController extends Controller{
 
 	public function index(){
 
-		return view('ideabox.ideabox');
+		$data = DB::table('ideas_box')->get();
+
+		return view('ideabox.ideabox', compact('data'));
 	}
 
 	public function Form(FormBuilder $FormBuilder){
@@ -23,8 +25,17 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Create(){
+
 		if(!empty($_POST)){
-			DB::table('ideas_box')->insert(array('name'=>$_POST['Name'],'description'=>$_POST['Description']));
+			DB::table('ideas_box')->insert(array(
+				'name'=>$_POST['Name'],
+				'description'=>$_POST['Description'],
+				'price'=>$_POST['Price'],
+				'creation_date' => date("Y/m/d")));
+			
+			DB::table('image')->insert(array(
+				'url_image'=>$_POST['Picture']));
+
 			return redirect(route('index'));
 		}
 	}

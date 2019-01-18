@@ -13,7 +13,6 @@ class IdeaForm extends Form
 			'method' => 'POST',
 			'url'=>route('idea_box_create')];
 
-
 			$this
 			->add("Name","text",[
 				'label' => 'Idea Name',
@@ -23,7 +22,13 @@ class IdeaForm extends Form
 				'label' => 'Description',
 				'rules' => 'required|min:4'
 			])
-			->add("Free","checkbox")
+			->add("Picture","text",[
+				'label' => 'Picture',
+			])
+			->add("Price","number",[
+				'label' => 'Price',
+				'rules' => 'required',
+			])
 			->add('submit', 'submit');
+		}
 	}
-}
