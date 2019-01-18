@@ -24,8 +24,11 @@ Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsCo
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 
+
 Route::get('/shop', 'ShopController@index');
 Route::post('/shop/create', array('as' => 'Items_create', 'uses' => 'ShopController@CreateItems'));
+Route::get('/shop/create', array('as' => 'Items_form', 'uses' => 'ShopController@Itemform'));
+Route::get('/shop/delete/{id}', array('as' => 'Itemsdelete', 'uses' => 'ShopController@Delete'));
 
 Route::get('/register', 'RegistrationController@index');
 Route::post('/register', 'RegistrationController@processing');
