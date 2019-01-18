@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Forms\PostForm;
 use App\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\FormBuilder;
-use phpDocumentor\Reflection\Types\Null_;
 
 class PostsController extends Controller
 {
@@ -69,14 +66,35 @@ class PostsController extends Controller
 
     public function store(FormBuilder $formBuilder)
     {
-        $form = $this->getForm();
-        // $form->redirectIfNotValid();
+        $form= $this->getForm();
         if (!empty($form->getFieldValues())) {
             DB::table('activities')->insert(array('name' => $_POST['nom'],
                 'description' => $_POST['content'],
+                'date' => $_POST['date'],
                 'price' => $_POST['price']));
             dd($form->getFieldValues());
         }
+    }
+
+    public function storeImage(){
+       request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+        ]);
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        request()->image->move(public_path('images'), $imageName);
+        print_r($imageName);
+        $form= $this->getForm();
+        if (!empty($form->getFieldValues())) {
+            $id = DB::table('image')->insertGetId(array('url_image'=>$_POST[$imageName]));
+            DB::table('activities')->insert(array('name' => $_POST['nom'],
+                'description' => $_POST['content'],
+                'date' => $_POST['date'],
+                'price' => $_POST['price'],
+                'id_image'=>$_POST[$id]));
+            dd($form->getFieldValues());
+        }
+
+        redirect('activitiesIndex   ');
     }
 
     public function getForm()

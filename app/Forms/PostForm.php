@@ -18,14 +18,14 @@ class PostForm extends Form
                 'label'=>'Descritpion',
                 'rules'=>'require|min:15'
             ])
-            ->add('date','date', [
+            ->add('date','datetime-local', [
                 'label'=>'Date de l\'evenement'
             ])
             ->add('price', 'text', [
                 'label'=> 'prix'
             ])
-            ->add('image', 'file',[
-                'label'=>'Image de l\'evenement'
+            ->add('imagecomment', 'text', [
+                'label'=>'Commentaire de l\'image'
             ])
             ->add('submit', 'submit', [
                 'label'=> 'Envoyer'

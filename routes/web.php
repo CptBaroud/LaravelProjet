@@ -20,6 +20,7 @@ Route::get('/idea_box', array('as' => 'idea_box', 'uses' => 'IdeaBoxController@i
 
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
+Route::post('/storeImage', ['as'=>'activitiesStoreImage', 'uses'=>'PostsController@storeImage']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 
 Route::get('/shop', 'ShopController@index');
