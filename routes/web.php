@@ -23,6 +23,7 @@ Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsContro
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 
 Route::get('/shop', 'ShopController@index');
+Route::post('/shop/create', array('as' => 'Items_create', 'uses' => 'ShopController@CreateItems'));
 
 Route::get('/register', 'RegistrationController@index');
 Route::post('/register', 'RegistrationController@processing');
