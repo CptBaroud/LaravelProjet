@@ -19,12 +19,11 @@
     <div class="col-lg-3">
 
       <h1 class="my-4">Shop</h1>
+      @foreach($category as $category => $category)
       <div class="list-group">
-        <a href="#" class="list-group-item">Category 1</a>
-        <a href="#" class="list-group-item">Category 2</a>
-        <a href="#" class="list-group-item">Category 3</a>
+        <a href="#" class="list-group-item">{{$category->category_name}}</a>
     </div>
-
+@endforeach
 </div>
 <div class="col-lg-9">
 

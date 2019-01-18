@@ -13,8 +13,10 @@ class ShopController extends Controller
 public function index(){
 
     $data = DB::table('product')->get();
-
-    return view('shop.shop', compact('data'));
+    $category = DB::table('categories')
+                ->orderBy('category_name', 'desc')
+                ->get();
+    return view('shop.shop', compact('data','category'));
   }
 
     public function Itemform(FormBuilder $formBuilder){
@@ -51,23 +53,10 @@ public function index(){
 
     }
   }
-public function deleteItems(){
-  print'<div id="wrapper">
-                <div class="animate form">
-                    <form method="post" action="admin.php?action=del&submit=true" autocomplete="on">
-                        <h1>Supprimer un article</h1> 
-                        <p> 
-                            <label for="username" class="" data-icon="" > Nom : </label>
-                            <input name="nom" required="required" type="text" placeholder=""/>
-                        </p>
-                        <p class="login button"> 
-                            <input type="submit" value="Supprimer" /> 
-                        </p>'; 
-
-  return view('shop.shop');
-}
     public function Delete($id){
+   
     DB::table('product')->where('id_product',$id)->delete();
+    DB::table('categories')->where('id_category',$id)->delete();
 
     return redirect('/shop');
 
