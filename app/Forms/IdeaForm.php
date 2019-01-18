@@ -22,7 +22,7 @@ class IdeaForm extends Form
 				'label' => 'Description',
 				'rules' => 'required|min:4'
 			])
-			->add("Picture","text",[
+			->add("Picture","file",[
 				'label' => 'Picture',
 			])
 			->add("Price","number",[

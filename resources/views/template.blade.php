@@ -11,9 +11,7 @@
   {!! Html::style('css/bootstrap.min.css') !!}
   {!! Html::style('css/sticky-footer-navbar.css') !!}
   {!! Html::style('css/style.css') !!}
-  <!--<link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/sticky-footer-navbar.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">-->
+
 
 </head>
 
@@ -23,109 +21,104 @@
     <a class="navbar-brand" href="{{ url('/') }}">BDE CESI</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+  </button>
 
-    <div class="collapse navbar-collapse" id="navbarCollapse">
+  <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
 
         <?php $Actualpage= $_SERVER['PHP_SELF'];
 
 
-            echo("<li class='nav-item ");
+        echo("<li class='nav-item ");
 
-            if($Actualpage == '/index.php'){
-              echo 'active';
-            }
+        if($Actualpage == '/index.php'){
+          echo 'active';
+      }
 
-            echo("'>
-              <a class='nav-link' href='/'> Home </a>
-              </li>
-              <li class='nav-item ");
+      echo("'>
+          <a class='nav-link' href='/'> Home </a>
+          </li>
+          <li class='nav-item ");
 
-              if($Actualpage == '/index.php/idea_box' || $Actualpage == '/index.php/idea_box/create'){
-                echo 'active';
-              }
+      if($Actualpage == '/index.php/idea_box' || $Actualpage == '/index.php/idea_box/create'){
+        echo 'active';
+    }
 
-              echo ("'>
-              <a class='nav-link' href='idea_box'>Idea-box </a>
-              </li>
-              <li class='nav-item ");
+    echo ("'>
+      <a class='nav-link' href='idea_box'>Idea-box </a>
+      </li>
+      <li class='nav-item ");
 
-              if($Actualpage == '/index.php/activities'){
-                echo 'active';
-              }
+    if($Actualpage == '/index.php/activities'){
+        echo 'active';
+    }
 
-              echo ("'>
-              <a class='nav-link' href='activities'>Activities</a>
-              </li>
-              <li class='nav-item ");
+    echo ("'>
+      <a class='nav-link' href='activities'>Activities</a>
+      </li>
+      <li class='nav-item ");
 
-              if($Actualpage == '/index.php/shop'){
-                echo 'active';
-              }
+    if($Actualpage == '/index.php/shop'){
+        echo 'active';
+    }
 
-              echo ("'>
-              <a class='nav-link' href='shop'> Shop </a>
-              </li>
-              </ul>");
-
-
-              if(isset(Auth::user()->email)) {
-
-                echo ("<ul class='navbar-nav '>
-                <li class='nav-item'>
-                <a class='nav-link' href='log_out'>Log out</a>
-                </li>");
-
-              } else {
-
-                echo ("<ul class='navbar-nav '>
-                <li class='nav-item ");
-
-                if($Actualpage == '/index.php/connection'){
-                  echo 'active';
-                }
-
-                echo ("'>
-                <a class='nav-link' href='connection'>Connection</a>
-                </li>
-                <li class='nav-item ");
-                if($Actualpage == '/index.php/register'){
-                  echo 'active';
-                }
-
-                echo ("'>
-                <a class='nav-link' href='register'>Register</a>
-                </li>
-                </ul>");
-
-              }
-
-          ?>
-
-      </div>
-    </nav>
-  </header>
+    echo ("'>
+      <a class='nav-link' href='shop'> Shop </a>
+      </li>
+      </ul>");
 
 
-  <body>
+    if(isset(Auth::user()->email)) {
 
-    <br>
-    <br>
-    <br>
+        echo ("<ul class='navbar-nav '>
+            <li class='nav-item'>
+            <a class='nav-link' href='log_out'>Log out</a>
+            </li>");
 
+    } else {
+
+        echo ("<ul class='navbar-nav '>
+            <li class='nav-item ");
+
+        if($Actualpage == '/index.php/connection'){
+          echo 'active';
+      }
+
+      echo ("'>
+        <a class='nav-link' href='connection'>Connection</a>
+        </li>
+        <li class='nav-item ");
+      if($Actualpage == '/index.php/register'){
+          echo 'active';
+      }
+
+      echo ("'>
+        <a class='nav-link' href='register'>Register</a>
+        </li>
+        </ul>");
+
+  }
+
+  ?>
+
+</div>
+</nav>
+</header>
+
+
+<body>
     @yield('content')
 
-  </body>
+</body>
 
-  <footer class="footer">
+<footer class="footer">
     <div class="container">
       <span class="text-muted">© 2019 Exia Cesi A2 Groupe 2</span>
-    </div>
-  </footer>
+  </div>
+</footer>
 
-  <script src="js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>
