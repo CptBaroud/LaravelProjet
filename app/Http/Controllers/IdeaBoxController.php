@@ -55,6 +55,20 @@ class IdeaBoxController extends Controller{
 		return redirect('/idea_box');
 	}
 
+	public function Savetodb(Request $request){
+		DB::table('activities')
+		->insert(['name' => $request->name, 'description' => $request->description,'price' => $request->number]);
+
+		
+		return redirect('/idea_box');
+	}
+
+	public function Save($id){
+		$data = DB::table('ideas_box')->where('id_idea',$id)->get();
+
+		return view('ideabox.ideaboxsave',compact('data'));
+	}
+
 
 	public function Edit($id){
 		$data = DB::table('ideas_box')->where('id_idea',$id)->get();

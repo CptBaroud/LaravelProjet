@@ -18,7 +18,13 @@ Route::get('/idea_box/create', array('as' => 'idea_box_Form', 'uses' => 'IdeaBox
 Route::get('/idea_box/delete/{id}', array('as' => 'idea_box_delete', 'uses' => 'IdeaBoxController@Delete'));
 Route::get('/idea_box', array('as' => 'idea_box', 'uses' => 'IdeaBoxController@index'));
 Route::get('/idea_box/edit/{id}', array('as' => 'idea_box_Edit', 'uses' => 'IdeaBoxController@Edit'));
+
+
 Route::post('/idea_box/update/{id}', array('as' => 'idea_box_update', 'uses' => 'IdeaBoxController@Update'));
+
+Route::get('/idea_box/save/{id}', array('as' => 'idea_box_Save', 'uses' => 'IdeaBoxController@Save'));
+Route::post('/idea_box/savetodb', array('as' => 'idea_box_Savetodb', 'uses' => 'IdeaBoxController@Savetodb'));
+
 
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);

@@ -33,7 +33,8 @@
 									<button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
 									<a href="idea_box\edit\{{ $data->id_idea}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
 										
-									<button type="button" class="btn btn-sm btn-outline-secondary">Save</button>
+									<a href ="idea_box\save\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Save</button></a>
+									
 									<a href="idea_box\delete\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
 									@endif
 
