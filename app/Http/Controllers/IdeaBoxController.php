@@ -69,6 +69,14 @@ class IdeaBoxController extends Controller{
 		return view('ideabox.ideaboxsave',compact('data'));
 	}
 
+	public function Like($id){
+		DB::table('ideas_box')
+		->where('id_idea',$id)
+		->update(['id_users_likes' => + 1]);
+
+		
+		return redirect('/idea_box');
+	}
 
 	public function Edit($id){
 		$data = DB::table('ideas_box')->where('id_idea',$id)->get();

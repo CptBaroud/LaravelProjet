@@ -20,21 +20,26 @@
 							<p class="card-text"><strong>Description : </strong> {{$data->description}}</p>
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
+
+
 									@if($permission == '0')
-									<button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
+									<a href ="idea_box\like\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->id_users_likes}} Like(s)</button></a>
 									@endif
 
 									@if($permission == '2')
-									<button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
+									<a href ="idea_box\like\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->id_users_likes}} Like(s)</button></a>
+
 									<button type="button" class="btn btn-sm btn-outline-secondary">Report</button>
 									@endif
 									
 									@if($permission == '1')
-									<button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
-									<a href="idea_box\edit\{{ $data->id_idea}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-										
-									<a href ="idea_box\save\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Save</button></a>
 									
+									<a href="idea_box\like\{{ $data->id_idea}}"> <button type="button" class="btn btn-sm btn-outline-secondary">{{$data->id_users_likes}} Like(s)</button></a>
+
+									<a href="idea_box\edit\{{ $data->id_idea}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+
+									<a href ="idea_box\save\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Save</button></a>
+
 									<a href="idea_box\delete\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
 									@endif
 
@@ -50,7 +55,7 @@
 
 	@endforeach
 
-	
+
 
 </main>
 @endsection
