@@ -26,8 +26,8 @@ class ActivitiesController extends Controller
         } else {
         	return view('activities.createActivities', compact('form'));
         }
-
+*/
         return view('activities.activity');
-
+        }
 
 }

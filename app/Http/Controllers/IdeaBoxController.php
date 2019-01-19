@@ -19,17 +19,12 @@ class IdeaBoxController extends Controller{
 		return view('ideabox.ideabox', compact('data','permission'));
 	}
 
-
-
 	public function Form(FormBuilder $FormBuilder){
 
 		$Formular = $FormBuilder-> create(IdeaForm::class);
 
 		return view('ideabox.ideaboxcreation', compact('Formular'));
 	}
-
-
-
 
 	public function Create(){
 
@@ -52,11 +47,9 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Update(Request $request, $id){
-
-
 		DB::table('ideas_box')
 		->where('id_idea',$id)
-		->update(['name' => $request->name, 'description' => $request->description,'price' => $request->price]);
+		->update(['name' => $request->name, 'description' => $request->description,'price' => $request->number]);
 
 		
 		return redirect('/idea_box');
