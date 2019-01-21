@@ -14,7 +14,7 @@ class ActivitiesController extends Controller
 	public function index(FormBuilder $formBuilder)
     {
         $data = DB::table('activities')->get();
-        return view('activities.activity', compact('data', 'img'));
+        return view('activities.activity', compact('data'));
 
     }
 }
