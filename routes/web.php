@@ -33,7 +33,6 @@ Route::get('/idea_box/like/{id}', array('as' => 'idea_box_update', 'uses' => 'Id
 
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
-Route::post('/storeImage', ['as'=>'activitiesStoreImage', 'uses'=>'PostsController@storeImage']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 
 
