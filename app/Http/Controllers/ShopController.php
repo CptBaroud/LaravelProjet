@@ -13,10 +13,10 @@ class ShopController extends Controller
   public function index(){
 
     $data = DB::table('product')->orderBy('purchase_number','desc')
-    ->take(3)
-    ->get();
+                                ->take(3)
+                                ->get();
     $category = DB::table('categories')->orderBy('category_name', 'desc')
-    ->get();
+                                       ->get();
     return view('shop.shop', compact('data','category'));
   }
 
@@ -53,12 +53,16 @@ class ShopController extends Controller
 
     if(!empty($_POST)){
       $reponse = DB::table('categories')->select('category_name')
-      ->where('category_name','=', $_POST['Category_name'])
-      ->take(3)
-      ->get();
+                                        ->where('category_name','=', $_POST['Category_name'])
+                                        ->get();
+
+   
 
       if ($reponse == '[]') {  
         DB::table('categories')->insert(array('category_name' => $_POST['Category_name']));
+         $id = DB::getPdo()->lastInsertId();;
+         echo "<script>console.log( 'Debug Objects: " . $reponse . "' );</script>";
+
         DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$id));
 
         $id = DB::getPdo()->lastInsertId();;
@@ -67,8 +71,8 @@ class ShopController extends Controller
 
       }else { 
         $idCategory = DB::table('categories')->select('id_category')
-        ->where('category_name','=', $_POST['Category_name'])
-        ->get();
+                                             ->where('category_name','=', $_POST['Category_name'])
+                                             ->get();
         $idCategory = substr($idCategory, 16, -2);
         DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$idCategory));
         $id = DB::getPdo()->lastInsertId();;
