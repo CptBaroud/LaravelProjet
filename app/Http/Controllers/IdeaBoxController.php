@@ -13,10 +13,12 @@ class IdeaBoxController extends Controller{
 
 	public function index(){
 
+		$i = 0;
+		$images = array();
 		$permission = Auth::user()->permissions;
 		$data = DB::table('ideas_box')->get();
 
-		return view('ideabox.ideabox', compact('data','permission'));
+		return view('ideabox.ideabox', compact('permission', 'data'));
 	}
 
 	public function Form(FormBuilder $FormBuilder){
