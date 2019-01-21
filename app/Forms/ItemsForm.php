@@ -13,7 +13,6 @@ class ItemsForm extends Form
 			'method' => 'POST',
 			'url'=>route('Items_create')];
 
-
        $this
        		->add('Product name','text',[
        			'rules'=> 'required|min:5'
@@ -26,7 +25,7 @@ class ItemsForm extends Form
        		->add('Price', 'number')
        			//['rules'=> 'required|min:1']
 
-       		->add('Url image', 'url')
+       		->add('Picture', 'file')
        			//['rules'=> 'required|url']
 
        		->add('Category name', 'text')
