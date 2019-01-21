@@ -26,9 +26,6 @@ class ItemsForm extends Form
        		->add('Price', 'number')
        			//['rules'=> 'required|min:1']
 
-       		->add('Purchase number', 'number')
-       			//['rules'=> 'required|min:1']
-
        		->add('Url image', 'url')
        			//['rules'=> 'required|url']
 

@@ -5,7 +5,9 @@
 
     <div id="wrapper"></div>
     <div id="barre_boutons_admin">
-
+<p>
+    <br>
+</p>
         <a href='/shop/create'>
             <div class="bouton_admin">
             Ajouter un article </div>
@@ -21,7 +23,7 @@
       <h1 class="my-4">Shop</h1>
       @foreach($category as $key => $category)
       <div class="list-group">
-        <a href="#" class="list-group-item">{{$category->category_name}}</a>
+        <a href="shop\category\{{ $category->id_category}}" class="list-group-item">{{$category->category_name}}</a>
     </div>
 @endforeach
 </div>
@@ -61,16 +63,16 @@
 
     <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100">
-        <a href="#"><img class="card-img-top" src={{$data->url_image}} alt=""></a>
+        <a href="shop\achat\{{ $data->id_product}}"><img class="card-img-top" src={{$data->url_image}} alt=""></a>
         <div class="card-body">
           <h4 class="card-title">
-            <a href="#">{{$data->product_name}}</a>
+            <a href="shop\achat\{{ $data->id_product}}">{{$data->product_name}}</a>
         </h4>
         <h5>{{$data->price}} €</h5>
         <p class="card-text">{{$data->product_description}}</p>
         <div class="btn-group">
             <a href="shop\delete\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <a href="shop\edit\{{ $data->id_product}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
         </div>
     </div>
     <div class="card-footer">
