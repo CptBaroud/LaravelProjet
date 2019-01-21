@@ -81,6 +81,7 @@ class IdeaBoxController extends Controller{
 		->update(['id_users_likes' => (DB::table('ideas_box')->where('id_idea',$id)->get('id_users_likes')) +1]);
 
 
+
 		return redirect('/idea_box');
 	}
 

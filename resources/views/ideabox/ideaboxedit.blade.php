@@ -17,7 +17,7 @@
 		<label type="number" for="Description">Price</label>
 		<input name='number' class="form-control" value="{{$data->price}}" >
 	</div>
-	
+
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @endforeach
