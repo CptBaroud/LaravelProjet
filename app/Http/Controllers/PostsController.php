@@ -56,4 +56,12 @@ class PostsController extends Controller
             ]
         ]);
     }
+
+    public function Delete($id){
+
+        DB::table('activities')->where('id_activity',$id)->delete();
+
+        return redirect('/activities');
+
+    }
 }

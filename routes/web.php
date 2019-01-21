@@ -34,7 +34,7 @@ Route::get('/idea_box/like/{id}', array('as' => 'idea_box_update', 'uses' => 'Id
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
-
+Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'PostsController@Delete'));
 
 Route::get('/shop', 'ShopController@index');
 Route::post('/shop/create', array('as' => 'Items_create', 'uses' => 'ShopController@CreateItems'));
