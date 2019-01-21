@@ -13,6 +13,10 @@
 
 Route::get('/', array('as' => 'index', 'uses' => 'IndexController@index'));
 
+Route::get('/admin', 'AdminController@index');
+Route::get('/admin/delete/{id}', array('as' => 'admin_delete', 'uses' => 'AdminController@Delete'));
+Route::post('/admin/save/{id}', array('as' => 'admin_save', 'uses' => 'AdminController@Save'));
+
 Route::post('/idea_box/create', array('as' => 'idea_box_create', 'uses' => 'IdeaBoxController@Create'));
 Route::get('/idea_box/create', array('as' => 'idea_box_Form', 'uses' => 'IdeaBoxController@Form'));
 Route::get('/idea_box/delete/{id}', array('as' => 'idea_box_delete', 'uses' => 'IdeaBoxController@Delete'));

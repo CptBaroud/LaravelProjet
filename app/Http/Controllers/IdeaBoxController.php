@@ -51,7 +51,7 @@ class IdeaBoxController extends Controller{
 		->where('id_idea',$id)
 		->update(['name' => $request->name, 'description' => $request->description,'price' => $request->number]);
 
-		
+
 		return redirect('/idea_box');
 	}
 
@@ -59,7 +59,7 @@ class IdeaBoxController extends Controller{
 		DB::table('activities')
 		->insert(['name' => $request->name, 'description' => $request->description,'price' => $request->number]);
 
-		
+
 		return redirect('/idea_box');
 	}
 
@@ -74,7 +74,7 @@ class IdeaBoxController extends Controller{
 		->where('id_idea',$id)
 		->update(['id_users_likes' => + 1]);
 
-		
+
 		return redirect('/idea_box');
 	}
 
