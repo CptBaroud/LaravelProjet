@@ -51,54 +51,60 @@ class PostsController extends Controller
 
                 } else {
             return view('activities.createActivities', compact('form'));
-          }*/
+        }*/
 
-    public function __construct(FormBuilder $formBuilder)
-    {
-        $this->formBuilder = $formBuilder;
-    }
-
-    public function create(FormBuilder $formBuilder)
-    {
-        $form = $this->getForm();
-        return view('activities.createActivities', compact('form'));
-    }
-
-    public function store(FormBuilder $formBuilder)
-    {
-        $form= $this->getForm();
-        if (!empty($form->getFieldValues())) {
-            DB::table('activities')->insert(array('name' => $_POST['nom'],
-                'description' => $_POST['content'],
-                'date' => $_POST['date'],
-                'price' => $_POST['price']));
-            dd($form->getFieldValues());
+        public function __construct(FormBuilder $formBuilder)
+        {
+            $this->formBuilder = $formBuilder;
         }
-    }
 
-    public function storeImage(){
-       request()->validate([
+        public function create(FormBuilder $formBuilder)
+        {
+            $form = $this->getForm();
+            return view('activities.createActivities', compact('form'));
+        }
+
+        public function store(FormBuilder $formBuilder)
+        {
+            $form= $this->getForm();
+            if (!empty($form->getFieldValues())) {
+                DB::table('activities')->insert(array('name' => $_POST['nom'],
+                    'description' => $_POST['content'],
+                    'date' => $_POST['date'],
+                    'price' => $_POST['price']));
+                dd($form->getFieldValues());
+            }
+        }
+
+        public function storeImage(){
+           request()->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
-        request()->image->move(public_path('images'), $imageName);
-        print_r($imageName);
-        $form= $this->getForm();
-        if (!empty($form->getFieldValues())) {
-            $id = DB::table('image')->insertGetId(array('url_image'=>$_POST[$imageName]));
-            DB::table('activities')->insert(array('name' => $_POST['nom'],
+           $imageName = time().'.'.request()->image->getClientOriginalExtension();
+           request()->image->move(public_path('images'), $imageName);
+           print_r($imageName);
+
+           $form= $this->getForm();
+           if (!empty($form->getFieldValues())) {
+               DB::table('image')->insert(array(
+                'url_image' => $_FILES["image"]["name"]));
+               $id = DB::getPdo()->lastInsertId();;
+               DB::table('image')->where('id_image',$id)->update(['url_image' => $imageName]);
+
+
+               DB::table('activities')->insert(array('name' => $_POST['nom'],
                 'description' => $_POST['content'],
                 'date' => $_POST['date'],
                 'price' => $_POST['price'],
                 'id_image'=>$_POST[$id]));
-            dd($form->getFieldValues());
-        }
+               dd($form->getFieldValues());
+           }
 
-        redirect('activitiesIndex   ');
-    }
+           redirect('activitiesIndex   ');
+       }
 
-    public function getForm()
-    {
+       public function getForm()
+       {
         return $this->formBuilder->create(PostForm::class, [
             'data' => [
                 'admin' => true

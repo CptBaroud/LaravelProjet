@@ -22,7 +22,7 @@
                 {!! Form::file('image', array('class' => 'form-control')) !!}
             </div>
             <div class="col-md-6">
-                <button type="send" class="btn btn-success">Upload</button>
+                <button type="submit" class="btn btn-success">Upload</button>
             </div>
             {!! Form::close() !!}
         </div>

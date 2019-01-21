@@ -15,6 +15,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card mb-12 shadow-sm">
+						<img src="smiley.gif" alt="Smiley face" height="42" width="42">
 						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" src="test.jpg"><title>Picture</title> <image xlink:href="https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png" height="100%" width="100%"/><text fill="#eceeef" dy=".3em" x="50%" y="50%">{{$data->name}}</text></svg>
 						<div class="card-body">
 							<p class="card-text"><strong>Description : </strong> {{$data->description}}</p>
