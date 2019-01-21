@@ -28,76 +28,6 @@
 
         <?php $Actualpage= $_SERVER['PHP_SELF'];
 
-
-        echo("<li class='nav-item ");
-
-        if($Actualpage == '/index.php'){
-          echo 'active';
-        }
-
-        echo("'>
-          <a class='nav-link' href='/'> Home </a>
-          </li>
-          <li class='nav-item ");
-
-        if($Actualpage == '/index.php/idea_box' || $Actualpage == '/index.php/idea_box/create'){
-          echo 'active';
-        }
-
-        echo ("'>
-          <a class='nav-link' href='/idea_box'>Idea-box </a>
-          </li>
-          <li class='nav-item ");
-
-        if($Actualpage == '/index.php/activities'){
-          echo 'active';
-        }
-
-        echo ("'>
-          <a class='nav-link' href='/activities'>Activities</a>
-          </li>
-          <li class='nav-item ");
-
-        if($Actualpage == '/index.php/shop'){
-          echo 'active';
-        }
-
-        echo ("'>
-          <a class='nav-link' href='/shop'> Shop </a>
-          </li>
-          </ul>");
-
-
-        if(isset(Auth::user()->email)) {
-
-          echo ("<ul class='navbar-nav '>
-            <li class='nav-item'>
-            <a class='nav-link' href='/log_out'>Log out</a>
-            </li>");
-
-        } else {
-
-          echo ("<ul class='navbar-nav '>
-            <li class='nav-item ");
-
-          if($Actualpage == '/index.php/connection'){
-            echo 'active';
-          }
-
-          echo ("'>
-            <a class='nav-link' href='/connection'>Connection</a>
-            </li>
-            <li class='nav-item ");
-          if($Actualpage == '/index.php/register'){
-            echo 'active';
-          }
-
-          echo ("'>
-            <a class='nav-link' href='/register'>Register</a>
-            </li>
-            </ul>");
-
-        }
             echo("<li class='nav-item ");
 
             if($Actualpage == '/index.php'){
@@ -136,7 +66,6 @@
               </li>
               </ul>");
 
-
               if(isset(Auth::user()->email)) {
 
                 if(isset(Auth::user()->permissions)) {
@@ -165,11 +94,9 @@
 
                 echo ("<ul class='navbar-nav '>
                 <li class='nav-item ");
-
                 if($Actualpage == '/index.php/connection'){
                   echo 'active';
                 }
-
                 echo ("'>
                 <a class='nav-link' href='connection'>Connection</a>
                 </li>
@@ -182,7 +109,6 @@
                 <a class='nav-link' href='register'>Register</a>
                 </li>
                 </ul>");
-
               }
 
         ?>
