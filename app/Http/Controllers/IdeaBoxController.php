@@ -12,12 +12,12 @@ use Auth;
 class IdeaBoxController extends Controller{
 
 	public function index(){
-
-		$i = 0;
-		$images = array();
-		$permission = Auth::user()->permissions;
-		$data = DB::table('ideas_box')->get();
-
+		if (Auth::user()!=null){
+			$permission = Auth::user()->permissions;
+		}
+		else {
+			$data = DB::table('ideas_box')->get();
+		}
 		return view('ideabox.ideabox', compact('permission', 'data'));
 	}
 
@@ -57,7 +57,9 @@ class IdeaBoxController extends Controller{
 	public function Update(Request $request, $id){
 		DB::table('ideas_box')
 		->where('id_idea',$id)
-		->update(['name' => $request->name, 'description' => $request->description,'price' => $request->number]);
+		->update(['name' => $request->name, 
+			'description' => $request->description,
+			'price' => $request->number]);
 
 
 		return redirect('/idea_box');
@@ -65,7 +67,9 @@ class IdeaBoxController extends Controller{
 
 	public function Savetodb(Request $request){
 		DB::table('activities')
-		->insert(['name' => $request->name, 'description' => $request->description,'price' => $request->number]);
+		->insert(['name' => $request->name, 
+			'description' => $request->description,
+			'price' => $request->number]);
 
 
 		return redirect('/idea_box');
@@ -80,7 +84,10 @@ class IdeaBoxController extends Controller{
 	public function Like($id){
 		DB::table('ideas_box')
 		->where('id_idea',$id)
-		->update(['id_users_likes' => (DB::table('ideas_box')->where('id_idea',$id)->get('id_users_likes')) +1]);
+		->update(['id_users_likes' 
+			=> (DB::table('ideas_box')
+				->where('id_idea',$id)
+				->get('id_users_likes')) +1]);
 
 
 

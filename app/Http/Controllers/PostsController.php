@@ -23,9 +23,9 @@ class PostsController extends Controller
 
     public function store(FormBuilder $formBuilder)
     {
-        //request()->validate([
-           // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:32736',
-        //]);
+        request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:32736',
+        ]);
 
         $form = $this->getForm();
         $imageName = time() . '.' . request()->image->getClientOriginalExtension();

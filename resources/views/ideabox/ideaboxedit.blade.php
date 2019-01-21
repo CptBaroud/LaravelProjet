@@ -14,10 +14,13 @@
 		<input name='description' class="form-control" value="{{$data->description}}" >
 	</div>
 	<div class="form-group">
+		<label  for="Picture">Change Picture</label>
+		<input type="file" name="file" class="form-control">
+	</div>
+	<div class="form-group">
 		<label type="number" for="Description">Price</label>
 		<input name='number' class="form-control" value="{{$data->price}}" >
 	</div>
-
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @endforeach

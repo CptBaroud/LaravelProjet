@@ -44,7 +44,7 @@
               }
 
               echo ("'>
-              <a class='nav-link' href='idea_box'>Idea-box </a>
+              <a class='nav-link' href='/idea_box'>Idea-box </a>
               </li>
               <li class='nav-item ");
 
@@ -53,7 +53,7 @@
               }
 
               echo ("'>
-              <a class='nav-link' href='activities'>Activities</a>
+              <a class='nav-link' href='/activities'>Activities</a>
               </li>
               <li class='nav-item ");
 
@@ -62,7 +62,7 @@
               }
 
               echo ("'>
-              <a class='nav-link' href='shop'> Shop </a>
+              <a class='nav-link' href='/shop'> Shop </a>
               </li>
               </ul>");
 
@@ -76,7 +76,7 @@
                       echo 'active';
                     }
                     echo ("'>
-                    <a class='nav-link' href='admin'>Page Admin</a>
+                    <a class='nav-link' href='/admin'>Page Admin</a>
                     </li>");
                   }
                 } else {
@@ -87,7 +87,7 @@
 
                 echo ("
                 <li class='nav-item'>
-                <a class='nav-link' href='log_out'>Log out</a>
+                <a class='nav-link' href='/log_out'>Log out</a>
                 </li>");
 
               } else {
@@ -98,7 +98,7 @@
                   echo 'active';
                 }
                 echo ("'>
-                <a class='nav-link' href='connection'>Connection</a>
+                <a class='nav-link' href='/connection'>Connection</a>
                 </li>
                 <li class='nav-item ");
                 if($Actualpage == '/index.php/register'){
@@ -106,7 +106,7 @@
                 }
 
                 echo ("'>
-                <a class='nav-link' href='register'>Register</a>
+                <a class='nav-link' href='/register'>Register</a>
                 </li>
                 </ul>");
               }
