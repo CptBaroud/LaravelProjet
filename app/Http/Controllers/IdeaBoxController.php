@@ -15,7 +15,7 @@ class IdeaBoxController extends Controller{
 		if (Auth::user()!=null){
 			$permission = Auth::user()->permissions;
 		}
-			$data = DB::table('ideas_box')->get();
+		$data = DB::table('ideas_box')->get();
 		
 		return view('ideabox.ideabox', compact('permission', 'data'));
 	}
@@ -38,6 +38,7 @@ class IdeaBoxController extends Controller{
 
 		DB::table('image')->insert(array(
 			'url_image' => $_FILES["Picture"]["name"]));
+
 		$id = DB::getPdo()->lastInsertId();;
 		
 		DB::table('image')->where('id_image',$id)->update(['url_image' => $imageName]);
@@ -47,19 +48,39 @@ class IdeaBoxController extends Controller{
 			'price'=>$_POST['Price'],
 			'creation_date' => date("Y/m/d"),
 			'id_image'=>$id,
-			'id_user'=>Auth::user()->id));
+			'id_user'=>auth::user()->id));
 
 		return redirect(route('index'));
 	}
 
 
 	public function Update(Request $request, $id){
+
+		$idlast = DB::getPdo()->lastInsertId();;
+
 		DB::table('ideas_box')
 		->where('id_idea',$id)
 		->update(['name' => $request->name, 
 			'description' => $request->description,
 			'price' => $request->number]);
 
+		$id_img=DB::table('ideas_box')
+		->where('id_idea',$id)
+		->select('id_image');
+
+		$image = $request->image;
+
+		request()->validate([
+			'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+		]);
+
+		$imageName = time() . '.' . request()->image->getClientOriginalExtension();
+		request()->image->move(public_path('images'), $imageName);
+
+		DB::table('image')->where('id_image',$id_img)->update(array(
+			'url_image' => $_FILES["image"]["name"]));
+		
+		DB::table('image')->where('id_image',$id_img)->update(['url_image' => $imageName]);
 
 		return redirect('/idea_box');
 	}
@@ -83,10 +104,7 @@ class IdeaBoxController extends Controller{
 	public function Like($id){
 		DB::table('ideas_box')
 		->where('id_idea',$id)
-		->update(['id_users_likes' 
-			=> (DB::table('ideas_box')
-				->where('id_idea',$id)
-				->get('id_users_likes')) +1]);
+		->increment('nber_likes');
 
 
 
@@ -94,7 +112,8 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Edit($id){
-		$data = DB::table('ideas_box')->where('id_idea',$id)->get();
+		$data = DB::table('ideas_box')->
+		where('id_idea',$id)->get();
 
 		return view('ideabox.ideaboxedit',compact('data'));
 	}

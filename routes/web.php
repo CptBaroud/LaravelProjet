@@ -26,6 +26,9 @@ Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsContro
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'PostsController@Delete'));
 
+Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'PostsController@Edit'));
+Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'PostsController@Update'));
+
 Route::get('/shop',array('as' => 'shop', 'uses' => 'ShopController@index'));
 
 Route::post('/shop/create', array('as' => 'Items_create', 'uses' => 'ShopController@CreateItems'));
@@ -38,6 +41,8 @@ Route::post('/shop/update/{id}', array('as' => 'shop_update', 'uses' => 'shopCon
 Route::get('/shop/achat/{id}', array('as' => 'shop_achat', 'uses' => 'shopController@Achat'));
 Route::get('/shop/category/{id}', array('as' => 'shop_category', 'uses' => 'shopController@category'));
 
+Route::get('/basket', array('as' => 'Basket', 'uses' => 'BasketController@Index'));
+Route::get('/basket/add/{id}', array('as' => 'Basket', 'uses' => 'BasketController@Add'));
 
 Route::get('/register', 'RegistrationController@index');
 Route::post('/register', 'RegistrationController@processing');

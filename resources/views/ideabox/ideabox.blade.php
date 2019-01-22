@@ -39,18 +39,18 @@
 
 
 										@if($permission == '0')
-										<a href ="idea_box\like\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->id_users_likes}} Like(s)</button></a>
+										<a href ="idea_box\like\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->nber_likes}} Like(s)</button></a>
 										@endif
 
 										@if($permission == '2')
-										<a href ="idea_box\like\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->id_users_likes}} Like(s)</button></a>
+										<a href ="idea_box\like\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->nber_likes}} Like(s)</button></a>
 
 										<button type="button" class="btn btn-sm btn-outline-secondary">Report</button>
 										@endif
 
 										@if($permission == '1')
 
-										<a href="idea_box\like\{{ $data->id_idea}}"> <button type="button" class="btn btn-sm btn-outline-secondary">{{$data->id_users_likes}} Like(s)</button></a>
+										<a href="idea_box\like\{{ $data->id_idea}}"> <button type="button" class="btn btn-sm btn-outline-secondary">{{$data->nber_likes}} Like(s)</button></a>
 
 										<a href="idea_box\edit\{{ $data->id_idea}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
 

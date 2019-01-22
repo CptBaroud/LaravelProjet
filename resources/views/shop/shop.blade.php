@@ -59,8 +59,6 @@
       <div class="row">
         @foreach($data as $key => $data)
 
-
-
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
             <a href="\shop\achat\{{ $data->id_product}}"><img class="card-img-top" src= "/images/{{$data->url_image}}" alt=""></a>
@@ -71,6 +69,7 @@
               <h5>{{$data->price}} €</h5>
               <p class="card-text">{{$data->product_description}}</p>
               <div class="btn-group">
+                <a href="basket\add\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Add</button></a>
                 <a href="shop\delete\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
                 <a href="shop\edit\{{ $data->id_product}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
               </div>
