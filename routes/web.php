@@ -1,15 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', array('as' => 'index', 'uses' => 'IndexController@index'));
 
@@ -34,12 +24,20 @@ Route::get('/idea_box/like/{id}', array('as' => 'idea_box_update', 'uses' => 'Id
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
+Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'PostsController@Delete'));
 
+Route::get('/shop',array('as' => 'shop', 'uses' => 'ShopController@index'));
 
-Route::get('/shop', 'ShopController@index');
 Route::post('/shop/create', array('as' => 'Items_create', 'uses' => 'ShopController@CreateItems'));
 Route::get('/shop/create', array('as' => 'Items_form', 'uses' => 'ShopController@Itemform'));
+
 Route::get('/shop/delete/{id}', array('as' => 'Itemsdelete', 'uses' => 'ShopController@Delete'));
+
+Route::get('/shop/edit/{id}', array('as' => 'shop_Edit', 'uses' => 'shopController@Edit'));
+Route::post('/shop/update/{id}', array('as' => 'shop_update', 'uses' => 'shopController@Update'));
+Route::get('/shop/achat/{id}', array('as' => 'shop_achat', 'uses' => 'shopController@Achat'));
+Route::get('/shop/category/{id}', array('as' => 'shop_category', 'uses' => 'shopController@category'));
+
 
 Route::get('/register', 'RegistrationController@index');
 Route::post('/register', 'RegistrationController@processing');

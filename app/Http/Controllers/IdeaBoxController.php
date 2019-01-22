@@ -15,9 +15,8 @@ class IdeaBoxController extends Controller{
 		if (Auth::user()!=null){
 			$permission = Auth::user()->permissions;
 		}
-		else {
 			$data = DB::table('ideas_box')->get();
-		}
+		
 		return view('ideabox.ideabox', compact('permission', 'data'));
 	}
 
