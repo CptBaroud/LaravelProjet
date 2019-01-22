@@ -47,6 +47,9 @@ Route::get('/shop/category/{id}', array('as' => 'shop_category', 'uses' => 'shop
 Route::get('/shop/PriceFilterDesc', array('as' => 'shop_Price_fitler_Desc', 'uses' => 'shopController@PriceFilterDesc'));
 Route::get('/shop/PriceFilterAsc', array('as' => 'shop_Price_fitler_Asc', 'uses' => 'shopController@PriceFilterAsc'));
 
+Route::get('/autocomplete', 'AutocompleteController@index');
+Route::post('/autocomplete/fetch', 'AutocompleteController@fetch')->name('autocomplete.fetch');
+
 Route::get('/basket', array('as' => 'Basket', 'uses' => 'BasketController@Index'));
 Route::get('/basket/add/{id}', array('as' => 'Basket', 'uses' => 'BasketController@Add'));
 
