@@ -1,16 +1,16 @@
 @extends('template')
 
 @section('content')
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
+
 
 <div class="form-group">
-    <input type="text" name="product_name" id="product_name" class="form-control input-lg" placeholder="Enter a product" />
-    <div id="productList">
-    </div>
-   </div>
-   {{ csrf_field() }}
+  <input type="text" name="product_name" id="product_name" class="form-control input-lg" placeholder="Enter a product" />
+  <div id="productList">
   </div>
+</div>
+{{ csrf_field() }}
+</div>
 </div>
 <div id="contenu">
 
@@ -108,33 +108,35 @@
   <!-- /.row -->
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function(){
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
- $('#product_name').keyup(function(){ 
-        var query = $(this).val();
-        if(query != '')
-        {
-         var _token = $('input[name="_token"]').val();
-         $.ajax({
-          url:"{{ route('autocomplete.fetch') }}",
-          method:"POST",
-          data:{query:query, _token:_token},
-          success:function(data){
-           $('#productList').fadeIn();  
-                    $('#productList').html(data);
-          }
-         });
-        }
-    });
 
-    $(document).on('click', 'li', function(){  
-        $('#product_name').val($(this).text());  
-        $('#productList').fadeOut();  
+  <script>
+    $(document).ready(function(){
+
+     $('#product_name').keyup(function(){ 
+      var query = $(this).val();
+      if(query != '')
+      {
+       var _token = $('input[name="_token"]').val();
+       $.ajax({
+        url:"{{ route('autocomplete.fetch') }}",
+        method:"POST",
+        data:{query:query, _token:_token},
+        success:function(data){
+         $('#productList').fadeIn();  
+         $('#productList').html(data);
+       }
+     });
+     }
+   });
+
+     $(document).on('click', 'li', function(){  
+      $('#product_name').val($(this).text());  
+      $('#productList').fadeOut();  
     });  
 
-});
-</script>
-@endsection
+   });
+ </script>
+ @endsection

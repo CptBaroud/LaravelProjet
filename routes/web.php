@@ -1,6 +1,5 @@
 <?php
 
-
 Route::get('/', array('as' => 'index', 'uses' => 'IndexController@index'));
 
 Route::get('/admin', 'AdminController@index');
@@ -29,6 +28,11 @@ Route::get('/activities/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesControl
 Route::post('/activities/{id}', ['as'=>'activitiesImage', 'uses'=>'ActivitiesController@AddPicture']);
 Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@showComments']);
 Route::post('/activities/comment/images/{id_image}', ['as'=>'activitiesCommentSend', 'uses'=>'ActivitiesController@sendComment']);
+
+
+Route::get('/markAsRead',function(){
+	Auth()->user()->unreadNotifications->markAsRead();
+});
 
 Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'PostsController@Edit'));
 Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'PostsController@Update'));

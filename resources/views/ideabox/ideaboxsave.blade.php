@@ -14,6 +14,10 @@
 		<input name='description' class="form-control" value="{{$data->description}}" >
 	</div>
 	<div class="form-group">
+		<label type="textarea" for="Description">id_image</label>
+		<input name='id_image' class="form-control" value="{{$data->id_image}}" >
+	</div>
+	<div class="form-group">
 		<label  for="Picture">Change Picture</label>
 		<input type="file" name="file" class="form-control">
 	</div>

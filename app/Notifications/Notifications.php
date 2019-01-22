@@ -12,16 +12,14 @@ class Notifications extends Notification
 {
     use Queueable;
 
-    protected $activityname;
-
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($activityname)
+    public function __construct()
     {
-        this->activityname=$activityname;
+        //this->activityname=$activityname;
     }
 
     /**
@@ -65,7 +63,7 @@ class Notifications extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'activityname' =>$this->activityname,
+            //'activityname' =>$this->activityname,
             'user'=>$notifiable
             //'repliedTime'=>Carbon::now()
         ];

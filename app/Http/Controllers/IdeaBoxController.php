@@ -50,7 +50,7 @@ class IdeaBoxController extends Controller{
 			'price'=>$_POST['Price'],
 			'creation_date' => date("Y/m/d"),
 			'id_image'=>$id,
-			'id_user'=>auth::user()->id));
+			'id'=>auth::user()->id));
 
 		return redirect(route('index'));
 	}
@@ -88,15 +88,15 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Savetodb(Request $request){
-		
-		$activityname = $request->name ;
 
 		DB::table('activities')
 		->insert(['name' => $request->name, 
 			'description' => $request->description,
-			'price' => $request->number]);
+			'price' => $request->number,
+			'id_image'=>$request->id_image,
+			'date' => date("Y/m/d")]);
 
-		auth()->user()->notify(new Notifications($activityname));
+		auth()->user()->notify(new Notifications());
 
 
 		return redirect('/idea_box');
