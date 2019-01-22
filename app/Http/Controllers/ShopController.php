@@ -108,14 +108,14 @@ class ShopController extends Controller
     return view('shop.shopedit',compact('data'));
   }
 
-  public function Achat($id){
+  public function Purchase($id){
     DB::table('product')
     ->where('id_product',$id)
     ->increment('purchase_number',1);
     return redirect('/shop');
   }
 
-  public function category($id){
+  public function Category($id){
     $data = DB::table('product')->where('id_category', '=', $id)
     ->get();
     $category = DB::table('categories')
@@ -123,4 +123,21 @@ class ShopController extends Controller
 
     return view('shop.shop', compact('data','category'));
   }
+  public function PriceFilterDesc(){
+    $data = DB::table('product')->orderBy('price', 'desc')
+                                ->get();
+
+    $category = DB::table('categories')->orderBy('category_name', 'desc')
+                                       ->get();
+    return view('shop.shop', compact('data','category'));
+  }
+   public function PriceFilterasc(){
+    $data = DB::table('product')->orderBy('price', 'asc')
+                                ->get();
+
+    $category = DB::table('categories')->orderBy('category_name', 'desc')
+                                       ->get();
+    return view('shop.shop', compact('data','category'));
+  }
+
 }
