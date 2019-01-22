@@ -19,20 +19,32 @@ class BasketController extends Controller{
 	}
 
 	public function add($id){
-		$test = DB::table('basket')->where('id_product',$id)->select(
-			'id_product')->get();
-			if ($test = $id){
 
-				DB::table('basket')->where('id_product',$id)->increment('quantity');
-			}
-			else{
-				DB::table('basket')->insert(array(
+		$product = DB::table('basket')->where('id_product',$id)
+		->select('id_product')->get();
+
+		$user = DB::table('basket')->where('id_product',$id)
+		->select('id')->get();
+
+		if ($product[0]->id_product == $id){
+
+			DB::table('basket')->where('id_product',$id)->increment('quantity');
+		}
+		else if($user[0]->id == auth::id() && $$product[0]->id_product != $id){
+			DB::table('basket')->insert(array(
 				'id_product'=>$id,
-				'quantity'=>+1,
+				'quantity'=>1,
 				'id'=>auth::user()->id));
-			}
-			return back();
+		}
+		else{
+			DB::table('basket')->insert(array(
+				'id_product'=>$id,
+				'quantity'=>1,
+				'id'=>auth::user()->id));
+		}
 
-			}
+		return back();
+
+	}
 
 }
