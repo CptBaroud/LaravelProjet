@@ -12,6 +12,14 @@
       <div class="bouton_admin">
       Ajouter un article </div>
     </a>
+    <a href='/shop/PriceFilterDesc'>
+      <div class="bouton_admin">
+      filtre prix desc </div>
+    </a>
+    <a href='/shop/PriceFilterAsc'>
+      <div class="bouton_admin">
+      filtre prix asc </div>
+    </a>
   </div>
 </div>
 <div class="container">
@@ -23,7 +31,7 @@
       <h1 class="my-4">Shop</h1>
       @foreach($category as $key => $category)
       <div class="list-group">
-        <a href="shop\category\{{ $category->id_category}}" class="list-group-item">{{$category->category_name}}</a>
+        <a href="/shop/category/{{ $category->id_category}}" class="list-group-item">{{$category->category_name}}</a>
       </div>
       @endforeach
     </div>
@@ -57,16 +65,15 @@
       </div>
 
       <div class="row">
+
+
         @foreach($data as $key => $data)
-
-
-
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
             <a href="\shop\achat\{{ $data->id_product}}"><img class="card-img-top" src= "/images/{{$data->url_image}}" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="shop\achat\{{ $data->id_product}}">{{$data->product_name}}</a>
+                <a href="shop\Purchase\{{ $data->id_product}}">{{$data->product_name}}</a>
               </h4>
               <h5>{{$data->price}} €</h5>
               <p class="card-text">{{$data->product_description}}</p>
@@ -80,8 +87,6 @@
             </div>
           </div>
         </div>
-
-
         <!-- /.row -->
         @endforeach
       </div>
@@ -92,9 +97,5 @@
   <!-- /.row -->
 
 </div>
-
-
-
-
 
 @endsection

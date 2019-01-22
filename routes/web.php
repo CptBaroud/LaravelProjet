@@ -35,8 +35,10 @@ Route::get('/shop/delete/{id}', array('as' => 'Itemsdelete', 'uses' => 'ShopCont
 
 Route::get('/shop/edit/{id}', array('as' => 'shop_Edit', 'uses' => 'shopController@Edit'));
 Route::post('/shop/update/{id}', array('as' => 'shop_update', 'uses' => 'shopController@Update'));
-Route::get('/shop/achat/{id}', array('as' => 'shop_achat', 'uses' => 'shopController@Achat'));
-Route::get('/shop/category/{id}', array('as' => 'shop_category', 'uses' => 'shopController@category'));
+Route::get('/shop/purchase/{id}', array('as' => 'shop_achat', 'uses' => 'shopController@Purchase'));
+Route::get('/shop/category/{id}', array('as' => 'shop_category', 'uses' => 'shopController@Category'));
+Route::get('/shop/PriceFilterDesc', array('as' => 'shop_Price_fitler_Desc', 'uses' => 'shopController@PriceFilterDesc'));
+Route::get('/shop/PriceFilterAsc', array('as' => 'shop_Price_fitler_Asc', 'uses' => 'shopController@PriceFilterAsc'));
 
 
 Route::get('/register', 'RegistrationController@index');
