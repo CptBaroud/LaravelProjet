@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Http\Controllers\Controller;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\Notifications;
 use App\Forms\IdeaForm;
 use DB;
 use Auth;
@@ -86,13 +88,19 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Savetodb(Request $request){
+		
+		$activityname = $request->name ;
+
 		DB::table('activities')
 		->insert(['name' => $request->name, 
 			'description' => $request->description,
 			'price' => $request->number]);
 
+		auth()->user()->notify(new Notifications($activityname));
+
 
 		return redirect('/idea_box');
+
 	}
 
 	public function Save($id){

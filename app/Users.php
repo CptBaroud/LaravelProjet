@@ -4,11 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable as BasicAuthenticatable;
 
 class Users extends Model implements Authenticatable
 {
     use BasicAuthenticatable;
+    use Notifiable;
 
     protected $fillable = ['email', 'password'];
 
