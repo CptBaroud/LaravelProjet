@@ -25,6 +25,10 @@ Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsCo
 Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'PostsController@Delete'));
+Route::get('/activities/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesController@showActivity']);
+Route::post('/activities/{id}', ['as'=>'activitiesImage', 'uses'=>'ActivitiesController@AddPicture']);
+Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@showComments']);
+Route::post('/activities/comment/images/{id_image}', ['as'=>'activitiesCommentSend', 'uses'=>'ActivitiesController@sendComment']);
 
 Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'PostsController@Edit'));
 Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'PostsController@Update'));

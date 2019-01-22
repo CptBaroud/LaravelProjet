@@ -11,9 +11,7 @@ use DB;
 class AdminController extends Controller{
 
 	public function index(){
-
 		$data = DB::table('users')->get();
-
 		return view('admin', compact('data'));
 	}
 
