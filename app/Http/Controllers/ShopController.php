@@ -140,4 +140,5 @@ class ShopController extends Controller
     return view('shop.shop', compact('data','category'));
   }
 
+
 }
