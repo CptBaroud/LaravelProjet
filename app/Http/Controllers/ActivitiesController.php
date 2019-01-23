@@ -15,8 +15,12 @@ class ActivitiesController extends Controller
 {
 	public function index(FormBuilder $formBuilder)
     {
+
+			if (Auth::user()!=null){
+				$permission = Auth::user()->permissions;
+			}
         $data = DB::table('activities')->get();
-        return view('activities.activity', compact('data'));
+        return view('activities.activity', compact('data', 'permission'));
 
     }
 
@@ -73,4 +77,41 @@ class ActivitiesController extends Controller
 		}
 
 
+
+			public function Like($id){
+				DB::table('ideas_box')
+				->where('id_idea',$id)
+				->increment('nber_likes');
+
+				return redirect('/idea_box');
+			}
+
+
+			public function Edit($id){
+				$data = DB::table('activities')->
+				where('id_activity',$id)->get();
+
+				$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
+
+				return view('activities.activityedit',compact('data', 'url_image'));
+			}
+
+
+			public function Delete($id){
+
+				$data_img = DB::table('image_activity')->where('id_activity',$id)->get();
+				$id_img = DB::table('activities')->where('id_activity',$id)->get();
+
+				foreach ($data_img as $key => $data_img) {
+					DB::table('comments_image')->where('id_image',$data_img->id_image)->delete();
+
+				}
+
+				DB::table('image_activity')->where('id_activity', $id)->delete();
+				DB::table('image')->where('id_image', $id_img[0]->id_image)->delete();
+
+
+				return redirect('/activities');
+
+			}
 }

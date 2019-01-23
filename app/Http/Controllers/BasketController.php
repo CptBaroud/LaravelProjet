@@ -55,7 +55,8 @@ class BasketController extends Controller{
 			$request->session()->put($id, $request->session()->get($id)+1);
 		}
 
-		return redirect()->action('BasketController@Index');
+		return $request->session()->get($id);
+		//return redirect()->action('BasketController@Index');
 
 	}
 

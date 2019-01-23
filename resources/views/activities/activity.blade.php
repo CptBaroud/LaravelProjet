@@ -21,24 +21,51 @@
     ->select('url_image')
     ->get();
     ?>
-    <a href="\activities\{{$data->id_activity}}">
-    <div class="album py-5 bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card mb-12 shadow-sm">
-                        <div class="card-body">
-                                <p class="card-header"><strong>Title : </strong> {{$data->name}}</p>
-                                <p class="card-img"><image src="images/{{$image[0]->url_image}}" height="100%" width="100%"/></p>
-                                <p class="card-text">Price : {{$data->price}} €</p>
-                                <p class="card-footer">Date : {{$data->date}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </a>
+    	<div class="album py-5 bg-light">
+    		<div class="container">
+    			<div class="row">
+    				<div class="col-md-12">
+    					<div class="card mb-12 shadow-sm">
+    						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" src="test.jpg"><title>Picture</title> <image xlink:href="images/{{$image[0]->url_image}}" height="100%" width="100%"/><text fill="RED" dy=".3em" x="50%" y="50%">{{$data->name}}</text></svg>
+    							<div class="card-body">
+                    <a href="\activities\{{$data->id_activity}}">
+
+    								<p class="card-text"><strong>Description : </strong> {{$data->description}} </p>
+
+    								<div class="d-flex justify-content-between align-items-center">
+    									<div class="btn-group">
+
+                      </a>
+    										@if($permission == '0')
+    										<a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->users_registered}} Like(s)</button></a>
+    										@endif
+
+    										@if($permission == '2')
+    										<a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->users_registered}} Like(s)</button></a>
+
+    										<button type="button" class="btn btn-sm btn-outline-secondary">Report</button>
+    										@endif
+
+    										@if($permission == '1')
+
+    										<a href="activities\like\{{ $data->id_activity}}"> <button type="button" class="btn btn-sm btn-outline-secondary">{{$data->users_registered}} Like(s)</button></a>
+
+    										<a href="activities\edit\{{ $data->id_activity}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+
+    										<a href="activities\delete\{{$data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+    										@endif
+
+    									</div>
+    									<small class="text-muted"> <strong>Price : </strong>{{$data->price}}</small>
+    								</div>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+
+
         @endif
         @endforeach
 

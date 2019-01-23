@@ -3,7 +3,7 @@
 @section('content')
 <br>
 @foreach($data as $key => $data)
-<form action="{{url('/idea_box/update')}}/{{$data->id_idea}}" method="post" role="form">
+<form action="{{ url('/idea_box/update')}}/{{$data->id_idea}}" method="post" role="form" enctype="multipart/form-data">
 	@csrf
 	<div class="form-group">
 		<label for="Name">Name</label>
@@ -14,8 +14,12 @@
 		<input name='description' class="form-control" value="{{$data->description}}" >
 	</div>
 	<div class="form-group">
+		<input type='hidden' name='id_image' class="form-control" value="{{$data->id_image}}" >
+		<img src="{{ url('/images')}}/{{$url_image[0]->url_image}}" width="10%" height="10%" border="0" />
+	</div>
+	<div class="form-group">
 		<label for="Picture">Change Picture</label>
-		<input type="file" name="image" class="form-control">
+		<input type="file" name="file" class="form-control">
 	</div>
 	<div class="form-group">
 		<label type="number" for="Description">Price</label>

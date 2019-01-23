@@ -10,6 +10,8 @@ use App\Notifications\Notifications;
 use App\Forms\IdeaForm;
 use DB;
 use Auth;
+use File;
+use Illuminate\Support\Facades\Input;
 
 class IdeaBoxController extends Controller{
 
@@ -52,14 +54,22 @@ class IdeaBoxController extends Controller{
 			'id_image'=>$id,
 			'id'=>auth::user()->id));
 
-		return redirect(route('index'));
+		return redirect('/idea_box');
 	}
 
 
 	public function Update(Request $request, $id){
 
-
-		$idlast = DB::getPdo()->lastInsertId();;
+		$user = new file;
+		if(Input::hasFile('file')){
+			$file = Input::file('file');
+			$file->move(public_path(). '/images', $file->getClientOriginalName());
+			$user->title = $file->getClientOriginalName();
+			$id = DB::getPdo()->lastInsertId();
+			DB::table('image')->where('id_image', $request->id_image)->update(array(
+				'url_image'=>$user->title
+			));
+		}
 
 		DB::table('ideas_box')
 		->where('id_idea',$id)
@@ -67,28 +77,24 @@ class IdeaBoxController extends Controller{
 			'description' => $request->description,
 			'price' => $request->number]);
 
-		$id_img=DB::table('ideas_box')
-		->where('id_idea',$id)
-		->select('id_image');
-
-		$image = $request->image;
-
-		request()->validate([
-			'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-		]);
-
-		$imageName = time() . '.' . request()->image->getClientOriginalExtension();
-		request()->image->move(public_path('images'), $imageName);
-
-		DB::table('image')->where('id_image',$id_img)->update(array(
-			'url_image' => $_FILES["image"]["name"]));
-
-		DB::table('image')->where('id_image',$id_img)->update(['url_image' => $imageName]);
 
 		return redirect('/idea_box');
 	}
 
 	public function Savetodb(Request $request){
+
+		DB::table('ideas_box')->where('id_idea', $request->id_idea)->delete();
+
+		$user = new file;
+		if(Input::hasFile('file')){
+			$file = Input::file('file');
+			$file->move(public_path(). '/images', $file->getClientOriginalName());
+			$user->title = $file->getClientOriginalName();
+			$id = DB::getPdo()->lastInsertId();
+			DB::table('image')->where('id_image', $request->id_image)->update(array(
+				'url_image'=>$user->title
+			));
+		}
 
 		DB::table('activities')
 		->insert(['name' => $request->name,
@@ -97,17 +103,21 @@ class IdeaBoxController extends Controller{
 			'id_image'=>$request->id_image,
 			'date' => date("Y/m/d")]);
 
+
+
 		auth()->user()->notify(new Notifications());
 
 
-		return redirect('/idea_box');
+		return redirect('/activities');
 
 	}
 
 	public function Save($id){
 		$data = DB::table('ideas_box')->where('id_idea',$id)->get();
 
-		return view('ideabox.ideaboxsave',compact('data'));
+		$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
+
+		return view('ideabox.ideaboxsave',compact('data', 'url_image', 'id'));
 	}
 
 	public function Like($id){
@@ -124,7 +134,9 @@ class IdeaBoxController extends Controller{
 		$data = DB::table('ideas_box')->
 		where('id_idea',$id)->get();
 
-		return view('ideabox.ideaboxedit',compact('data'));
+		$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
+
+		return view('ideabox.ideaboxedit',compact('data', 'url_image'));
 	}
 
 
