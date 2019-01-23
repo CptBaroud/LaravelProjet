@@ -31,6 +31,9 @@ class PostForm extends Form
             ->add('image', 'file', [
                 'label' => 'Picture'
             ])
+            ->add('recuring', 'choice', [
+                'choices' => ['0' => '', '1' => 'weekly', '2' => 'monthly', '3' => 'annual']
+            ])
             ->add('submit', 'submit');
     }
 

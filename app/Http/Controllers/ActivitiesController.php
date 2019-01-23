@@ -12,7 +12,7 @@ use File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\reportcomment;
-
+use Carbon\Carbon;
 class ActivitiesController extends Controller
 {
 	public function index(FormBuilder $formBuilder)
@@ -34,6 +34,10 @@ class ActivitiesController extends Controller
 
 	public function AddPicture($id)
 	{
+		$today = Carbon::today();
+		$date = DB::table('activities')->where('id_activity', $id)
+									   ->value('date');
+		if ($today>$date){
 		$id_activity = $id;
 		$user = new file;
 		if(Input::hasFile('file')){
@@ -47,6 +51,7 @@ class ActivitiesController extends Controller
 			));
 
 		}
+	}
 		return back();
 
 	}

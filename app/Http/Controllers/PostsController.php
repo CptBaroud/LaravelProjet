@@ -42,6 +42,7 @@ class PostsController extends Controller
                 'description'=>$_POST['content'],
                 'price'=>$_POST['price'],
                 'date' => $_POST['date'],
+                'recursivity' => $_POST['recuring'],
                 'id_image'=>$id));
         }
 
