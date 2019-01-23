@@ -17,8 +17,8 @@ class ConnectionController extends Controller
 
 	public function log_out(){
 
-			Auth::logout();
-			return redirect('/');
+		Auth::logout();
+		return redirect('/');
 
 	}
 
@@ -32,8 +32,8 @@ class ConnectionController extends Controller
 		]);
 
 		$userdata = array(
-    'email'      => request('email'),
-    'password'      => request('password')
+			'email'      => request('email'),
+			'password'      => request('password')
 		);
 
 		if(Auth::attempt($userdata)){

@@ -34,6 +34,8 @@ Route::get('/markAsRead',function(){
 	Auth()->user()->unreadNotifications->markAsRead();
 });
 
+Route::get('/shop/mail',array('as' => 'ShopMail', 'uses' => 'mailcontroller@send'));
+
 Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'PostsController@Edit'));
 Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'PostsController@Update'));
 

@@ -42,6 +42,7 @@ class Notifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+        ->from('BDE@website.com')
         ->line('The introduction to the notification.')
         ->action('Notification Action', url('/'))
         ->line('Thank you for using our application!');
@@ -63,9 +64,7 @@ class Notifications extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            //'activityname' =>$this->activityname,
-            'user'=>$notifiable
-            //'repliedTime'=>Carbon::now()
+            'user'=>auth()->user()
         ];
     }
 }

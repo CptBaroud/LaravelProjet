@@ -3,7 +3,7 @@
 @section('content')
 <br>
 @foreach($data as $key => $data)
-<form action="{{ url('/idea_box/update')}}/{{$data->id_idea}}" method="post" role="form">
+<form action="{{url('/idea_box/update')}}/{{$data->id_idea}}" method="post" role="form">
 	@csrf
 	<div class="form-group">
 		<label for="Name">Name</label>
