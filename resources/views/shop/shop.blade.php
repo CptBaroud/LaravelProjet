@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('content')
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 
 
 <div class="form-group">
@@ -89,8 +89,8 @@
               <p class="card-text">{{$data->product_description}}</p>
               <div class="btn-group">
                 <a href="basket\add\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Add</button></a>
-                <a href="shop\delete\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
-                <a href="shop\edit\{{ $data->id_product}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                <a href="/shop\delete\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+                <a href="/shop\edit\{{ $data->id_product}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
               </div>
             </div>
             <div class="card-footer">
@@ -108,10 +108,10 @@
   <!-- /.row -->
 
 </div>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function(){
 
@@ -133,7 +133,7 @@
    });
 
      $(document).on('click', 'li', function(){  
-      $('#product_name').val($(this).text());  
+      $('#product_name').val($(this).text());
       $('#productList').fadeOut();  
     });  
 

@@ -140,5 +140,36 @@ class ShopController extends Controller
     return view('shop.shop', compact('data','category'));
   }
 
+ public function fetch(Request $request)
+    {
+     if($request->get('query'))
+     {
+      $query = $request->get('query');
+      $data = DB::table('product')
+        ->where('product_name', 'LIKE', "%{$query}%")
+        ->get();
+        $product = DB::table('product')
+        ->where('product_name', 'LIKE', "%{$query}%")
+        ->get();
+      $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+      foreach($data as $row)
+      {
 
+       $output .= "<li><a href='/shop/request/{$row->product_name}'>".$row->product_name."</a></li>";
+      }
+      $output .= '</ul>';
+      print $output;
+    
+
+     }
+  }
+public function display($product_name)
+  {
+    $data = DB::table('product')->where('product_name',$product_name)
+                                ->get();
+    $category = DB::table('categories')->orderBy('category_name', 'desc')
+                                       ->get();
+    return view('shop.shop', compact('data','category'));
+  }
+  
 }
