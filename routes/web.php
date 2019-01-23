@@ -55,7 +55,9 @@ Route::get('/autocomplete', 'AutocompleteController@index');
 Route::post('/autocomplete/fetch', 'AutocompleteController@fetch')->name('autocomplete.fetch');
 
 Route::get('/basket', array('as' => 'Basket', 'uses' => 'BasketController@Index'));
+Route::get('/basket/delete', array('as' => 'Basket', 'uses' => 'BasketController@Delete'));
 Route::get('/basket/add/{id}', array('as' => 'Basket', 'uses' => 'BasketController@Add'));
+Route::get('/basket/change/{id}/value/{value}', array('as' => 'Basket_Change', 'uses' => 'BasketController@Change'));
 
 Route::get('/register', 'RegistrationController@index');
 Route::post('/register', 'RegistrationController@processing');

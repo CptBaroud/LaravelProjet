@@ -18,7 +18,7 @@ class IdeaBoxController extends Controller{
 			$permission = Auth::user()->permissions;
 		}
 		$data = DB::table('ideas_box')->get();
-		
+
 		return view('ideabox.ideabox', compact('permission', 'data'));
 	}
 
@@ -42,7 +42,7 @@ class IdeaBoxController extends Controller{
 			'url_image' => $_FILES["Picture"]["name"]));
 
 		$id = DB::getPdo()->lastInsertId();;
-		
+
 		DB::table('image')->where('id_image',$id)->update(['url_image' => $imageName]);
 		DB::table('ideas_box')->insert(array(
 			'name'=>$_POST['Name'],
@@ -58,11 +58,12 @@ class IdeaBoxController extends Controller{
 
 	public function Update(Request $request, $id){
 
+
 		$idlast = DB::getPdo()->lastInsertId();;
 
 		DB::table('ideas_box')
 		->where('id_idea',$id)
-		->update(['name' => $request->name, 
+		->update(['name' => $request->name,
 			'description' => $request->description,
 			'price' => $request->number]);
 
@@ -81,7 +82,7 @@ class IdeaBoxController extends Controller{
 
 		DB::table('image')->where('id_image',$id_img)->update(array(
 			'url_image' => $_FILES["image"]["name"]));
-		
+
 		DB::table('image')->where('id_image',$id_img)->update(['url_image' => $imageName]);
 
 		return redirect('/idea_box');
@@ -90,7 +91,7 @@ class IdeaBoxController extends Controller{
 	public function Savetodb(Request $request){
 
 		DB::table('activities')
-		->insert(['name' => $request->name, 
+		->insert(['name' => $request->name,
 			'description' => $request->description,
 			'price' => $request->number,
 			'id_image'=>$request->id_image,

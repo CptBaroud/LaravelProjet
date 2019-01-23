@@ -116,11 +116,12 @@
         }
 
         ?>
+        @if(isset(Auth::user()->email))
         @if(count(Auth()->user()->unreadNotifications) > 0)
         <li class='dropdown' id="markasread" onclick="markNotificationAsRead('{{count(Auth()->user()->unreadNotifications)}}')">
           <a class='nav-link dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>
-            <span class='glyphicon glyphicon-globe'></span> Notifications <span style='text-color :white' class='badge'> 
-              <?php echo(count(Auth()->user()->unreadNotifications))?> </span> 
+            <span class='glyphicon glyphicon-globe'></span> Notifications <span style='text-color :white' class='badge'>
+              <?php echo(count(Auth()->user()->unreadNotifications))?> </span>
               <ul class='dropdown-menu' role='menu'>
                 <li>
                   @foreach(auth()->user()->unreadNotifications as $Notification)
@@ -129,6 +130,7 @@
                 </li>
               </ul>
             </li>
+            @endif
             @endif
 
           </ul>

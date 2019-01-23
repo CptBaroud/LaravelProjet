@@ -8,42 +8,54 @@ use App\Http\Controllers\Controller;
 use App\Forms\IdeaForm;
 use DB;
 use Auth;
+use Cookie;
 
 class BasketController extends Controller{
 
-	public function index(){
-		
-		$data = DB::table('basket')->get();
+	public function index(Request $request){
+
+		$basket = array();
+		$data = DB::table('product')->get();
 
 		return view('basket.basket', compact('data'));
+
 	}
 
-	public function add($id){
+	public function Change(Request $request, $id, $value){
 
-		$product = DB::table('basket')->where('id_product',$id)
-		->select('id_product')->get();
+		$request->session()->put($id, $value);
 
-		$user = DB::table('basket')->where('id_product',$id)
-		->select('id')->get();
 
-		if ($product[0]->id_product == $id){
+		return redirect()->action('BasketController@Index');
 
-			DB::table('basket')->where('id_product',$id)->increment('quantity');
+	}
+
+	public function Delete(Request $request){
+
+		$basket = array();
+		$data = DB::table('product')->get();
+
+		foreach ($data as $key => $data) {
+
+			if($request->session()->has($data->id_product)){
+
+			 	$request->session()->forget($data->id_product);
+
+			}
+
 		}
-		else if($user[0]->id == auth::id() && $$product[0]->id_product != $id){
-			DB::table('basket')->insert(array(
-				'id_product'=>$id,
-				'quantity'=>1,
-				'id'=>auth::user()->id));
-		}
-		else{
-			DB::table('basket')->insert(array(
-				'id_product'=>$id,
-				'quantity'=>1,
-				'id'=>auth::user()->id));
-		}
-
 		return back();
+	}
+
+	public function add($id, Request $request){
+
+		if (!$request->session()->has($id)){
+			$request->session()->put($id, 1);
+		} else {
+			$request->session()->put($id, $request->session()->get($id)+1);
+		}
+
+		return redirect()->action('BasketController@Index');
 
 	}
 

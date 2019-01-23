@@ -1,18 +1,8 @@
 @extends('template')
 @section('content')
 
-
-
-@foreach($data as $key => $data)
-
-@if(isset($data->id_product))
-
 <?php
-$product = DB::table('product')
-->join('basket', 'product.id_product', '=', 'basket.id_product')
-->where('basket.id_product', $data->id_product)
-->select('*')
-->get();
+
 ?>
 
 <div class="container">
@@ -33,19 +23,32 @@ $product = DB::table('product')
 						</div>
 					</div>
 				</div>
+
+
+<?php $price = 0;?>
+				@foreach($data as $key => $data)
+
+
+				<?php
+
+				if (request()->session()->has($data->id_product)){
+
+				 ?>
+
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-xs-2"><img class="img-responsive" height="70" width="100" src="images/{{$product[0]->url_image}}">
+						<div class="col-xs-2"><img class="img-responsive" height="70" width="100" src="images/{{$data->url_image}}">
+
 						</div>
 						<div class="col-xs-4">
-							<h4 class="product-name"><strong>{{$product[0]->product_name}}</strong></h4><h4><small>{{$product[0]->product_description}}</small></h4>
+							<h4 class="product-name"><strong>{{$data->product_name}}</strong></h4><h4><small>{{$data->product_description}}</small></h4>
 						</div>
 						<div class="col-xs-6">
 							<div class="col-xs-6 text-right">
-								<h6><strong>{{$product[0]->price}} <span class="text-muted">x</span></strong></h6>
+								<h6><strong>{{$data->price}} <span class="text-muted">x</span></strong></h6>
 							</div>
 							<div class="col-xs-4">
-								<input type="text" class="form-control input-sm" value="{{$data->quantity}}">
+								<input type="text" onchange="changePrice(this)" name="{{$data->id_product}}" id="{{$data->id_product}}" class="form-control input-sm" value="{{request()->session()->get($data->id_product)}}">
 							</div>
 							<div class="col-xs-2">
 								<button type="button" class="btn btn-link btn-xs">
@@ -54,6 +57,14 @@ $product = DB::table('product')
 							</div>
 						</div>
 					</div>
+
+<?php
+$price += $data->price * request()->session()->get($data->id_product);
+
+} ?>
+
+
+					@endforeach
 					<hr>
 					<div class="row">
 						<div class="text-center">
@@ -71,12 +82,15 @@ $product = DB::table('product')
 				<div class="panel-footer">
 					<div class="row text-center">
 						<div class="col-xs-9">
-							<h4 class="text-right">Total <strong>{{$product[0]->price * $data->quantity}} $ </strong></h4>
+							<h4 class="text-right">Total <strong> {{$price}} $ </strong></h4>
 						</div>
 						<div class="col-xs-3">
 							<button type="button" class="btn btn-success btn-block">
 								Checkout
 							</button>
+							<a href="/basket/delete"><button type="button" class="btn btn-success btn-block">
+								Delete Orders
+							</button></a>
 						</div>
 					</div>
 				</div>
@@ -85,6 +99,19 @@ $product = DB::table('product')
 	</div>
 </div>
 
-@endif
-@endforeach
+<script>
+function changePrice(val) {
+			let product_id = val.id;
+			let product_value = val.value;
+
+			let url1 = "/basket/change/";
+			let url2 = "/value/";
+
+			let url = url1 + product_id + url2 + product_value;
+		document.location.href=url;
+}
+</script>
+
+
+
 @endsection
