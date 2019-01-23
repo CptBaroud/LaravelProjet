@@ -18,7 +18,7 @@ class PostForm extends Form
                 'label' => 'Title',
                 'rules' => 'required'
             ])
-            ->add('content', 'textarea', [
+                ->add('content', 'textarea', [
                 'label' => 'Descritpion',
                 'rules' => 'required'
             ])

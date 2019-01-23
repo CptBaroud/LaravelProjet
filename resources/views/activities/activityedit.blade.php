@@ -1,5 +1,7 @@
 @extends('template')
 
+{!! Html::style('css/style.css') !!}
+
 @section('content')
 <br>
 @foreach($data as $key => $data)
