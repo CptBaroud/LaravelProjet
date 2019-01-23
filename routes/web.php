@@ -27,6 +27,7 @@ Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesControlle
 Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'ActivitiesController@Delete'));
 Route::get('/activities/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesController@showActivity']);
 Route::post('/activities/{id}', ['as'=>'activitiesImage', 'uses'=>'ActivitiesController@AddPicture']);
+Route::get('/activities/like/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesController@Like']);
 Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@showComments']);
 Route::get('/activities/comment/delete/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@DeleteComment']);
 Route::get('/activities/comment/like/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@LikeComment']);

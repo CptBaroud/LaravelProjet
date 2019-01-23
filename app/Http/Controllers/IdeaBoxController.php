@@ -7,7 +7,6 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use App\Http\Controllers\Controller;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\Notifications;
-use App\Notifications\report;
 use App\Forms\IdeaForm;
 use DB;
 use Auth;
@@ -82,10 +81,10 @@ class IdeaBoxController extends Controller{
 		return redirect('/idea_box');
 	}
 
-	public function Savetodb(Request $request, $id){
+	public function Savetodb(Request $request){
 
 		DB::table('ideas_box')->where('id_idea', $request->id_idea)->delete();
-		$user_notify = \App\Users::find($id);
+
 		$user = new file;
 		if(Input::hasFile('file')){
 			$file = Input::file('file');
@@ -106,9 +105,11 @@ class IdeaBoxController extends Controller{
 
 
 
-		$user_notify->notify(new Notifications());
+		auth()->user()->notify(new Notifications());
 
-		return redirect('/activities')->withMessage('Idea save to DB');
+
+		return redirect('/activities');
+
 	}
 
 	public function Save($id){
@@ -123,20 +124,20 @@ class IdeaBoxController extends Controller{
 		$ok = false;
 		$tab = array();
 		$id_user = Auth::id();
-		$idea = DB::table('ideas_box')->where('id_idea', $id)->get();
-		$current_value = $idea[0]->likes;
-		$tab = explode(';',$current_value);
-		for($i = 0; $i < count($tab)-1; $i++){
-			if($tab[$i] == $id_user) {
-				$ok = true;
+			$idea = DB::table('ideas_box')->where('id_idea', $id)->get();
+			$current_value = $idea[0]->likes;
+			$tab = explode(';',$current_value);
+			for($i = 0; $i < count($tab)-1; $i++){
+				if($tab[$i] == $id_user) {
+					$ok = true;
+				}
 			}
-		}
 
-		if(!$ok){
-			DB::table('comments_image')->where('id_comment', $id_comment)->update(array(
-				'likes'=>$current_value.$id_user.';'
-			));
-		}
+			if(!$ok){
+				DB::table('ideas_box')->where('id_idea', $id)->update(array(
+					'likes'=>$current_value.$id_user.';'
+				));
+			}
 
 		return back();
 	}
@@ -148,6 +149,15 @@ class IdeaBoxController extends Controller{
 		$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
 
 		return view('ideabox.ideaboxedit',compact('data', 'url_image'));
+	}
+
+
+	public function Delete($id){
+
+		DB::table('ideas_box')->where('id_idea',$id)->delete();
+
+		return redirect('/idea_box');
+
 	}
 
 	public function Report($id){
@@ -162,11 +172,4 @@ class IdeaBoxController extends Controller{
 		return redirect('/idea_box');
 	}
 
-	public function Delete($id){
-
-		DB::table('ideas_box')->where('id_idea',$id)->delete();
-
-		return redirect('/idea_box');
-
-	}
 }

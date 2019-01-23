@@ -20,6 +20,20 @@
     ->where('image.id_image', $data->id_image)
     ->select('url_image')
     ->get();
+
+
+                                          $ok = false;
+                                          $tab = array();
+                                          $id_user = Auth::id();
+                                            $activity = DB::table('activities')->where('id_activity', $data->id_activity)->get();
+                                            $current_value = $activity[0]->users_registered;
+                                            $tab = explode(';',$current_value);
+                                            for($i = 0; $i < count($tab)-1; $i++){
+                                              if($tab[$i] == $id_user) {
+                                                $ok = true;
+                                              }
+                                            }
+                                            $likes = count($tab)-1;
     ?>
     	<div class="album py-5 bg-light">
     		<div class="container">
@@ -37,19 +51,28 @@
 
 
     										@if($permission == '0')
-    										<a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->users_registered}} Like(s)</button></a>
+                        @if($ok)
+    										<a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Registered</button></a>
+                        @else
+                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Register</button></a>
+                        @endif
     										@endif
 
     										@if($permission == '2')
-    										<a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->users_registered}} Like(s)</button></a>
-
+                        @if($ok)
+                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Registered</button></a>
+                        @else
+                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Register</button></a>
+                        @endif
     										<button type="button" class="btn btn-sm btn-outline-secondary">Report</button>
     										@endif
 
     										@if($permission == '1')
-
-    										<a href="activities\like\{{ $data->id_activity}}"> <button type="button" class="btn btn-sm btn-outline-secondary">{{$data->users_registered}} Like(s)</button></a>
-
+                        @if($ok)
+                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Registered</button></a>
+                        @else
+                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Register</button></a>
+                        @endif
     										<a href="activities\edit\{{ $data->id_activity}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
 
     										<a href="activities\delete\{{$data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
