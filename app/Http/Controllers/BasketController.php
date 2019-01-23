@@ -22,11 +22,11 @@ class BasketController extends Controller{
 	}
 
 	public function Change(Request $request, $id, $value){
+		$real_id = Auth::id().';'.$id;
+		$request->session()->put($real_id, $value);
 
-		$request->session()->put($id, $value);
 
-
-		return redirect()->action('BasketController@Index');
+		return back();
 
 	}
 
@@ -36,10 +36,10 @@ class BasketController extends Controller{
 		$data = DB::table('product')->get();
 
 		foreach ($data as $key => $data) {
+			$value = Auth::id().';'.$data->id_product;
+			if($request->session()->has($value)){
 
-			if($request->session()->has($data->id_product)){
-
-			 	$request->session()->forget($data->id_product);
+			 	$request->session()->forget($value);
 
 			}
 
@@ -48,15 +48,14 @@ class BasketController extends Controller{
 	}
 
 	public function add($id, Request $request){
-
-		if (!$request->session()->has($id)){
-			$request->session()->put($id, 1);
+		$value = Auth::id().';'.$id;
+		if (!$request->session()->has($value)){
+			$request->session()->put($value, 1);
 		} else {
-			$request->session()->put($id, $request->session()->get($id)+1);
+			$request->session()->put($value, $request->session()->get($value)+1);
 		}
 
-		return $request->session()->get($id);
-		//return redirect()->action('BasketController@Index');
+		return redirect()->action('BasketController@Index');
 
 	}
 

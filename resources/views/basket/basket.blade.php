@@ -30,8 +30,8 @@
 
 
 				<?php
-
-				if (request()->session()->has($data->id_product)){
+				$value = Auth::id().';'.$data->id_product;
+				if (request()->session()->has($value)){
 
 					?>
 
@@ -48,7 +48,7 @@
 									<h6><strong>{{$data->price}} <span class="text-muted">x</span></strong></h6>
 								</div>
 								<div class="col-xs-4">
-									<input type="text" onchange="changePrice(this)" name="{{$data->id_product}}" id="{{$data->id_product}}" class="form-control input-sm" value="{{request()->session()->get($data->id_product)}}">
+									<input type="text" onchange="changePrice(this)" name="{{$data->id_product}}" id="{{$data->id_product}}" class="form-control input-sm" value="{{request()->session()->get($value)}}">
 								</div>
 								<div class="col-xs-2">
 									<button type="button" class="btn btn-link btn-xs">
@@ -59,7 +59,7 @@
 						</div>
 
 						<?php
-						$price += $data->price * request()->session()->get($data->id_product);
+						$price += $data->price * request()->session()->get($value);
 
 					} ?>
 

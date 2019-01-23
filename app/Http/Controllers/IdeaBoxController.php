@@ -121,13 +121,25 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Like($id){
-		DB::table('ideas_box')
-		->where('id_idea',$id)
-		->increment('nber_likes');
+		$ok = false;
+		$tab = array();
+		$id_user = Auth::id();
+			$idea = DB::table('ideas_box')->where('id_idea', $id)->get();
+			$current_value = $idea[0]->likes;
+			$tab = explode(';',$current_value);
+			for($i = 0; $i < count($tab)-1; $i++){
+				if($tab[$i] == $id_user) {
+					$ok = true;
+				}
+			}
 
+			if(!$ok){
+				DB::table('comments_image')->where('id_comment', $id_comment)->update(array(
+					'likes'=>$current_value.$id_user.';'
+				));
+			}
 
-
-		return redirect('/idea_box');
+		return back();
 	}
 
 	public function Edit($id){

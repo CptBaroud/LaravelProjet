@@ -62,8 +62,46 @@ class ActivitiesController extends Controller
 
 		}
 
+		public function DeleteComment(Request $request, $id_comment)
+		{
+			$id_user = Auth::id();
+				DB::table('comments_image')->where('id_comment', $id_comment)->delete();
+			return back();
+
+		}
+
+		public function LikeComment(Request $request, $id_comment)
+		{
+			$ok = false;
+			$tab = array();
+			$id_user = Auth::id();
+				$comment = DB::table('comments_image')->where('id_comment', $id_comment)->get();
+				$current_value = $comment[0]->likes;
+				$tab = explode(';',$current_value);
+				for($i = 0; $i < count($tab)-1; $i++){
+					if($tab[$i] == $id_user) {
+						$ok = true;
+					}
+				}
+
+				if(!$ok){
+					DB::table('comments_image')->where('id_comment', $id_comment)->update(array(
+						'likes'=>$current_value.$id_user.';'
+					));
+				}
+
+			return back();
+
+		}
+
 		public function showComments($id, $id_image)
 		{
+
+
+
+			if (Auth::user()!=null){
+				$permission = Auth::user()->permissions;
+			}
 				$comments = DB::table('comments_image')
 				->join('image_activity', 'comments_image.id_image', '=', 'image_activity.id_image')
 				->where('image_activity.id_image', $id_image)
@@ -73,7 +111,7 @@ class ActivitiesController extends Controller
 
 
 
-				return view('activities.showcomments', compact('comments','id_image', 'url'));
+				return view('activities.showcomments', compact('comments','id_image', 'url', 'permission'));
 		}
 
 

@@ -26,16 +26,16 @@
     			<div class="row">
     				<div class="col-md-12">
     					<div class="card mb-12 shadow-sm">
-    						<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" src="test.jpg"><title>Picture</title> <image xlink:href="images/{{$image[0]->url_image}}" height="100%" width="100%"/><text fill="RED" dy=".3em" x="50%" y="50%">{{$data->name}}</text></svg>
-    							<div class="card-body">
-                    <a href="\activities\{{$data->id_activity}}">
+    						    <a href="\activities\{{$data->id_activity}}"><svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" src="test.jpg"><title>Picture</title> <image xlink:href="images/{{$image[0]->url_image}}" height="100%" width="100%"/><text fill="RED" dy=".3em" x="50%" y="50%">{{$data->name}}</text></svg>
+    							    </a><div class="card-body">
+
 
     								<p class="card-text"><strong>Description : </strong> {{$data->description}} </p>
 
     								<div class="d-flex justify-content-between align-items-center">
     									<div class="btn-group">
 
-                      </a>
+
     										@if($permission == '0')
     										<a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->users_registered}} Like(s)</button></a>
     										@endif
