@@ -45,7 +45,7 @@
 										@if($permission == '2')
 										<a href ="idea_box\like\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$data->nber_likes}} Like(s)</button></a>
 
-										<button type="button" class="btn btn-sm btn-outline-secondary">Report</button>
+										<a href ="idea_box\report\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Report</button></a>
 										@endif
 
 										@if($permission == '1')

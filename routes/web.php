@@ -13,9 +13,10 @@ Route::get('/idea_box', array('as' => 'idea_box', 'uses' => 'IdeaBoxController@i
 
 Route::get('/idea_box/edit/{id}', array('as' => 'idea_box_Edit', 'uses' => 'IdeaBoxController@Edit'));
 Route::post('/idea_box/update/{id}', array('as' => 'idea_box_update', 'uses' => 'IdeaBoxController@Update'));
+Route::get('/idea_box/report/{id}', array('as' => 'idea_box_report', 'uses' => 'IdeaBoxController@Report'));
 
 Route::get('/idea_box/save/{id}', array('as' => 'idea_box_Save', 'uses' => 'IdeaBoxController@Save'));
-Route::post('/idea_box/savetodb', array('as' => 'idea_box_Savetodb', 'uses' => 'IdeaBoxController@Savetodb'));
+Route::post('/idea_box/savetodb/{id}', array('as' => 'idea_box_Savetodb', 'uses' => 'IdeaBoxController@Savetodb'));
 
 Route::get('/idea_box/like/{id}', array('as' => 'idea_box_update', 'uses' => 'IdeaBoxController@Like'));
 

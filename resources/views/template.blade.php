@@ -125,7 +125,9 @@
               <ul class='dropdown-menu' role='menu'>
                 <li>
                   @foreach(auth()->user()->unreadNotifications as $Notification)
+
                   @include('notification.'.snake_case(class_basename($Notification->type)))
+                  
                   @endforeach
                 </li>
               </ul>
