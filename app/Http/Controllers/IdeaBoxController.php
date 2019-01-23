@@ -7,6 +7,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use App\Http\Controllers\Controller;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\Notifications;
+use App\Notifications\report;
 use App\Forms\IdeaForm;
 use DB;
 use Auth;
@@ -148,7 +149,7 @@ class IdeaBoxController extends Controller{
 
 		return view('ideabox.ideaboxedit',compact('data', 'url_image'));
 	}
-	
+
 	public function Report($id){
 
 		$admin = DB::table('users')->where('permissions', '1')->select('id')->get();

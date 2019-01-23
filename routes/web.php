@@ -30,6 +30,7 @@ Route::post('/activities/{id}', ['as'=>'activitiesImage', 'uses'=>'ActivitiesCon
 Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@showComments']);
 Route::get('/activities/comment/delete/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@DeleteComment']);
 Route::get('/activities/comment/like/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@LikeComment']);
+Route::get('/activities/{id}/images/showComment/report/{id_comment}', ['as'=>'activitiesReport', 'uses'=>'ActivitiesController@Report']);
 Route::post('/activities/comment/images/{id_image}', ['as'=>'activitiesCommentSend', 'uses'=>'ActivitiesController@sendComment']);
 
 
