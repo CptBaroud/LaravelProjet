@@ -5,15 +5,15 @@
 @section('content')
 <br>
 @foreach($data as $key => $data)
-<form action="{{ url('/activities/update')}}/{{$data->id_activity}}" method="post" role="form" enctype="multipart/form-data">
+<form action="{{ url('/activities/update')}}/{{$data->id_activity}}" method="post" role="form" enctype="multipart/form-data" onsubmit="return verifForm(this)">
 	@csrf
 	<div class="form-group">
 		<label for="Name">Name</label>
-		<input  name="name" class="form-control" value="{{$data->name}}">
+		<input  name="name" class="form-control" value="{{$data->name}}" onblur="verifName(this)">
 	</div>
 	<div class="form-group">
 		<label type="textarea" for="Description">Description</label>
-		<input name='description' class="form-control" value="{{$data->description}}" >
+		<input name='description' class="form-control" value="{{$data->description}}" onblur="verifDescritpion(this)" >
 	</div>
 	<div class="form-group">
 		<input type='hidden' name='id_image' class="form-control" value="{{$data->id_image}}" >
@@ -25,10 +25,78 @@
 	</div>
 	<div class="form-group">
 		<label type="number" for="Description">Price</label>
-		<input name='number' class="form-control" value="{{$data->price}}" >
+		<input name='number' class="form-control" value="{{$data->price}}" onblur="verifNumber(this)">
 	</div>
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<script>
+function surligne(champ, erreur)
+{
+   if(erreur)
+      champ.style.backgroundColor = "#fba";
+   else
+      champ.style.backgroundColor = "";
+}
+
+
+function verifName(champ)
+{
+   if(champ.value.length < 2 || champ.value.length > 25)
+   {
+      surligne(champ, true);
+      return false;
+   }
+   else
+   {
+      surligne(champ, false);
+      return true;
+   }
+}
+
+function verifDescription(champ)
+{
+   if(champ.value.length < 2 || champ.value.length > 225)
+   {
+      surligne(champ, true);
+      return false;
+   }
+   else
+   {
+      surligne(champ, false);
+      return true;
+   }
+}
+
+function verifNumber(champ)
+{
+   var number = parseInt(champ.value);
+   if(isNaN(number) || age < 5 || age > 111)
+   {
+      surligne(champ, true);
+      return false;
+   }
+   else
+   {
+      surligne(champ, false);
+      return true;
+   }
+}
+
+function verifForm(f)
+{
+   var nameOk = verifName(f.name);
+   var descriptionOk = verifDescritpion(f.description);
+   var numberOk = verifNumber(f.number);
+   
+   if(nameOk && descritpionOk && numberOk)
+      return true;
+   else
+   {
+      alert("Veuillez remplir correctement tous les champs");
+      return false;
+   }
+}
+</script>
 @endforeach
 
 @endsection
