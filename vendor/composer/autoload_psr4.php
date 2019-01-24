@@ -61,6 +61,7 @@ return array(
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Cron\\' => array($vendorDir . '/dragonmantank/cron-expression/src/Cron'),
     'Collective\\Html\\' => array($vendorDir . '/laravelcollective/html/src'),
+    'Brian2694\\Toastr\\' => array($vendorDir . '/brian2694/laravel-toastr/src'),
     'BeyondCode\\DumpServer\\' => array($vendorDir . '/beyondcode/laravel-dump-server/src'),
     'App\\' => array($baseDir . '/app'),
     '' => array($vendorDir . '/nesbot/carbon/src'),

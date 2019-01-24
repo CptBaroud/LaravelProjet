@@ -31,6 +31,7 @@ class ComposerStaticInita6acdd5cbf1de91282bd02500b307779
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        'caf23243e9cb3afd48d0414815ebf07e' => __DIR__ . '/..' . '/brian2694/laravel-toastr/src/helper.php',
         'd9fc00ffac3dc4b7868e8efb0efdc85c' => __DIR__ . '/..' . '/kris/laravel-form-builder/src/helpers.php',
     );
 
@@ -152,6 +153,7 @@ class ComposerStaticInita6acdd5cbf1de91282bd02500b307779
         ),
         'B' => 
         array (
+            'Brian2694\\Toastr\\' => 17,
             'BeyondCode\\DumpServer\\' => 22,
         ),
         'A' => 
@@ -384,6 +386,10 @@ class ComposerStaticInita6acdd5cbf1de91282bd02500b307779
         array (
             0 => __DIR__ . '/..' . '/laravelcollective/html/src',
         ),
+        'Brian2694\\Toastr\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brian2694/laravel-toastr/src',
+        ),
         'BeyondCode\\DumpServer\\' => 
         array (
             0 => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src',
@@ -440,11 +446,13 @@ class ComposerStaticInita6acdd5cbf1de91282bd02500b307779
         'App\\Forms\\ItemsForm' => __DIR__ . '/../..' . '/app/Forms/ItemsForm.php',
         'App\\Forms\\PostForm' => __DIR__ . '/../..' . '/app/Forms/PostForm.php',
         'App\\Http\\Controllers\\ActivitiesController' => __DIR__ . '/../..' . '/app/Http/Controllers/ActivitiesController.php',
+        'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\BasketController' => __DIR__ . '/../..' . '/app/Http/Controllers/BasketController.php',
         'App\\Http\\Controllers\\ConnectionController' => __DIR__ . '/../..' . '/app/Http/Controllers/ConnectionController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\IdeaBoxController' => __DIR__ . '/../..' . '/app/Http/Controllers/IdeaBoxController.php',
@@ -452,6 +460,7 @@ class ComposerStaticInita6acdd5cbf1de91282bd02500b307779
         'App\\Http\\Controllers\\PostsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostsController.php',
         'App\\Http\\Controllers\\RegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegistrationController.php',
         'App\\Http\\Controllers\\ShopController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShopController.php',
+        'App\\Http\\Controllers\\mailcontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/mailcontroller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -460,6 +469,9 @@ class ComposerStaticInita6acdd5cbf1de91282bd02500b307779
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Notifications\\Notifications' => __DIR__ . '/../..' . '/app/Notifications/Notifications.php',
+        'App\\Notifications\\report' => __DIR__ . '/../..' . '/app/Notifications/report.php',
+        'App\\Notifications\\reportcomment' => __DIR__ . '/../..' . '/app/Notifications/reportcomment.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -471,6 +483,9 @@ class ComposerStaticInita6acdd5cbf1de91282bd02500b307779
         'BeyondCode\\DumpServer\\DumpServerServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
         'BeyondCode\\DumpServer\\Dumper' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/Dumper.php',
         'BeyondCode\\DumpServer\\RequestContextProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/RequestContextProvider.php',
+        'Brian2694\\Toastr\\Facades\\Toastr' => __DIR__ . '/..' . '/brian2694/laravel-toastr/src/Facades/Toastr.php',
+        'Brian2694\\Toastr\\Toastr' => __DIR__ . '/..' . '/brian2694/laravel-toastr/src/Toastr.php',
+        'Brian2694\\Toastr\\ToastrServiceProvider' => __DIR__ . '/..' . '/brian2694/laravel-toastr/src/ToastrServiceProvider.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\CarbonPeriod' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonPeriod.php',
