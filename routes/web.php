@@ -21,8 +21,8 @@ Route::post('/idea_box/savetodb/{id}', array('as' => 'idea_box_Savetodb', 'uses'
 Route::get('/idea_box/like/{id}', array('as' => 'idea_box_update', 'uses' => 'IdeaBoxController@Like'));
 
 
-Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'PostsController@store'));
-Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'PostsController@create']);
+Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'ActivitiesController@store'));
+Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'ActivitiesController@create']);
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'ActivitiesController@Delete'));
 Route::get('/activities/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesController@showActivity']);
@@ -41,8 +41,8 @@ Route::get('/markAsRead',function(){
 
 Route::get('/shop/mail',array('as' => 'ShopMail', 'uses' => 'mailcontroller@send'));
 
-Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'PostsController@Edit'));
-Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'PostsController@Update'));
+Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'ActivitiesController@Edit'));
+Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'ActivitiesController@Update'));
 
 Route::get('/shop',array('as' => 'shop', 'uses' => 'ShopController@index'));
 

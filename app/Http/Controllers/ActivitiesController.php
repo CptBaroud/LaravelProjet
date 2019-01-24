@@ -140,8 +140,7 @@ class ActivitiesController extends Controller
 
 
 			public function Edit($id){
-				$data = DB::table('activities')->
-				where('id_activity',$id)->get();
+				$data = DB::table('activities')->where('id_activity',$id)->get();
 
 				$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
 
@@ -151,17 +150,7 @@ class ActivitiesController extends Controller
 
 			public function Delete($id){
 
-				$data_img = DB::table('image_activity')->where('id_activity',$id)->get();
-				$id_img = DB::table('activities')->where('id_activity',$id)->get();
-
-				foreach ($data_img as $key => $data_img) {
-					DB::table('comments_image')->where('id_image',$data_img->id_image)->delete();
-
-				}
-
-				DB::table('image_activity')->where('id_activity', $id)->delete();
-				DB::table('image')->where('id_image', $id_img[0]->id_image)->delete();
-
+				DB::table('activities')->where('id_activity',$id)->delete();
 
 				return redirect('/activities');
 
@@ -177,15 +166,79 @@ class ActivitiesController extends Controller
 				}
 				return back()->withMessage('The comment has been reported');
 			}
-			public function SendComment(Request $request, $id_image)
-			{
-				$id_user = Auth::id();
-				DB::table('comments_image')->insert(array(
-					'comment'=> $request->comment,
-					'users'=> $id_user,
-					'id_image'=>$id_image
-				));
-				return back();
 
-			}
+
+				public function Update(Request $request, $id){
+
+					$user = new file;
+					if(Input::hasFile('file')){
+						$file = Input::file('file');
+						$file->move(public_path(). '/images', $file->getClientOriginalName());
+						$user->title = $file->getClientOriginalName();
+						$id = DB::getPdo()->lastInsertId();
+						DB::table('image')->where('id_image', $request->id_image)->update(array(
+							'url_image'=>$user->title
+						));
+					}
+
+					DB::table('activities')
+					->where('id_activity',$id)
+					->update(['name' => $request->name,
+						'description' => $request->description,
+						'price' => $request->number]);
+
+
+					return redirect('/activities');
+				}
+
+				public function __construct(FormBuilder $formBuilder)
+				{
+						$this->formBuilder = $formBuilder;
+				}
+
+				public function create(FormBuilder $formBuilder)
+				{
+						$form = $this->getForm();
+						return view('activities.createActivities', compact('form'));
+				}
+
+				public function store(FormBuilder $formBuilder)
+				{
+						request()->validate([
+								'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:32736',
+						]);
+
+						$form = $this->getForm();
+						$imageName = time() . '.' . request()->image->getClientOriginalExtension();
+						request()->image->move(public_path('images'), $imageName);
+
+						if(!empty($imageName) && !empty($form->getFieldValues())){
+								DB::table('image')->insert(array(
+										'url_image' => $_FILES["image"]["name"]));
+								$id = DB::getPdo()->lastInsertId();;
+
+								DB::table('image')->where('id_image',$id)->update(['url_image' => $imageName]);
+								DB::table('activities')->insert(array(
+										'name'=>$_POST['nom'],
+										'description'=>$_POST['content'],
+										'price'=>$_POST['price'],
+										'date' => $_POST['date'],
+										'id' => Auth::id(),
+										'recursivity' => $_POST['recuring'],
+										'id_image'=>$id));
+						}
+
+						return redirect(route('activitiesIndex'));
+				}
+
+				public function getForm()
+				{
+						return $this->formBuilder->create(PostForm::class, [
+								'data' => [
+										'admin' => true
+								]
+						]);
+				}
+
+
 }

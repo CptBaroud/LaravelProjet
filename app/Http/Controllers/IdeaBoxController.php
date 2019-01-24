@@ -101,6 +101,7 @@ class IdeaBoxController extends Controller{
 			'description' => $request->description,
 			'price' => $request->number,
 			'id_image'=>$request->id_image,
+			'id'=>Auth::id(),
 			'date' => date("Y/m/d")]);
 
 

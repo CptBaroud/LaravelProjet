@@ -24,14 +24,21 @@ class AdminController extends Controller{
 
 	public function Save(Request $request, $id){
 
+		$first_name = 'first_name'.$id;
+		$last_name = 'first_name'.$id;
+		$email = 'email'.$id;
+		$location = 'location'.$id;
+		$password = 'password'.$id;
+		$permissions = 'permissions'.$id;
+
 		if(isset($request->password)){
-			DB::table('users')->where('id',$id)->update(['last_name' => $request->last_name,
-			'first_name' => $request->first_name,'email' => $request->email, 'location' => $request->location,
-			'password' => bcrypt($request->password), 'permissions' => $request->permissions]);
+			DB::table('users')->where('id',$id)->update(['last_name' => $request->input($last_name),
+			'first_name' => $request->input($first_name),'email' => $request->input($email), 'location' => $request->input($location),
+			'password' => bcrypt($request->input($password)), 'permissions' => $request->input($permissions)]);
 		} else {
-			DB::table('users')->where('id',$id)->update(['last_name' => $request->last_name,
-			'first_name' => $request->first_name,'email' => $request->email, 'location' => $request->location,
-			'permissions' => $request->permissions]);
+			DB::table('users')->where('id',$id)->update(['last_name' => $request->input($last_name),
+			'first_name' => $request->input($first_name),'email' => $request->input($email), 'location' => $request->input($location),
+			'permissions' => $request->input($permissions)]);
 		}
 
 
