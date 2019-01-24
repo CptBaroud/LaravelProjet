@@ -29,7 +29,7 @@ class ShopController extends Controller
     ]);
 
 
-    /*if(auth()->guest()) {
+    if(auth()->guest()) {
         return redirect('connection')->withErrors([
           'password' => 'Please Log In'
 
@@ -38,7 +38,7 @@ class ShopController extends Controller
 } 
   else {
       return view('shop.createItems', compact('Itemform'));
-    }*/
+    }
     return view('shop.createItems', compact('Itemform'));
   }
 
