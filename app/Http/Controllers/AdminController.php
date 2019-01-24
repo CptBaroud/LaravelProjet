@@ -7,6 +7,8 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use App\Http\Controllers\Controller;
 use App\Forms\IdeaForm;
 use DB;
+use Illuminate\Support\Facades\Input;
+
 
 class AdminController extends Controller{
 
@@ -22,23 +24,24 @@ class AdminController extends Controller{
 
 	}
 
-	public function Save(Request $request, $id){
+	public function Save($id){
 
+		$input = Input::all();
 		$first_name = 'first_name'.$id;
-		$last_name = 'first_name'.$id;
+		$last_name = 'last_name'.$id;
 		$email = 'email'.$id;
 		$location = 'location'.$id;
 		$password = 'password'.$id;
 		$permissions = 'permissions'.$id;
 
-		if(isset($request->password)){
-			DB::table('users')->where('id',$id)->update(['last_name' => $request->input($last_name),
-			'first_name' => $request->input($first_name),'email' => $request->input($email), 'location' => $request->input($location),
-			'password' => bcrypt($request->input($password)), 'permissions' => $request->input($permissions)]);
+		if(isset($input[$password])){
+			DB::table('users')->where('id',$id)->update(['last_name' => $input[$last_name],
+			'first_name' => $input[$first_name],'email' => $input[$email], 'location' => $input[$location],
+			'password' => bcrypt($input[$password]), 'permissions' => $input[$permissions]]);
 		} else {
-			DB::table('users')->where('id',$id)->update(['last_name' => $request->input($last_name),
-			'first_name' => $request->input($first_name),'email' => $request->input($email), 'location' => $request->input($location),
-			'permissions' => $request->input($permissions)]);
+			DB::table('users')->where('id',$id)->update(['last_name' => $input[$last_name],
+			'first_name' => $input[$first_name],'email' => $input[$email], 'location' => $input[$location],
+			'permissions' => $input[$permissions]]);
 		}
 
 
