@@ -228,7 +228,6 @@ integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqN
 crossorigin="anonymous"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-{!! Toastr::message() !!}
 
-</body>
+@yield('script')
 </html>
