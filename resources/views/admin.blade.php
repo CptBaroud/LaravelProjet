@@ -24,11 +24,11 @@
     @csrf
     <tr>
       <th scope="row">{{$key+1}}</th>
-      <td><div class="form-group"><input name="last_name"  type="text" value="{{$data->last_name}}" name="fname"></div></td>
-      <td><div class="form-group"><input name="first_name" type="text" value="{{$data->first_name}}" name="fname"></div></td>
-      <td><div class="form-group"><input name="email"  type="text" value="{{$data->email}}" name="fname"></div></td>
-      <td><div class="form-group"><input name="location" type="text" value="{{$data->location}}{{$data->id}}" name="fname"></div></td>
-      <td><div class="form-group"><input name="password" type="password" value="" placeholder="Password" name="fname"></div></td>
+      <td><div class="form-group"><input name="last_name{{$data->id}}"  type="text" value="{{$data->last_name}}" name="fname"></div></td>
+      <td><div class="form-group"><input name="first_name{{$data->id}}" type="text" value="{{$data->first_name}}" name="fname"></div></td>
+      <td><div class="form-group"><input name="email{{$data->id}}"  type="text" value="{{$data->email}}" name="fname"></div></td>
+      <td><div class="form-group"><input name="location{{$data->id}}" type="text" value="{{$data->location}}{{$data->id}}" name="fname"></div></td>
+      <td><div class="form-group"><input name="password{{$data->id}}" type="password" value="" placeholder="Password" name="fname"></div></td>
       <td>
         <?php
         switch ($data->permissions) {
@@ -69,6 +69,7 @@
 
 
   </form>
+
     @endforeach
   </tbody>
 </table>
