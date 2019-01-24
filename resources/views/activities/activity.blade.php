@@ -1,98 +1,62 @@
 @extends('template')
 
 @section('content')
-<main role="main">
-    <section class="jumbotron text-center">
+    <main role="main">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Activities</h1>
+                <p class="lead text-muted">You will find the different activities there</p>
+            </div>
+            <a href='/activities/create'>
+                <button type="button" class="btn btn-dark">Add a new actvity</button>
+            </a>
+        </section>
+
         <div class="container">
-            <h1 class="jumbotron-heading">Activities</h1>
-            <p class="lead text-muted">You will find the different activities there</p>
+            <div class="row">
+                @foreach($data as $key => $data)
+
+
+                    @if(isset($data->id_image))
+
+                        <?php
+                        $image = DB::table('image')
+                            ->join('activities', 'image.id_image', '=', 'activities.id_image')
+                            ->where('image.id_image', $data->id_image)
+                            ->select('url_image')
+                            ->get();
+
+
+                        $ok = false;
+                        $tab = array();
+                        $id_user = Auth::id();
+                        $activity = DB::table('activities')->where('id_activity', $data->id_activity)->get();
+                        $current_value = $activity[0]->users_registered;
+                        $tab = explode(';', $current_value);
+                        for ($i = 0; $i < count($tab) - 1; $i++) {
+                            if ($tab[$i] === $id_user) {
+                                $ok = true;
+                            }
+                        }
+                        $likes = count($tab) - 1;
+                        ?>
+
+                        <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="hovereffect">
+                                <img class="img-responsive" src="images/{{$image[0]->url_image}}" height="100%"
+                                     width="100%" alt="">
+                                <div class="overlay">
+                                    <h2>{{$data->name}}</h2>
+                                    <p class="card-text"><a href="\activities\{{$data->id_activity}}">View More</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endif
+                @endforeach
+            </div>
         </div>
-        <a href= '/activities/create'> <button type="button" class="btn btn-dark">Add a new actvity</button></a>
-    </section>
-    @foreach($data as $key => $data)
-
-
-    @if(isset($data->id_image))
-
-    <?php
-    $image = DB::table('image')
-    ->join('activities', 'image.id_image', '=', 'activities.id_image')
-    ->where('image.id_image', $data->id_image)
-    ->select('url_image')
-    ->get();
-
-
-                                          $ok = false;
-                                          $tab = array();
-                                          $id_user = Auth::id();
-                                            $activity = DB::table('activities')->where('id_activity', $data->id_activity)->get();
-                                            $current_value = $activity[0]->users_registered;
-                                            $tab = explode(';',$current_value);
-                                            for($i = 0; $i < count($tab)-1; $i++){
-                                              if($tab[$i] == $id_user) {
-                                                $ok = true;
-                                              }
-                                            }
-                                            $likes = count($tab)-1;
-    ?>
-    	<div class="album py-5 bg-light">
-    		<div class="container">
-    			<div class="row">
-    				<div class="col-md-12">
-    					<div class="card mb-12 shadow-sm">
-    						    <a href="\activities\{{$data->id_activity}}"><svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" src="test.jpg"><title>Picture</title> <image xlink:href="images/{{$image[0]->url_image}}" height="100%" width="100%"/><text fill="RED" dy=".3em" x="50%" y="50%">{{$data->name}}</text></svg>
-    							    </a><div class="card-body">
-
-
-    								<p class="card-text"><strong>Description : </strong> {{$data->description}} </p>
-
-    								<div class="d-flex justify-content-between align-items-center">
-    									<div class="btn-group">
-
-
-    										@if($permission == '0')
-                        @if($ok)
-    										<a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Registered</button></a>
-                        @else
-                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Register</button></a>
-                        @endif
-    										@endif
-
-    										@if($permission == '2')
-                        @if($ok)
-                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Registered</button></a>
-                        @else
-                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Register</button></a>
-                        @endif
-    										<button type="button" class="btn btn-sm btn-outline-secondary">Report</button>
-    										@endif
-
-    										@if($permission == '1')
-                        @if($ok)
-                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Registered</button></a>
-                        @else
-                        <a href ="activities\like\{{ $data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">{{$likes}} Register</button></a>
-                        @endif
-    										<a href="activities\edit\{{ $data->id_activity}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
-
-    										<a href="activities\delete\{{$data->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
-    										@endif
-
-    									</div>
-    									<small class="text-muted"> <strong>Price : </strong>{{$data->price}}</small>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-
-
-        @endif
-        @endforeach
-
-
 
     </main>
-    @endsection
+@endsection
