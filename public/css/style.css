@@ -1,38 +1,47 @@
-.navbar-nav{
-	float:right;
-}
-.navbar{
-	background-color: black;
-}
 body {
 	margin-top: 55px;
-    background-color: black;
+    background-color: #ffffff;
 }
-.album{
-	margin-top: -35px;
+
+footer{
+    background: black;
+    position: absolute;
+    width: 100%;
 }
 
 footer > .features {
     color: #1b4b72;
+
 }
 footer > .font-weight-light {
     color: white;
-}
-
-footer > .list-unstyled {
-    text-decoration: none;
-    color: #6610f2;
 }
 
 .text-warning {
     color: #f2ce55;
 }
 
+.album{
+    margin-top: -35px;
+}
+
+.navbar-nav{
+    float:right;
+}
+.navbar{
+    background-color: black;
+}
+
 /* Activitity index*/
+.container > .row {
+    margin-right: 8px;
+    margin-left: 8px;
+}
 
 .jumbotron{
     background: #1d1d1d;
     color: white;
+    border-radius: 0;
 }
 
 .hovereffect {
@@ -41,7 +50,9 @@ footer > .list-unstyled {
     overflow: hidden;
     position: relative;
     text-align: center;
+    background: #98790d;
     cursor: default;
+    margin-bottom: 15px;
 }
 
 .hovereffect .overlay {
@@ -121,31 +132,19 @@ footer > .list-unstyled {
     transform: translate3d(0,0,0);
 }
 
+.hovereffect img{
+    height: 300px;
+
+}
+
 /* Activity Creation */
 
 .form-control {
-    background: #1b1e21;
-    color: white;
+    background: #c4d7e8;
+    color: #000000;
     border: none;
 }
 
-input[type=text]:focus {
-    background-color: #5b5b5b;
-    color: white;
-}
-input[type=textarea]:focus {
-    background-color: #5b5b5b;
-    color: white;
-}
-input[type=file]:focus {
-    background-color: #5b5b5b;
-    color: white;
-}
-input[type=datetime-local]:focus {
-    background-color: #5b5b5b;
-    color: white;
-}
-
 .control-label {
-    color: #ffde67;
+    color: #000000;
 }
