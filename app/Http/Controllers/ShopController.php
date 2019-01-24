@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Forms\ItemsForm;
 use DB;
+use Auth;
+use File;
+use Illuminate\Support\Facades\Input;
+use App\Post;
 class ShopController extends Controller
 {
 
@@ -94,6 +98,17 @@ class ShopController extends Controller
   }
 
   public function Update(Request $request, $id){
+
+    $user = new file;
+          if(Input::hasFile('file')){
+            $file = Input::file('file');
+            $file->move(public_path(). '/images', $file->getClientOriginalName());
+            $user->title = $file->getClientOriginalName();
+            $id = DB::getPdo()->lastInsertId();
+            DB::table('product')->where('url_image', $request->url_image)->update(array(
+              'url_image'=>$user->title
+            ));
+          }
     DB::table('product')
     ->where('id_product',$id)
     ->update(['product_name' => $request->name, 'product_description' => $request->description,'price' => $request->number]);
