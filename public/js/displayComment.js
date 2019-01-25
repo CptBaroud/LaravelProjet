@@ -27,7 +27,9 @@ jQuery(function($) {
             imagetext = that.data('imagetext'),
             imagepath = that.data('imagepath'),
             comment = that.data('comment'),
+            action = that.data('action'),
             id = that.data('id'),
+            ida = that.data('ida');
 
 
             maxHeight = $(window).height() - 100;
@@ -58,12 +60,12 @@ jQuery(function($) {
                         modalComment += "<a href='activities\\like\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Like</button></a>";
                         modalComment += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
                         modalComment += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
+                        modalComment += "<form action='"+action+"/"+ida+"' method='post' enctype='multipart/form-data'><label for='comment'>Comment</label>";
+                        modalComment += "<input type='text' name='comment' id='comment'><button type='submit' class='btn btn-sm btn-outline-success'>Add Comment</button></form>";
                         modalComment += "</span></div></div>";
-                        modalComment += "<form action='"+action+"/comment/images/"+id+"' method='post' enctype='multipart/form-data'><label for='comment'>Comment</label>";
-                        modalComment += "<input type='text' name='comment' id='comment'><button type='submit' class='btn btn-sm btn-outline-light'>Add Comment</button></form>";
                         for (var i = 0; i < data.length; i++)
-                            modalComment += "<div><p>" + data[i].comment + "</p></div>";
-                        modalComment += "</div></div></div>";
+                            modalComment += "<p>" + data[i].comment + "</p>";
+                        modalComment += "</div></div></div></div></div></div>";
                         $('body').append(modalComment).fadeIn(2500);
                     },
                     fail: console.error

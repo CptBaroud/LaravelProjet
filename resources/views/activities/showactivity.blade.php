@@ -30,7 +30,9 @@
                      data-title="{{$data[0]->name}}"
                      data-imagetext=""
                      data-date="{{$data[0]->date}}"
-                     data-id="{{$data[0]->id_activity}}"
+                     data-id="{{$images_activity->id_image}}"
+                     data-action="{{url('/activities')}}"
+                     data-ida="{{$data[0]->id_activity}}"
                      data-imagepath="/images/{{$images_activity->url_image}}">
                     <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
                         <img class="img-responsive"
