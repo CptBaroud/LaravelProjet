@@ -22,15 +22,15 @@
                             ->select('url_image')
                             ->get();
 
-                            $has_liked = false;
+                            $ok = false;
                             $tab = array();
                             $id_user = Auth::id();
                             $activity = DB::table('activities')->where('id_activity', $data->id_activity)->get();
                             $current_value = $activity[0]->users_registered;
                             $tab = explode(';', $current_value);
                             for ($i = 0; $i < count($tab) - 1; $i++) {
-                            if ($tab[$i] === $id_user) {
-                            $has_liked = true;
+                            if ($tab[$i] == $id_user) {
+                            $ok = true;
                             }
                             }
                             $likes = count($tab) - 1;
@@ -45,8 +45,11 @@
                                  data-price="Price : {{$data->price}}€"
                                  data-likes="1234"
                                  data-action="{{url('/activities')}}"
+                                 data-numberlike="{{$likes}}"
+                                 data-hasalreadylike="{{$ok}}"
                                  data-id="{{$data->id_activity}}"
                                  data-imagepath="images/{{$image[0]->url_image}}"
+                                 data-perms="1"
                                  data-posturl="">
                                 <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
                                     <img class="img-responsive" src="images/{{$image[0]->url_image}}"
@@ -70,3 +73,4 @@
 @section('script')
     <script src="{{asset('js/displayphoto.js')}}"></script>
 @endsection
+

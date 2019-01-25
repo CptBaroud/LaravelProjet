@@ -14,6 +14,18 @@
         ->select('image_activity.url_image', 'image_activity.id_image')
         ->get();
 
+    $ok = false;
+    $tab = array();
+    $id_user = Auth::id();
+    $comment = DB::table('comments_image')->where('id_image', $images_activity[0]->id_image)->get();
+    $current_value = $comment[0]->likes;
+    $tab = explode(';', $current_value);
+    for ($i = 0; $i < count($tab) - 1; $i++) {
+        if ($tab[$i] == $id_user) {
+            $ok = true;
+        }
+    }
+    $likes = count($tab) - 1;
     ?>
     <main role="main">
         <section class="jumbotron text-center">
@@ -26,80 +38,39 @@
         <div class="container">
             <div class="row">
                 @foreach($images_activity as $key => $images_activity)
-                	<div class="card-body">
-                                    @if($data[0]->recursivity == '0')
-                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
-                                    @endif
-                                    @if($data[0]->recursivity == '1')
-                                    <?php
-                                    $date1 = strtotime($data[0]->date);
-                                    $date2 = time();
 
-                                    $datediff = $date2 - $date1;
-                                    $days_diff = round($datediff / (60 * 60 * 24));
-                                    if($days_diff < 0){
+                        @if($data[0]->recursivity == '1')
+                            <?php
+                            $date1 = strtotime($data[0]->date);
+                            $date2 = time();
 
-                                      
-
-                                    }
-                                    ?>
-                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
-                                    @endif
-
-                                    @if($data[0]->recursivity == '2')
-                                    <?php
-
-                                    ?>
-                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
-                                    @endif
-
-                                    @if($data[0]->recursivity == '3')
-                                    <?php
-
-                                    ?>
-                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
-                                    @endif
-
-
-                                    <p class="card-footer">Description : {{$data[0]->description}} </p>
-
-
-                                    @if($data[0]->recursivity == '1')
-                                    <p class="card-footer">Recursivity Weekly</p>
-                                    @endif
-                                    @if($data[0]->recursivity == '2')
-                                    <p class="card-footer">Recursivity Monthly</p>
-                                    @endif
-                                    @if($data[0]->recursivity == '3')
-                                    <p class="card-footer">Recursivity Annual</p>
-                                    @endif
-                                    @if($permission == '2' || $permission == '1')
-                                      <div class="btn-group">
-                      										<a href ="\activities\download_users\{{ $data[0]->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">Download Users List</button></a>
-                                      </div>
-                                    @endif
-                                  </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 carouselGallery-carousel"
-                     data-title="{{$data[0]->name}}"
-                     data-imagetext=""
-                     data-date="{{$data[0]->date}}"
-                     data-id="{{$images_activity->id_image}}"
-                     data-action="{{url('/activities')}}"
-                     data-ida="{{$data[0]->id_activity}}"
-                     data-imagepath="/images/{{$images_activity->url_image}}">
-                    <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
-                        <img class="img-responsive"
-                             src="/images/{{$images_activity->url_image}}"
-                             height="100%"
-                             width="100%" alt="">
-                        <div class="overlay">
-                            <h2>{{$data[0]->name}}</h2>
-                            <p class="card-text"><a id="showComment">View comments</a>
-                            </p>
+                            $datediff = $date2 - $date1;
+                            $days_diff = round($datediff / (60 * 60 * 24));
+                            ?>
+                        @endif
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 carouselGallery-carousel"
+                         data-title="{{$data[0]->name}}"
+                         data-date="{{$data[0]->date}}"
+                         data-id="{{$images_activity->id_image}}"
+                         data-action="{{ csrf_token() }}"
+                         data-numberlike="{{$likes}}"
+                         data-hasalreadylike="{{$ok}}"
+                         data-ida="{{$data[0]->id_activity}}"
+                         data-perms="{{$permission}}"
+                         data-imagepath="/images/{{$images_activity->url_image}}">
+                        <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
+                            <img class="img-responsive"
+                                 src="/images/{{$images_activity->url_image}}"
+                                 height="100%"
+                                 width="100%" alt="">
+                            <div class="overlay">
+                                <h2>{{$data[0]->name}}</h2>
+                                <p class="card-text"><a id="showComment">View comments</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr>
+                    <hr>
                 @endforeach
             </div>
 

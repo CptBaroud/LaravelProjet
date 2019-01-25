@@ -38,7 +38,7 @@ Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'us
 Route::get('/activities/comment/delete/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@DeleteComment']);
 Route::get('/activities/comment/like/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@LikeComment']);
 Route::get('/activities/{id}/images/showComment/report/{id_comment}', ['as'=>'activitiesReport', 'uses'=>'ActivitiesController@Report']);
-Route::post('/activities/comment/images/{id_image}', ['as'=>'activitiesCommentSend', 'uses'=>'ActivitiesController@sendComment']);
+Route::post('/activities/comment/images/{id_image}', ['as'=>'activitiesCommentSend', 'uses'=>'ActivitiesController@SendComment']);
 
 
 Route::get('/markAsRead',function(){

@@ -47,6 +47,9 @@ jQuery(function($) {
             imagetext = that.data('imagetext'),
             imagepath = that.data('imagepath'),
             price = that.data('price'),
+            hasalreadylike = that.data('hasalreadylike'),
+            numberlike = that.data('numberlike'),
+            perms = that.data('perms'),
             id = that.data('id'),
 
         maxHeight = $(window).height() - 100;
@@ -59,7 +62,7 @@ jQuery(function($) {
                 modalHtml += "<div class='carouselGallery-scrollbox' style='max-height:" + maxHeight + "px'><div class='carouselGallery-modal-image'>";
                 modalHtml += "<img src='" + imagepath + "' alt='carouselGallery image'>";
                 modalHtml += "</div>";
-                modalHtml += "<div class='carouselGallery-modal-text'>";
+                modalHtml += "<div class='carouselGallery-modal-text' style='overflow-y: auto'>";
                 modalHtml += "<span class='carouselGallery-modal-username'>" + username + "</a> </span>";
                 modalHtml += "</br>";
                 modalHtml += "<span class='carouselGallery-modal-location'>" + location + "</span>";
@@ -68,14 +71,24 @@ jQuery(function($) {
                 modalHtml += "</span>";
                 modalHtml += "<span class='carouselGallery-modal-imagetext'>";
                 modalHtml += "<p>" + imagetext + "</p>";
-
-                modalHtml += "<a href='activities\\like\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Like</button></a>";
-                modalHtml += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
-                modalHtml += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
+                modalHtml += "<p> Like : "+ numberlike +" </p>";
                 modalHtml += "</br>";
                 modalHtml += "</br>";
                 modalHtml += "<a href='activities\\"+id+"'><button type='button' class='btn btn-sm btn-outline-success'>See more</button></a>";
-                modalHtml += "</form> </div>";
+                modalHtml += "</br>";
+                modalHtml += "</br>";
+                if(hasalreadylike){
+                    modalHtml += "<button type='button' class='btn btn-sm btn-outline-success'>Liked</button>";
+                }else{
+                    modalHtml += "<a href='activities\\like\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Like</button></a>";
+                }if(perms === 1){
+                    modalHtml += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
+                    modalHtml += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
+                }else if(perms === 2){
+                    modalHtml += "<a href='\\activities\\download_users\\"+id+"'><button type='button' class='btn btn-sm btn-outline-secondary'>Download User registered</button>"
+                    modalHtml += "<a href='\\activities\\download_users\\"+id+"'><button type='button' class='btn btn-sm btn-outline-secondary'>Report</button>"
+                }
+
                 modalHtml += "</span></div></div></div></div></div>";
                 $('body').append(modalHtml).fadeIn(2500);
             }

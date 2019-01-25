@@ -24,13 +24,12 @@ jQuery(function($) {
         //   console.log(that);
         let title = that.data('title'),
             date = that.data('date'),
-            imagetext = that.data('imagetext'),
             imagepath = that.data('imagepath'),
-            comment = that.data('comment'),
             action = that.data('action'),
+            numberlike = that.data('numberlike'),
+            hasalreadylike = that.data('hasalreadylike'),
             id = that.data('id'),
-            ida = that.data('ida');
-
+            perms= that.data('perms'),
 
             maxHeight = $(window).height() - 100;
 
@@ -43,28 +42,41 @@ jQuery(function($) {
                     },
                     success: function(data) {
                         console.log(data);
-                        modalComment = "<div class='carouselGallery-wrapper'>";
+                        modalComment = "<div class='carouselGallery-wrapper' ";
                         modalComment += "<div class='carouselGallery-modal'><span class='carouselGallery-left'><span class='icons icon-arrow-left6'></span></span><span class='carouselGallery-right'><span class='icons icon-arrow-right6'></span></span>";
                         modalComment += "<div class='container'>";
-                        modalComment += "<div class='carouselGallery-scrollbox' style='max-height:" + maxHeight + "px'><div class='carouselGallery-modal-image'>";
+                        modalComment += "<div class='carouselGallery-scrollbox' style='max-height:" + maxHeight + "px; overflow-y: auto'><div class='carouselGallery-modal-image'>";
                         modalComment += "<img src='" + imagepath + "' alt='carouselGallery image'>";
                         modalComment += "</div>";
-                        modalComment += "<div class='carouselGallery-modal-text'>";
-                        modalComment += "<span class='carouselGallery-modal-username'>" + title + "</a> </span>";
+                        modalComment += "<div class='carouselGallery-modal-text' style='overflow-y: auto; overflow-x:auto '>";
+                        modalComment += "<span class='carouselGallery-modal-username font-weight-bold'>" + title + "</a> </span>";
                         modalComment += "</br>";
                         modalComment += "<span class='carouselGallery-modal-location'>" + date + "</span>";
-                        modalComment += "</br>";
                         modalComment += "</span>";
-                        modalComment += "<span class='carouselGallery-modal-imagetext'>";
-                        modalComment += "<p>" + imagetext + "</p>";
-                        modalComment += "<a href='activities\\like\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Like</button></a>";
-                        modalComment += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
-                        modalComment += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
-                        modalComment += "<form action='"+action+"/"+ida+"' method='post' enctype='multipart/form-data'><label for='comment'>Comment</label>";
-                        modalComment += "<input type='text' name='comment' id='comment'><button type='submit' class='btn btn-sm btn-outline-success'>Add Comment</button></form>";
+                        modalComment += "<span class='carouselGallery-modal-imagetext' style='overflow-y: auto'>";
+                        modalComment += "<form action='/activities/comment/images/"+id+"' method='post' enctype='multipart/form-data'></br><label for='comment'>Comment</label>";
+                        modalComment += "<input type='text' name='comment' id='comment'><input type='hidden' value='"+action+"' name='_token'><button type='submit' class='btn btn-sm btn-outline-success'>Add Comment</button></form>";
+                        for (var i = 0; i < data.length; i++){
+                            modalComment += "<p class='font-weight-light'><strong>"+ data[i].user_name +"</strong> : "+ data[i].comment + "    ";
+                            if(hasalreadylike){
+                                modalComment += ""+ data[i].nbr_likes +"<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'>"
+                            }else{
+                                console.log(data[0].id_comment);
+                                modalComment += "<a href='/activities/comment/like/"+data[i].id_comment+"'><button type='button' class='btn btn-xs btn-outline-secondary' style='padding: 5px 10px; font-size: 10px; border-radius: 2px;'><img src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' alt='' height='10%' width='10%'>"+numberlike+"</button></button></a>"
+                            }
+                            if(perms === 1){
+                                modalComment += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
+                            }else if(perms === 2){
+                                modalComment += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Report</button></a>";
+                            }
+                            modalComment += "</p>";
+                        }
+                        if(perms === 1){
+                            modalComment += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Delete</button></a>";
+                        }else if(perms ===2){
+                            modalComment += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Report</button></a>";
+                        }
                         modalComment += "</span></div></div>";
-                        for (var i = 0; i < data.length; i++)
-                            modalComment += "<p>" + data[i].comment + "</p>";
                         modalComment += "</div></div></div></div></div></div>";
                         $('body').append(modalComment).fadeIn(2500);
                     },
