@@ -29,76 +29,7 @@
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<script>
 
-	function surligne(champ, erreur)
-	{
-		if(erreur)
-			champ.style.backgroundColor = "#fba";
-		else
-			champ.style.backgroundColor = "";
-	}
-
-
-	function verifName(champ)
-	{
-			if(champ.value.length < 2 || champ.value.length > 25)
-			{
-				surligne(champ, true);
-				return false;
-			}
-			else
-			{
-				surligne(champ, false);
-				return true;
-			} 
-		}
-
-		function verifDescription(champ)
-		{
-			if(champ.value.length < 2 || champ.value.length > 225)
-			{
-				surligne(champ, true);
-				return false;
-			}
-			else
-			{
-				surligne(champ, false);
-				return true;
-			}
-		}
-
-		function verifNumber(champ)
-		{
-			
-			var number = parseInt(champ.value);
-			if(isNaN(number) || number < 1 || number > 100)
-			{
-				surligne(champ, true);
-				return false;
-			}
-			else
-			{
-				surligne(champ, false);
-				return true;
-			}
-		}
-
-		function verifForm(f)
-		{
-			var nameOk = verifName(f.name);
-			var descriptionOk = verifDescription(f.description);
-			var numberOk = verifNumber(f.number);
-
-			if(nameOk && descriptionOk && numberOk)
-				return true;
-			else
-			{
-				alert("Veuillez remplir correctement tous les champs");
-				return false;
-			}
-		}
-	</script>
 @endforeach
 
 @endsection
