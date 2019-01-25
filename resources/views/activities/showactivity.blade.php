@@ -26,6 +26,59 @@
         <div class="container">
             <div class="row">
                 @foreach($images_activity as $key => $images_activity)
+                	<div class="card-body">
+                                    @if($data[0]->recursivity == '0')
+                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
+                                    @endif
+                                    @if($data[0]->recursivity == '1')
+                                    <?php
+                                    $date1 = strtotime($data[0]->date);
+                                    $date2 = time();
+
+                                    $datediff = $date2 - $date1;
+                                    $days_diff = round($datediff / (60 * 60 * 24));
+                                    if($days_diff < 0){
+
+                                      
+
+                                    }
+                                    ?>
+                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
+                                    @endif
+
+                                    @if($data[0]->recursivity == '2')
+                                    <?php
+
+                                    ?>
+                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
+                                    @endif
+
+                                    @if($data[0]->recursivity == '3')
+                                    <?php
+
+                                    ?>
+                                    <p class="card-footer">Date : {{$data[0]->date}} </p>
+                                    @endif
+
+
+                                    <p class="card-footer">Description : {{$data[0]->description}} </p>
+
+
+                                    @if($data[0]->recursivity == '1')
+                                    <p class="card-footer">Recursivity Weekly</p>
+                                    @endif
+                                    @if($data[0]->recursivity == '2')
+                                    <p class="card-footer">Recursivity Monthly</p>
+                                    @endif
+                                    @if($data[0]->recursivity == '3')
+                                    <p class="card-footer">Recursivity Annual</p>
+                                    @endif
+                                    @if($permission == '2' || $permission == '1')
+                                      <div class="btn-group">
+                      										<a href ="\activities\download_users\{{ $data[0]->id_activity}}"><button type="button" class="btn btn-sm btn-outline-secondary">Download Users List</button></a>
+                                      </div>
+                                    @endif
+                                  </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 carouselGallery-carousel"
                      data-title="{{$data[0]->name}}"
                      data-imagetext=""
@@ -49,6 +102,8 @@
                 <hr>
                 @endforeach
             </div>
+
+
             <div class='card'>
                 <div class='card-block'>
                     <form action="{{ url('/activities')}}/{{$data[0]->id_activity}}" method="post"
@@ -71,4 +126,3 @@
 @section('script')
     <script src="{{asset('js/displayComment.js')}}"></script>
 @endsection
-

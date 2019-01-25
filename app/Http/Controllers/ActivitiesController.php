@@ -10,6 +10,9 @@ use DB;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Input;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
+
 
 class ActivitiesController extends Controller
 {
@@ -24,10 +27,47 @@ class ActivitiesController extends Controller
 
     }
 
-    public function showActivity($id)
+    public function DownloadUsers($id)
     {
+				$user = array();
+			  $data = DB::table('activities')->where('id_activity', $id)->get();
+
+				$headers = [
+		            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
+		        ,   'Content-type'        => 'text/csv'
+		        ,   'Content-Disposition' => 'attachment; filename=users_activity.csv'
+		        ,   'Expires'             => '0'
+		        ,   'Pragma'              => 'public'
+		    ];
+
+				$current_value = $data[0]->users_registered;
+				$tab = explode(';',$current_value);
+				for($i = 0; $i < count($tab)-1; $i++){
+					$data_user = DB::table('users')->where('id', $tab[$i])->get();
+					$user[$i] = $data_user[0]->last_name.' '.$data_user[0]->first_name;
+				}
+
+			   $callback = function() use ($user)
+			    {
+			        $FH = fopen('php://output', 'w');
+
+							for($i = 0; $i < count($user); $i++){
+								fputcsv($FH, array($user[$i]));
+							}
+
+			        fclose($FH);
+			    };
+
+					 return (new StreamedResponse($callback, 200, $headers))->sendContent();
+    }
+
+		public function showActivity($id)
+    {
+			if (Auth::user()!=null){
+				$permission = Auth::user()->permissions;
+			}
         $data = DB::table('activities')->where('id_activity', $id)->get();
-        return view('activities.showactivity', compact('data'));
+        return view('activities.showactivity', compact('data', 'permission'));
     }
 
 		public function AddPicture($id)

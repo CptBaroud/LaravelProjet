@@ -12,6 +12,8 @@ class Users extends Model implements Authenticatable
     use BasicAuthenticatable;
     use Notifiable;
 
+    protected $table = 'users';
+    public $primaryKey = 'id';
     protected $fillable = ['email', 'password'];
 
     /**

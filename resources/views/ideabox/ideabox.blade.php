@@ -70,6 +70,9 @@
 
 
 											<a href ="idea_box\report\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Report</button></a>
+
+											<a href ="\ideas_box\download_users\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Download Users List</button></a>
+
 											@endif
 
 											@if($permission == '1')
@@ -86,6 +89,9 @@
 											<a href ="idea_box\save\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Save</button></a>
 
 											<a href="idea_box\delete\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+
+											<a href ="\idea_box\download_users\{{ $data->id_idea}}"><button type="button" class="btn btn-sm btn-outline-secondary">Download Users List</button></a>
+
 											@endif
 
 										</div>

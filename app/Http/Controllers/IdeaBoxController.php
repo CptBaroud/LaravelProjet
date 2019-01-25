@@ -11,6 +11,7 @@ use App\Forms\IdeaForm;
 use DB;
 use Auth;
 use File;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Support\Facades\Input;
 
 class IdeaBoxController extends Controller{
@@ -22,6 +23,41 @@ class IdeaBoxController extends Controller{
 		$data = DB::table('ideas_box')->get();
 
 		return view('ideabox.ideabox', compact('permission', 'data'));
+	}
+
+	public function DownloadUsers($id)
+	{
+		$user = array();
+
+			$data = DB::table('ideas_box')->where('id_idea', $id)->get();
+
+			$headers = [
+							'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
+					,   'Content-type'        => 'text/csv'
+					,   'Content-Disposition' => 'attachment; filename=users_ideas_box.csv'
+					,   'Expires'             => '0'
+					,   'Pragma'              => 'public'
+			];
+
+			$current_value = $data[0]->likes;
+			$tab = explode(';',$current_value);
+			for($i = 0; $i < count($tab)-1; $i++){
+				$data_user = DB::table('users')->where('id', $tab[$i])->get();
+				$user[$i] = $data_user[0]->last_name.' '.$data_user[0]->first_name;
+			}
+
+			 $callback = function() use ($user)
+				{
+						$FH = fopen('php://output', 'w');
+
+						for($i = 0; $i < count($user); $i++){
+							fputcsv($FH, array($user[$i]));
+						}
+
+						fclose($FH);
+				};
+
+				 return (new StreamedResponse($callback, 200, $headers))->sendContent();
 	}
 
 	public function Form(FormBuilder $FormBuilder){

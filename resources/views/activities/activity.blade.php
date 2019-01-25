@@ -22,7 +22,7 @@
                             ->select('url_image')
                             ->get();
 
-                            $ok = false;
+                            $has_liked = false;
                             $tab = array();
                             $id_user = Auth::id();
                             $activity = DB::table('activities')->where('id_activity', $data->id_activity)->get();
@@ -30,7 +30,7 @@
                             $tab = explode(';', $current_value);
                             for ($i = 0; $i < count($tab) - 1; $i++) {
                             if ($tab[$i] === $id_user) {
-                            $ok = true;
+                            $has_liked = true;
                             }
                             }
                             $likes = count($tab) - 1;
@@ -70,4 +70,3 @@
 @section('script')
     <script src="{{asset('js/displayphoto.js')}}"></script>
 @endsection
-

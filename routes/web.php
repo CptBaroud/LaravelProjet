@@ -1,12 +1,13 @@
 <?php
 
 Route::get('/', array('as' => 'index', 'uses' => 'IndexController@index'));
-Route::get('/legalmention', array('as' => 'index', 'uses' => 'legalmention@index'));
-Route::get('/purchasemention', array('as' => 'index', 'uses' => 'legalmention@mention'));
 
 Route::get('/admin', 'AdminController@index');
-Route::get('/admin/delete/{id}', array('as' => 'admin_delete', 'uses' => 'AdminController@Delete'));
-Route::post('/admin/save/{id}', array('as' => 'admin_save', 'uses' => 'AdminController@Save'));
+Route::get('/admin/get_datatable', array('as' => 'admin_getdatable', 'uses' => 'AdminController@get_Datatable'));
+Route::get('/admin/removedata', array('as' => 'admin_remove', 'uses' => 'AdminController@removedata'));
+Route::get('/admin/fetchdata', array('as' => 'admin_fetchdata', 'uses' => 'AdminController@fetchdata'));
+Route::post('/admin/postdata', array('as' => 'admin_postdata', 'uses' => 'AdminController@postdata'));
+
 
 Route::post('/idea_box/create', array('as' => 'idea_box_create', 'uses' => 'IdeaBoxController@Create'));
 Route::get('/idea_box/create', array('as' => 'idea_box_Form', 'uses' => 'IdeaBoxController@Form'));
@@ -21,6 +22,9 @@ Route::get('/idea_box/save/{id}', array('as' => 'idea_box_Save', 'uses' => 'Idea
 Route::post('/idea_box/savetodb/{id}', array('as' => 'idea_box_Savetodb', 'uses' => 'IdeaBoxController@Savetodb'));
 
 Route::get('/idea_box/like/{id}', array('as' => 'idea_box_update', 'uses' => 'IdeaBoxController@Like'));
+
+Route::get('/activities/download_users/{id}', array('as'=>'activitiesDownloadUsers', 'uses'=>'ActivitiesController@DownloadUsers'));
+Route::get('/idea_box/download_users/{id}', array('as' => 'idea_box_Download_Users', 'uses' => 'IdeaBoxController@DownloadUsers'));
 
 
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'ActivitiesController@store'));
