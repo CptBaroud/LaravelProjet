@@ -10,9 +10,9 @@
     <title>CESI BDE</title>
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('css/sticky-footer-navbar.css') !!}
+    {!! Html::style('css/business-frontpage.css') !!}
     {!! Html::style('css/style.css') !!}
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-
 
 </head>
 
@@ -228,6 +228,7 @@ integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqN
 crossorigin="anonymous"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
 
 @yield('script')
 </html>

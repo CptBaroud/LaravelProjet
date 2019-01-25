@@ -21,7 +21,7 @@ class RegistrationController extends Controller
 		$test = DB::table('users')->where('email', $email)->get();
 
 
-		if(!isset($test->id)){
+		if(!isset($test[0]->id)){
 			$Users = new \App\Users;
 			$Users->last_name = request('last_name');
 			$Users->first_name = request('first_name');
