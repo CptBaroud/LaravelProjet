@@ -35,11 +35,12 @@ jQuery(function($) {
         if ($('.carouselGallery-wrapper').length === 0) {
             if (typeof imagepath !== 'undefined') {
                 $.getJSON({
-                    url: 'http://127.0.0.1:3000/comments/id/' + id,
+                    url: 'http://127.0.0.1:3000/comments/images/' + id,
                     headers: {
                         TOKEN: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJncnZuIiwiZW1haWwiOiJndXJ2YW4uc2V2ZW5vQGdtYWlsLmNvbSIsImlhdCI6MTU0ODM3MTY5NX0.eZDR5KcDNGjkdIp5szD43ojc3buSDeTP9Lwbevp5R9Y"
                     },
                     success: function(data) {
+                        console.log(data);
                         modalComment = "<div class='carouselGallery-wrapper'>";
                         modalComment += "<div class='carouselGallery-modal'><span class='carouselGallery-left'><span class='icons icon-arrow-left6'></span></span><span class='carouselGallery-right'><span class='icons icon-arrow-right6'></span></span>";
                         modalComment += "<div class='container'>";
@@ -58,6 +59,8 @@ jQuery(function($) {
                         modalComment += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
                         modalComment += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
                         modalComment += "</span></div></div>";
+                        modalComment += "<form action='"+action+"/comment/images/"+id+"' method='post' enctype='multipart/form-data'><label for='comment'>Comment</label>";
+                        modalComment += "<input type='text' name='comment' id='comment'><button type='submit' class='btn btn-sm btn-outline-light'>Add Comment</button></form>";
                         for (var i = 0; i < data.length; i++)
                             modalComment += "<div><p>" + data[i].comment + "</p></div>";
                         modalComment += "</div></div></div>";
