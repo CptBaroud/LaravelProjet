@@ -1,37 +1,23 @@
 @extends('template')
 
 @section('content')
+<div class="login-page">
+  <div class="form">
+    <form action="/connection" method="post" class="login-form">
+      {{ csrf_field() }}
 
-<form action="/connection" method="post" class="section">
-       {{ csrf_field() }}
+      <label>E-mail</label>
+      <input placeholder="username" type="email" name="email" value="{{ old('email') }}"/>
 
-       <div>
-           <label>E-mail</label>
-           <div>
-               <input class="input" type="email" name="email" value="{{ old('email') }}">
-           </div>
-           @if($errors->has('email'))
-               <p class="help is-danger">{{ $errors->first('email') }}</p>
-           @endif
-       </div>
+      <label>Password</label>
+      <input  name="password" type="password" placeholder="password"/>
+      @if($errors->has('password'))
+      <p class="help is-danger">{{ $errors->first('password') }}</p>
+      @endif
 
-       <div>
-           <label>Password</label>
-           <div>
-               <input class="input" type="password" name="password">
-           </div>
-           @if($errors->has('password'))
-               <p class="help is-danger">{{ $errors->first('password') }}</p>
-           @endif
-       </div>
-
-       <br>
-
-       <div>
-           <div>
-               <button class="button is-link" type="submit">Login</button>
-           </div>
-       </div>
-   </form>
-
+      <button type="submit">login</button>
+      <p class="message">Not registered? <a href="/register">Create an account</a></p>
+    </form>
+  </div>
+</div>
 @endsection

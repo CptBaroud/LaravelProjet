@@ -18,6 +18,7 @@ if(isset($_GET['accept-cookies'])){
     {!! Html::style('css/sticky-footer-navbar.css') !!}
     {!! Html::style('css/business-frontpage.css') !!}
     {!! Html::style('css/style.css') !!}
+     {!! Html::style('css/login.css') !!}
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 </head>
@@ -239,6 +240,8 @@ if(isset($_GET['accept-cookies'])){
     </div>
 </footer>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
@@ -252,6 +255,7 @@ integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqN
 crossorigin="anonymous"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{asset('js/login.js')}}"></script>
 {!! Toastr::message() !!}
 
 @yield('script')

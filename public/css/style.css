@@ -188,8 +188,8 @@ footer > .font-weight-light {
 }
 .carouselGallery-scrollbox {
     display: block;
-// max-height - set by javascript
-overflow-x: hidden;
+    // max-height - set by javascript
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -231,7 +231,7 @@ overflow-x: hidden;
     height: 100%;
 }
 .carouselGallery-modal-text:hover { // ie10 transform glitch fix
-background-color: #fffffe;
+    background-color: #fffffe;
 }
 .carouselGallery-modal-image img{
     max-width: 100%;

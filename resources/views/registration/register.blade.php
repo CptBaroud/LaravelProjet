@@ -1,32 +1,28 @@
 @extends('template')
 @section('content')
+<div class="login-page">
+  <div class="form">
+    <form onsubmit="return verifFormRegister(this)" action="/register" method="post" class="login-form">
 
-<form onsubmit="return verifFormRegister(this)" action="/register" method="post" class="section">
- {{ csrf_field() }}
+     {{ csrf_field() }}
 
- <div>
-   <label>Last Name</label>
-   <div>
+     <label>Last Name</label>  
      <input class="input" type="text" name="last_name" onblur="checkNickName(this)">
-   </div>
-   @if($errors->has('last_name'))
-   <p class="help is-danger">{{ $errors->first('last_name') }}</p>
-   @endif
- </div>
+     @if($errors->has('last_name'))
+     <p class="help is-danger">{{ $errors->first('last_name') }}</p>
+     @endif
 
- <div>
-   <label>First Name</label>
-   <div>
+
+     
+     <label>First Name</label>
      <input class="input" type="text" name="first_name">
-   </div>
-   @if($errors->has('first_name'))
-   <p class="help is-danger">{{ $errors->first('first_name') }}</p>
-   @endif
- </div>
+     @if($errors->has('first_name'))
+     <p class="help is-danger">{{ $errors->first('first_name') }}</p>
+     @endif
+     
 
- <div>
-   <label>Location</label>
-   <div>
+
+     <label>Location</label>
      <select name="location">
       <option>Saint Nazaire</option>
       <option>Lille</option>
@@ -43,38 +39,32 @@
       <option>Nice</option>
       <option>Nancy</option>
       <option>Strasbourg</option>
-    </select>
-  </div>
-  @if($errors->has('location'))
-  <p class="help is-danger">{{ $errors->first('location') }}</p>
-  @endif
+    </select>   
+    @if($errors->has('location'))
+    <p class="help is-danger">{{ $errors->first('location') }}</p>
+    @endif
+
+    <br>
+    <label>E-mail</label>
+    <input class="input" onblur="checkMail(this)" type="email" name="email" value="{{ old('email') }}">
+    @if($errors->has('email'))
+    <p class="help is-danger">{{ $errors->first('email') }}</p>
+    @endif
+
+
+    <label>Password</label>
+    <input onblur="checkPswd(this)" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="input" type="password" name="password">
+    @if($errors->has('password'))
+    <p class="help is-danger">{{ $errors->first('password') }}</p>
+    @endif
+
+    <br>
+
+    <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the <a href="/legalmention"> Terms and Conditions and Privacy Policy</a>
+    <br>
+    <button type="submit">Sign in</button>
+  </form>
+</div>
 </div>
 
-<div>
- <label>E-mail</label>
- <div>
-   <input class="input" onblur="checkMail(this)" type="email" name="email" value="{{ old('email') }}">
- </div>
- @if($errors->has('email'))
- <p class="help is-danger">{{ $errors->first('email') }}</p>
- @endif
-</div>
-
-<div>
- <label>Password</label>
- <div>
-  <input onblur="checkPswd(this)" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="input" type="password" name="password">
-</div>
-@if($errors->has('password'))
-<p class="help is-danger">{{ $errors->first('password') }}</p>
-@endif
-</div>
-<br>
-<div>
-  <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the <a href="/legalmention"> Terms and Conditions and Privacy Policy</a>
-</div>
-<div>
-  <button class="button is-link" type="submit">Sign in</button>
-</div>
-</form>
 @endsection
