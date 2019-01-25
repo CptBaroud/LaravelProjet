@@ -1,50 +1,43 @@
 @extends('template')
 
 @section('content')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<div>
 
-
-<div class="form-group">
-  <input type="text" name="product_name" id="product_name" class="form-control input-lg" placeholder="Enter a product" />
-  <div id="productList">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Shop</h1>
+      <p class="lead text-muted">In this section, you'll be able to see all the different product that has been proposed to our students.</p>
+    </div>
+    <a href= '/shop/create'> <button type="button" class="btn btn-dark">Add a product</button></a>
+    <p><br></p>
+    <div class="form-group" my-2 my-lg-0>
+      <input type="text" name="product_name" id="product_name" class="form-control input-lg" placeholder="Enter a product" />
+      <div id="productList">
+      </div>
+    </div>
+    {{ csrf_field() }}
   </div>
-</div>
-{{ csrf_field() }}
-</div>
-</div>
-<div id="contenu">
+</section>
 
-  <div id="wrapper"></div>
-  <div id="barre_boutons_admin">
-    <p>
-      <br>
-    </p>
-    <a href='/shop/create'>
-      <div class="bouton_admin">
-      Ajouter un article </div>
-    </a>
-    <a href='/shop/PriceFilterDesc'>
-      <div class="bouton_admin">
-      filtre prix desc </div>
-    </a>
-    <a href='/shop/PriceFilterAsc'>
-      <div class="bouton_admin">
-      filtre prix asc </div>
-    </a>
-  </div>
-</div>
 <div class="container">
 
   <div class="row">
 
     <div class="col-lg-3">
-
-      <h1 class="my-4">Shop</h1>
-      @foreach($category as $key => $category)
+      <p><br></p>
+            @foreach($category as $key => $category)
       <div class="list-group">
         <a href="/shop/category/{{ $category->id_category}}" class="list-group-item">{{$category->category_name}}</a>
       </div>
       @endforeach
+      <div>
+      <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</a>
+      <div class="dropdown-menu" aria-labelledby="dropdown01">
+        <a class="dropdown-item" href="/shop/PriceFilterDesc">Forward price by price</a>
+        <a class="dropdown-item" href="/shop/PriceFilterAsc">Backward sort by price</a>
+      </div>
+     </div>
+
     </div>
     <div class="col-lg-9">
 
@@ -56,13 +49,13 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <div class="carousel-item active">
-            <img class="d-block img-fluid" src= "http://placehold.it/900x350" alt="First slide">
+            <img class="d-block img-fluid" src= "/images/1548253316.jpg" alt="First slide">
           </div>
           <div class="carousel-item">
-            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+            <img class="d-block img-fluid" src="/images/teeshirt_caroussel_shop.png" alt="Second slide">
           </div>
           <div class="carousel-item">
-            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+            <img class="d-block img-fluid" src="/images/polo_caroussel_shop.png" alt="Third slide">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -80,15 +73,16 @@
 
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-            <a href="\shop\achat\{{ $data->id_product}}"><img class="card-img-top" src= "/images/{{$data->url_image}}" alt=""></a>
+
+            <a href="\shop\achat\{{ $data->id_product}}"><img class="card-img-top" src= "/images/{{$data->url_image}}" height="250 px"
+                                         width="241 px" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="shop\Purchase\{{ $data->id_product}}">{{$data->product_name}}</a>
+                <a href="/basket\add\{{$data->id_product}}">{{$data->product_name}}</a>
               </h4>
               <h5>{{$data->price}} €</h5>
               <p class="card-text">{{$data->product_description}}</p>
               <div class="btn-group">
-                <a href="basket\add\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Add</button></a>
                 <a href="/shop\delete\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
                 <a href="/shop\edit\{{ $data->id_product}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
               </div>
@@ -112,31 +106,31 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script>
-    $(document).ready(function(){
+<script>
+  $(document).ready(function(){
 
-     $('#product_name').keyup(function(){ 
-      var query = $(this).val();
-      if(query != '')
-      {
-       var _token = $('input[name="_token"]').val();
-       $.ajax({
-        url:"{{ route('autocomplete.fetch') }}",
-        method:"POST",
-        data:{query:query, _token:_token},
-        success:function(data){
-         $('#productList').fadeIn();  
-         $('#productList').html(data);
-       }
-     });
+   $('#product_name').keyup(function(){ 
+    var query = $(this).val();
+    if(query != '')
+    {
+     var _token = $('input[name="_token"]').val();
+     $.ajax({
+      url:"{{ route('autocomplete.fetch') }}",
+      method:"POST",
+      data:{query:query, _token:_token},
+      success:function(data){
+       $('#productList').fadeIn();  
+       $('#productList').html(data);
      }
    });
+   }
+ });
 
-     $(document).on('click', 'li', function(){  
-      $('#product_name').val($(this).text());
-      $('#productList').fadeOut();  
-    });  
+   $(document).on('click', 'li', function(){  
+    $('#product_name').val($(this).text());
+    $('#productList').fadeOut();  
+  });  
 
-   });
- </script>
- @endsection
+ });
+</script>
+@endsection
