@@ -76,3 +76,7 @@ function surligne(champ, erreur)
 	else
 		champ.style.backgroundColor = "";
 }
+
+if($('.cookie-banner').length){
+	$('.cookie-banner').slideDown(800);
+}

@@ -1,3 +1,9 @@
+<?php
+if(isset($_GET['accept-cookies'])){
+    setcookie('accept-cookies','true', time() + 31556925);
+    header('Location: ./');
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -148,6 +154,18 @@
 
 <body>
     @yield('content')
+    <?php
+    if(!isset($_COOKIE['accept-cookies'])){
+        ?>
+        <div class='cookie-banner'>
+            <div class='container'>
+                <p> We use cookie on this website. By using this website, we'll assume you consent to <a href='/legalmention'>the cookies we set </a></p>
+                <a href='?accept-cookies' class='button-cookie'>Ok, continue</a>
+            </div>
+        </div>
+        <?php
+    }
+    ?>
 </body>
 
 <footer class="page-footer font-small stylish-color-dark pt-4">
@@ -204,6 +222,9 @@
                 <ul class="list-unstyled">
                     <li>
                         <a href="/legalmention" class="font-weight-light text-light">Legal mention</a>
+                    </li>
+                    <li>
+                        <a href="/purchasemention" class="font-weight-light text-light">Purchase General conditions</a>
                     </li>
                 </ul>
 

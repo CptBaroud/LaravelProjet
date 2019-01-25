@@ -12,4 +12,9 @@ class legalmention extends Controller
     	return view('legalmention.legalmention');
     }
 
+    public function mention(){
+
+    	return view('legalmention.purchasemention');
+    }
+
 }

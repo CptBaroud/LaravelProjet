@@ -49,7 +49,7 @@
 					and also, you could suggest some idea. If your idea get a lot of likes, it will be transfered to the activities section.</p>
 				</div>
 				<div class="card-footer">
-					<a href="/idea_box" class="btn btn-primary">Find Out More!</a>
+					<a href="/idea_box" class="btn btn-primary button">Find Out More!</a>
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 					on the past activities, registered yourself to the upcoming one, comment the pictures ect...</p>
 				</div>
 				<div class="card-footer">
-					<a href="/activities" class="btn btn-primary">Find Out More!</a>
+					<a href="/activities" class="btn btn-primary button">Find Out More!</a>
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 					<p class="card-text">In this section, you will be able to purchase some goodies from the BDE shop. </p>
 				</div>
 				<div class="card-footer">
-					<a href="/shop" class="btn btn-primary">Find Out More!</a>
+					<a href="/shop" class="btn btn-primary button">Find Out More!</a>
 				</div>
 			</div>
 		</div>

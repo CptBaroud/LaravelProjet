@@ -2,6 +2,7 @@
 
 Route::get('/', array('as' => 'index', 'uses' => 'IndexController@index'));
 Route::get('/legalmention', array('as' => 'index', 'uses' => 'legalmention@index'));
+Route::get('/purchasemention', array('as' => 'index', 'uses' => 'legalmention@mention'));
 
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/delete/{id}', array('as' => 'admin_delete', 'uses' => 'AdminController@Delete'));
