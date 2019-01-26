@@ -67,7 +67,7 @@ class ActivitiesController extends Controller
 				$permission = Auth::user()->permissions;
 			}
         $data = DB::table('activities')->where('id_activity', $id)->get();
-        return view('activities.showactivity', compact('data', 'permission'));
+       return view('activities.showActivity', compact('data'));
     }
 
 		public function AddPicture($id)
@@ -93,7 +93,7 @@ class ActivitiesController extends Controller
 		public function SendComment(Request $request, $id_image)
 		{
 			$id_user = Auth::id();
-			$user_name = Auth::user()->firs_tname.' '.Auth::user()->last_name;
+			$user_name = Auth::user()->first_tname.' '.Auth::user()->last_name;
 			$nbrlike = DB::table('comments_image')->get('nbr_likes');
 				DB::table('comments_image')->insert(array(
 					'comment'=> $request->comment,

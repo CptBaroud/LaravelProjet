@@ -27,6 +27,7 @@ jQuery(function ($) {
             description = that.data('description'),
             imagepath = that.data('imagepath'),
             price = that.data('price'),
+            perms = that.data('perms'),
             numberlike = that.data('numberlike'),
             hasalreadylike = that.data('hasalreadylike'),
             id = that.data('id'),
@@ -48,17 +49,19 @@ jQuery(function ($) {
                 modalIdea += "<span class='carouselGallery-modal-location'>" + price + "</span>";
                 modalIdea += "</span>";
                 modalIdea += "<span class='carouselGallery-modal-imagetext' style='overflow-y: auto'>";
-                modalIdea += "</br><p>Price " +  description + "</p>";
+                modalIdea += "</br><p>" +  description + "</p>";
                 if (hasalreadylike) {
                     modalIdea += "" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'>"
                 } else {
-                    console.log(data[0].id_comment);
-                    modalIdea += "<a href='/activities/comment/like/'><button type='button' class='btn btn-xs btn-outline-secondary' style='padding: 5px 10px; font-size: 10px; border-radius: 2px;'><img src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' alt='' height='10%' width='10%'>" + numberlike + "</button></button></a>"
+                    modalIdea += "<a href='/activities/comment/like/'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>"
+                }if(perms === 1){
+                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
+                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Save</button></a>";
+                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
+                } else if(perms === 2){
+                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Report</button></a>";
+
                 }
-                modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
-                modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Save</button></a>";
-                modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Report</button></a>";
-                modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
                 modalIdea += "</span></div></div>";
                 modalIdea += "</div></div></div></div></div></div>";
                 $('body').append(modalIdea).fadeIn(2500);

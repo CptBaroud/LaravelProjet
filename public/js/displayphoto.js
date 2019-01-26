@@ -69,12 +69,12 @@ jQuery(function($) {
                 modalHtml += "<span class='carouselGallery-modal-location'>" + price + "</span>";
                 modalHtml += "</br>";
                 modalHtml += "</span>";
-                modalHtml += "<span class='carouselGallery-modal-imagetext'>";
+                modalHtml += "<span class='carouselGallery-modal-imagetext' style=' overflow-y: auto'>";
                 modalHtml += "<p>" + imagetext + "</p>";
                 modalHtml += "<p> Like : "+ numberlike +" </p>";
                 modalHtml += "</br>";
                 modalHtml += "</br>";
-                modalHtml += "<a href='activities\\"+id+"'><button type='button' class='btn btn-sm btn-outline-success'>See more</button></a>";
+                modalHtml += "<a href='activities/"+id+"'><button type='button' class='btn btn-sm btn-outline-success'>See more</button></a>";
                 modalHtml += "</br>";
                 modalHtml += "</br>";
                 if(hasalreadylike){

@@ -48,6 +48,7 @@
                              data-action="{{url('/activities')}}"
                              data-numberlike="{{$likes}}"
                              data-hasalreadylike="{{$ok}}"
+                             data-perms="2"
                              data-imagepath="images/{{$image[0]->url_image}}"
                              data-posturl="">
                             <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
