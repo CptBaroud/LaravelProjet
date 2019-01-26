@@ -40,6 +40,7 @@
                         ?>
                         <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 carouselGallery-carousel"
                              data-index="0"
+                             data-id="{{$data->id_idea}}"
                              data-title="{{$data->name}}"
                              data-description="{{$data->description}}"
                              data-date="Date : {{$data->creation_date}}"
@@ -48,7 +49,7 @@
                              data-action="{{url('/activities')}}"
                              data-numberlike="{{$likes}}"
                              data-hasalreadylike="{{$ok}}"
-                             data-perms="2"
+                             data-perms="{{$permission}}"
                              data-imagepath="images/{{$image[0]->url_image}}"
                              data-posturl="">
                             <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
@@ -72,5 +73,5 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('js/displayIdeaBox')}}"></script>
+    <script src="{{asset('js/displayIdeaBox.js')}}"></script>
 @endsection

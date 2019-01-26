@@ -193,7 +193,7 @@ class IdeaBoxController extends Controller{
 
 		DB::table('ideas_box')->where('id_idea',$id)->delete();
 
-		return redirect('/idea_box');
+		return back();
 
 	}
 

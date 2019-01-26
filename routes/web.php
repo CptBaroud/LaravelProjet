@@ -33,7 +33,7 @@ Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesControlle
 Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'ActivitiesController@Delete'));
 Route::get('/activities/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesController@showActivity']);
 Route::post('/activities/{id}', ['as'=>'activitiesImage', 'uses'=>'ActivitiesController@AddPicture']);
-Route::get('/activities/like/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesController@Like']);
+Route::get('/activities/like/{id}', ['as'=>'LikeActivity', 'uses'=>'ActivitiesController@Like']);
 Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@showComments']);
 Route::get('/activities/comment/delete/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@DeleteComment']);
 Route::get('/activities/comment/like/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@LikeComment']);
@@ -67,6 +67,11 @@ Route::get('/shop/PriceFilterAsc', array('as' => 'shop_Price_fitler_Asc', 'uses'
 Route::get('/autocomplete', 'shopController@index');
 Route::post('/autocomplete/fetch', 'shopController@fetch')->name('autocomplete.fetch');
 Route::get('/shop/request/{product_name}', 'shopController@display');
+
+Route::get('/dlpicture', array('as' => 'dlpicture', 'uses' => 'dlpicture@Download'));
+
+Route::get('/legalmention', array('as' => 'legalmention', 'uses' => 'legalmention@index'));
+Route::get('/purchasemention', array('as' => 'vendormention', 'uses' => 'legalmention@mention'));
 
 Route::get('/basket', array('as' => 'Basket', 'uses' => 'BasketController@Index'));
 Route::get('/basket/delete', array('as' => 'Basket', 'uses' => 'BasketController@Delete'));

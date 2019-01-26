@@ -53,13 +53,13 @@ jQuery(function ($) {
                 if (hasalreadylike) {
                     modalIdea += "" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'>"
                 } else {
-                    modalIdea += "<a href='/activities/comment/like/'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>"
-                }if(perms === 1){
-                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
-                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Save</button></a>";
-                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
+                    modalIdea += "<a href='/idea_box/comment/like/'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>"
+                }if(perms ===  1){
+                    modalIdea += "<a href='idea_box\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
+                    modalIdea += "<a href='idea_box\\save\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Save</button></a>";
+                    modalIdea += "<a href='idea_box\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
                 } else if(perms === 2){
-                    modalIdea += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Report</button></a>";
+                    modalIdea += "<a href='idea_box\\report\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Report</button></a>";
 
                 }
                 modalIdea += "</span></div></div>";

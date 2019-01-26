@@ -18,7 +18,7 @@ if(isset($_GET['accept-cookies'])){
     {!! Html::style('css/sticky-footer-navbar.css') !!}
     {!! Html::style('css/business-frontpage.css') !!}
     {!! Html::style('css/style.css') !!}
-     {!! Html::style('css/login.css') !!}
+    {!! Html::style('css/login.css') !!}
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 </head>
@@ -226,6 +226,9 @@ if(isset($_GET['accept-cookies'])){
                     </li>
                     <li>
                         <a href="/purchasemention" class="font-weight-light text-light">Purchase General conditions</a>
+                    </li>
+                    <li>
+                        <a href="/dlpicture" class="font-weight-light text-light">Download all pictures from website</a>
                     </li>
                 </ul>
 
