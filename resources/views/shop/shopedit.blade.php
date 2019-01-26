@@ -3,7 +3,7 @@
 @section('content')
 <br>
 @foreach($data as $key => $data)
-<form action="{{ url('/shop/update')}}/{{$data->id_product}}" method="post" role="form" onsubmit="return verifForm(this)">
+<form action="{{ url('/shop/update')}}/{{$data->id_product}}" method="post" role="form" enctype="multipart/form-data" onsubmit="return verifForm(this)">
 	@csrf
 	<div class="form-group">
 		<label for="Name">Name</label>
@@ -18,7 +18,7 @@
 		<img src="{{ url('/images')}}/{{$data->url_image}}" width="10%" height="10%" border="0" />
 	</div>
 	<div class="form-group">
-		<label  for="Picture">Change Picture</label>
+		<label  for="file">Change Picture</label>
 		<input type="file" name="file" class="form-control">
 	</div>
 	<div class="form-group">

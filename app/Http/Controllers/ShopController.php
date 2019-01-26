@@ -38,8 +38,8 @@ class ShopController extends Controller
           'password' => 'Please Log In'
 
         ]);
-    
-} 
+
+}
   else {
       return view('shop.createItems', compact('Itemform'));
     }
@@ -60,9 +60,9 @@ class ShopController extends Controller
                                         ->where('category_name','=', $_POST['Category_name'])
                                         ->get();
 
-   
 
-      if ($reponse == '[]') {  
+
+      if ($reponse == '[]') {
         DB::table('categories')->insert(array('category_name' => $_POST['Category_name']));
          $id = DB::getPdo()->lastInsertId();;
          echo "<script>console.log( 'Debug Objects: " . $reponse . "' );</script>";
@@ -70,20 +70,20 @@ class ShopController extends Controller
         DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$id));
 
         $id = DB::getPdo()->lastInsertId();;
-        
+
         DB::table('product')->where('id_product',$id)->update(['url_image' => $imageName]);
 
-      }else { 
+      }else {
         $idCategory = DB::table('categories')->select('id_category')
                                              ->where('category_name','=', $_POST['Category_name'])
                                              ->get();
         $idCategory = substr($idCategory, 16, -2);
         DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$idCategory));
         $id = DB::getPdo()->lastInsertId();;
-        
+
         DB::table('product')->where('id_product',$id)->update(['url_image' => $imageName]);
 
-      } 
+      }
       return redirect('/shop');
 
     }
@@ -98,21 +98,17 @@ class ShopController extends Controller
   }
 
   public function Update(Request $request, $id){
-
+    $save = $id;
     $user = new file;
-          if(Input::hasFile('file')){
-            $file = Input::file('file');
-            $file->move(public_path(). '/images', $file->getClientOriginalName());
-            $user->title = $file->getClientOriginalName();
-            $id = DB::getPdo()->lastInsertId();
-            DB::table('product')->where('url_image', $request->url_image)->update(array(
-              'url_image'=>$user->title
-            ));
-          }
-    DB::table('product')
-    ->where('id_product',$id)
-    ->update(['product_name' => $request->name, 'product_description' => $request->description,'price' => $request->number]);
-
+    if(Input::hasFile('file')){
+      $file = Input::file('file');
+      $file->move(public_path(). '/images', $file->getClientOriginalName());
+      $user->title = $file->getClientOriginalName();
+      $id = DB::getPdo()->lastInsertId();
+      DB::table('product')->where('id_product', $save)->update(array(
+        'url_image'=>$user->title
+      ));
+    }
 
     return redirect('/shop');
   }
@@ -174,7 +170,7 @@ class ShopController extends Controller
       }
       $output .= '</ul>';
       print $output;
-    
+
 
      }
   }
@@ -186,5 +182,5 @@ public function display($product_name)
                                        ->get();
     return view('shop.shop', compact('data','category'));
   }
-  
+
 }
