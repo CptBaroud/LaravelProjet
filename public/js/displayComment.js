@@ -83,7 +83,7 @@ jQuery(function ($) {
                                 }
                                 modalComment += "</br>";
                                 if (perms === 1) {
-                                    modalComment += "<a href='\\activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Delete</button></a>";
+                                    modalComment += "<a href='\\activities\\image\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Delete</button></a>";
                                 } else if (perms === 2) {
                                     modalComment += "<a href='\\activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Report</button></a>";
                                 }
