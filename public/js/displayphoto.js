@@ -78,7 +78,7 @@ jQuery(function($) {
                 modalHtml += "</br>";
                 modalHtml += "</br>";
                 if(hasalreadylike){
-                    modalHtml += "<button type='button' class='btn btn-sm btn-outline-success'>Liked</button>";
+                    modalHtml += "<a href='/activities/unlike/" + id + "'>"  + "<button type='button' class='btn btn-sm btn-outline-success'>Liked</button></a>"
                 }else{
                     modalHtml += "<a href='activities\\like\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Like</button></a>";
                 }if(perms === 1){

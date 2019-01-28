@@ -36,12 +36,50 @@
                             $likes = count($tab) - 1;
                             ?>
 
+                            @if($activity[0]->recursivity == '1')
+                                <?php
+                                $date1 = new DateTime($activity[0]->date);
+
+                                $date2 = new DateTime(date('Y-m-d'));
+
+                                while($date2->getTimestamp() - $date1->getTimestamp() > 0){
+                                  $date1->modify('+1 week');
+
+                                }
+                                ?>
+                            @endif
+
+                            @if($activity[0]->recursivity == '2')
+                                <?php
+                                $date1 = new DateTime($activity[0]->date);
+
+                                $date2 = new DateTime(date('Y-m-d'));
+
+                                while($date2->getTimestamp() - $date1->getTimestamp() > 0){
+                                  $date1->modify('+1 month');
+
+                                }
+                                ?>
+                            @endif
+                            @if($activity[0]->recursivity == '3')
+                                <?php
+                                $date1 = new DateTime($activity[0]->date);
+
+                                $date2 = new DateTime(date('Y-m-d'));
+
+                                while($date2->getTimestamp() - $date1->getTimestamp() > 0){
+                                  $date1->modify('+1 year');
+
+                                }
+
+                                ?>
+                            @endif
 
                             <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 carouselGallery-carousel"
                                  data-index="0"
                                  data-username="{{$data->name}}"
                                  data-imagetext="{{$data->description}}"
-                                 data-location="Date : {{$data->date}}"
+                                 data-location="Date : {{$date1->format('Y-m-d')}}"
                                  data-price="Price : {{$data->price}}€"
                                  data-likes="1234"
                                  data-action="{{url('/activities')}}"
@@ -73,4 +111,3 @@
 @section('script')
     <script src="{{asset('js/displayphoto.js')}}"></script>
 @endsection
-

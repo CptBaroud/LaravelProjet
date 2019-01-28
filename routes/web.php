@@ -22,6 +22,7 @@ Route::get('/idea_box/save/{id}', array('as' => 'idea_box_Save', 'uses' => 'Idea
 Route::post('/idea_box/savetodb/{id}', array('as' => 'idea_box_Savetodb', 'uses' => 'IdeaBoxController@Savetodb'));
 
 Route::get('/idea_box/like/{id}', array('as' => 'idea_box_update', 'uses' => 'IdeaBoxController@Like'));
+Route::get('/idea_box/unlike/{id}', array('as' => 'idea_box_unlike', 'uses' => 'IdeaBoxController@UnLike'));
 
 Route::get('/activities/download_users/{id}', array('as'=>'activitiesDownloadUsers', 'uses'=>'ActivitiesController@DownloadUsers'));
 Route::get('/idea_box/download_users/{id}', array('as' => 'idea_box_Download_Users', 'uses' => 'IdeaBoxController@DownloadUsers'));
@@ -34,9 +35,11 @@ Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' =>
 Route::get('/activities/{id}', ['as'=>'showActivity', 'uses'=>'ActivitiesController@showActivity']);
 Route::post('/activities/{id}', ['as'=>'activitiesImage', 'uses'=>'ActivitiesController@AddPicture']);
 Route::get('/activities/like/{id}', ['as'=>'LikeActivity', 'uses'=>'ActivitiesController@Like']);
+Route::get('/activities/unlike/{id}', ['as'=>'UnLikeActivity', 'uses'=>'ActivitiesController@UnLike']);
 Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@showComments']);
 Route::get('/activities/comment/delete/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@DeleteComment']);
 Route::get('/activities/comment/like/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@LikeComment']);
+Route::get('/activities/comment/unlike/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@UnLikeComment']);
 Route::get('/activities/{id}/images/showComment/report/{id_comment}', ['as'=>'activitiesReport', 'uses'=>'ActivitiesController@Report']);
 Route::post('/activities/comment/images/{id_image}', ['as'=>'activitiesCommentSend', 'uses'=>'ActivitiesController@SendComment']);
 

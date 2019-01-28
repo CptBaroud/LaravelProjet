@@ -48,16 +48,45 @@
 
                         @if($data[0]->recursivity == '1')
                             <?php
-                            $date1 = strtotime($data[0]->date);
-                            $date2 = time();
+                            $date1 = new DateTime($data[0]->date);
 
-                            $datediff = $date2 - $date1;
-                            $days_diff = round($datediff / (60 * 60 * 24));
+                            $date2 = new DateTime(date('Y-m-d'));
+
+                            while($date2->getTimestamp() - $date1->getTimestamp() > 0){
+                              $date1->modify('+1 week');
+
+                            }
+                            ?>
+                        @endif
+
+                        @if($data[0]->recursivity == '2')
+                            <?php
+                            $date1 = new DateTime($data[0]->date);
+
+                            $date2 = new DateTime(date('Y-m-d'));
+
+                            while($date2->getTimestamp() - $date1->getTimestamp() > 0){
+                              $date1->modify('+1 month');
+
+                            }
+                            ?>
+                        @endif
+                        @if($data[0]->recursivity == '3')
+                            <?php
+                            $date1 = new DateTime($data[0]->date);
+
+                            $date2 = new DateTime(date('Y-m-d'));
+
+                            while($date2->getTimestamp() - $date1->getTimestamp() > 0){
+                              $date1->modify('+1 year');
+
+                            }
+
                             ?>
                         @endif
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 carouselGallery-carousel"
                          data-title="{{$data[0]->name}}"
-                         data-date="{{$data[0]->date}}"
+                         data-date="{{$date1->format('Y-m-d')}}"
                          data-id="{{$images_activity->id_image}}"
                          data-action="{{ csrf_token() }}"
                          data-numberlike="{{$likes}}"

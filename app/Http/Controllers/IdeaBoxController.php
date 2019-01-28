@@ -138,7 +138,10 @@ class IdeaBoxController extends Controller{
 			'price' => $request->number,
 			'id_image'=>$request->id_image,
 			'id'=>Auth::id(),
-			'date' => date("Y/m/d")]);
+			'date' => $request->date,
+			'recursivity' => $request->recursivity
+
+		]);
 
 
 
@@ -158,26 +161,31 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Like($id){
-		$ok = false;
-		$tab = array();
-		$id_user = Auth::id();
-			$idea = DB::table('ideas_box')->where('id_idea', $id)->get();
-			$current_value = $idea[0]->likes;
-			$tab = explode(';',$current_value);
-			for($i = 0; $i < count($tab)-1; $i++){
-				if($tab[$i] == $id_user) {
-					$ok = true;
-				}
-			}
 
-			if(!$ok){
+		$id_user = Auth::id();
+		$data = DB::table('ideas_box')->where('id_idea', $id)->get();
+		$current_value = $data[0]->likes;
 				DB::table('ideas_box')->where('id_idea', $id)->update(array(
 					'likes'=>$current_value.$id_user.';'
 				));
-			}
 
 		return back();
 	}
+
+	public function UnLike(Request $request, $id_idea)
+	{
+		$id_user = Auth::id();
+		$data =DB::table('ideas_box')->where('id_idea', $id_idea)->get();
+
+		$current_value_likes = str_replace($id_user.';',"",$data[0]->likes);
+				DB::table('ideas_box')->where('id_idea', $id_idea)->update(array(
+					'likes'=>$current_value_likes
+				));
+
+		return back();
+
+	}
+
 
 	public function Edit($id){
 		$data = DB::table('ideas_box')->

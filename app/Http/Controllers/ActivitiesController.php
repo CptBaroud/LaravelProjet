@@ -93,44 +93,53 @@ class ActivitiesController extends Controller
 		public function SendComment(Request $request, $id_image)
 		{
 			$id_user = Auth::id();
-			$user_name = Auth::user()->last_name;
+			$user_name = Auth::user()->first_name.' '.Auth::user()->last_name;
+
 				DB::table('comments_image')->insert(array(
 					'comment'=> $request->comment,
-					'users'=> $id_user,
+					'user'=> $id_user,
 					'user_name'=> $user_name,
-					'nbr_likes'=> 1  ,
+					'nbr_likes'=> 0,
 					'id_image'=>$id_image
 				));
+
+
 			return back();
+
 		}
 
 		public function DeleteComment(Request $request, $id_comment)
 		{
-			$id_user = Auth::id();
 				DB::table('comments_image')->where('id_comment', $id_comment)->delete();
 			return back();
-
 		}
 
 		public function LikeComment(Request $request, $id_comment)
 		{
-			$ok = false;
-			$tab = array();
 			$id_user = Auth::id();
-				$comment = DB::table('comments_image')->where('id_comment', $id_comment)->get();
-				$current_value = $comment[0]->likes;
-				$tab = explode(';',$current_value);
-				for($i = 0; $i < count($tab)-1; $i++){
-					if($tab[$i] == $id_user) {
-						$ok = true;
-					}
-				}
-
-				if(!$ok){
+			$data =DB::table('comments_image')->where('id_comment', $id_comment)->get();
+			$current_value_likes = $data[0]->likes;
+			$current_value_nbr_likes = $data[0]->nbr_likes;
 					DB::table('comments_image')->where('id_comment', $id_comment)->update(array(
-						'likes'=>$current_value.$id_user.';'
+						'likes'=>$current_value_likes.$id_user.';',
+						'nbr_likes' => $current_value_nbr_likes + 1
 					));
-				}
+
+			return back();
+
+		}
+
+		public function UnLikeComment(Request $request, $id_comment)
+		{
+			$id_user = Auth::id();
+			$data =DB::table('comments_image')->where('id_comment', $id_comment)->get();
+
+			$current_value_likes = str_replace($id_user.';',"",$data[0]->likes);
+			$current_value_nbr_likes = $data[0]->nbr_likes;
+					DB::table('comments_image')->where('id_comment', $id_comment)->update(array(
+						'likes'=>$current_value_likes,
+						'nbr_likes' => $current_value_nbr_likes - 1
+					));
 
 			return back();
 
@@ -178,6 +187,20 @@ class ActivitiesController extends Controller
 					}
 
 				return back();
+			}
+
+			public function UnLike(Request $request, $id)
+			{
+				$id_user = Auth::id();
+				$data =DB::table('activities')->where('id_activity', $id)->get();
+
+				$current_value_likes = str_replace($id_user.';',"",$data[0]->users_registered);
+						DB::table('activities')->where('id_activity', $id)->update(array(
+							'users_registered'=>$current_value_likes
+						));
+
+				return back();
+
 			}
 
 

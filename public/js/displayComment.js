@@ -62,12 +62,12 @@ jQuery(function ($) {
                                     modalComment += "<p class='font-weight-light'><strong>" + data[i].user_name + "</strong> : " + data[i].comment + "    ";
                                     if (perms === 1) {
                                         if (hasalreadylike) {
-                                            modalComment += "" + data[i].nbr_likes + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'>"
+                                            modalComment += "<a href='/activities/comment/unlike/" + data[0].id_comment + "'>" + data[i].nbr_likes + "<input type='image' id='image' alt='' src='https://pngimage.net/wp-content/uploads/2018/06/pouce-vert-png-2.png' height='8%' width='8%'></a>"
                                         } else {
                                             console.log(data[0].id_comment);
-                                            modalComment += "<a href='/activities/comment/like/"+data[0].id_comment+"'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>"
+                                            modalComment += "<a href='/activities/comment/like/" + data[0].id_comment + "'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>"
                                         }
-                                        modalComment += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
+                                        modalComment += "<a href='\\activities\\comment\\delete\\" + data[0].id_comment + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
                                     } else if (perms === 2) {
                                         if (hasalreadylike) {
                                             modalComment += "" + data[i].nbr_likes + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'>"
@@ -83,9 +83,9 @@ jQuery(function ($) {
                                 }
                                 modalComment += "</br>";
                                 if (perms === 1) {
-                                    modalComment += "<a href='activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Delete</button></a>";
+                                    modalComment += "<a href='\\activities\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Delete</button></a>";
                                 } else if (perms === 2) {
-                                    modalComment += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Report</button></a>";
+                                    modalComment += "<a href='\\activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Report</button></a>";
                                 }
                                 modalComment += "</span></div></div>";
                                 modalComment += "</div></div></div></div></div></div>";
