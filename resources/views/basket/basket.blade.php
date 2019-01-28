@@ -5,7 +5,7 @@ table{
 	border: 1px solid black;
 	border-collapse: collapse;
 	table-layout: fixed;
-	
+
 }
 
 th, td {
@@ -17,7 +17,7 @@ th, td {
 	tr th:nth-child(3),tr td:nth-child(3){
 
 		display:none;
-		
+
 	}
 	.checkout
 	{
@@ -86,7 +86,7 @@ th, td {
 												<td></td>
 												<td></td>
 												<td></td>
-												
+
 												<td><strong>Total</strong></td>
 												<td class="text-right"><strong>{{$price}} $ </strong></td>
 											</tr>
@@ -97,7 +97,7 @@ th, td {
 						</div>
 					</CENTER>
 				</div>
-				
+
 				<div class="col mb-2">
 					<div class="row">
 						<div class="col-sm-12  col-md-6">
@@ -108,8 +108,8 @@ th, td {
 						</div>
 					</div>
 				</div>
-				<div class="updateArea">		
-					<input href="/basket/delete" type="submit" value="Delete order" class="btn btn-success pull-right mr10">
+				<div class="updateArea">
+				<a href="/basket/delete">	<input type="button" value="Delete order" class="btn btn-success pull-right mr10"></a>
 				</div>
 			</div>
 

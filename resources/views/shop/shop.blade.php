@@ -74,8 +74,8 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
 
-            <a href="/basket\add\{{$data->id_product}}"><img class="card-img-top" src= "/images/{{$data->url_image}}" height="250 px"
-                                         width="241 px" alt=""></a>
+          <img class="card-img-top" src= "/images/{{$data->url_image}}" height="250 px"
+                                         width="241 px" alt="">
             <div class="card-body">
               <h4 class="card-title">
                 <a href="/basket\add\{{$data->id_product}}">{{$data->product_name}}</a>
@@ -83,6 +83,7 @@
               <h5>{{$data->price}} €</h5>
               <p class="card-text">{{$data->product_description}}</p>
               <div class="btn-group">
+                <a href="/basket\add\{{$data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Add</button></a>
                 <a href="/shop\delete\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
                 <a href="/shop\edit\{{ $data->id_product}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
               </div>
@@ -109,7 +110,7 @@
 <script>
   $(document).ready(function(){
 
-   $('#product_name').keyup(function(){ 
+   $('#product_name').keyup(function(){
     var query = $(this).val();
     if(query != '')
     {
@@ -119,17 +120,17 @@
       method:"POST",
       data:{query:query, _token:_token},
       success:function(data){
-       $('#productList').fadeIn();  
+       $('#productList').fadeIn();
        $('#productList').html(data);
      }
    });
    }
  });
 
-   $(document).on('click', 'li', function(){  
+   $(document).on('click', 'li', function(){
     $('#product_name').val($(this).text());
-    $('#productList').fadeOut();  
-  });  
+    $('#productList').fadeOut();
+  });
 
  });
 </script>
