@@ -5,12 +5,27 @@ table{
 	border: 1px solid black;
 	border-collapse: collapse;
 	table-layout: fixed;
-	width: 560px;  
+  
 }
 
 th, td {
 	border: 1px solid black;
 	word-break: break-all;
+}
+@media (max-width: 768px){
+
+	tr th:nth-child(3),tr td:nth-child(3){
+
+		display:none;
+		
+	}
+	.checkout
+{
+    float: right;
+}
+.updateArea
+{
+    float: left;
 }
 </style>
 <?php
@@ -27,103 +42,77 @@ th, td {
 	<section id="checkout">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-8">
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<div class="panel-title">
-								<div class="row">
-									<div class="col-xs-6">
-										<h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
-									</div>
-									<div class="col-xs-6">
-										<a href='/shop'><button type="button" class="btn btn-primary btn-sm btn-block">
-											<span class="glyphicon glyphicon-share-alt"></span> Continue shopping
-										</button></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-6">
-							<CENTER>
-								<div class="cart-info">
-									<table class="table table-striped table-bordered" width=60%  >
-										<tr>
-											<th width="19%" class="image">Image</th>
-											<th width="19%" class="name">Name</th>
-											<th width="33%"class="description" >Description</th>
-											<th width="17%" class="quantity">Quantity</th>
-											<th width="17%"class="price">Price</th>
+				<div class="col-xs-6">
+					<CENTER>
+						<div class="cart-info">
+							<table class="table table-striped table-bordered table-sm table-md table-lg" width=60%  >
+								<thead>
+									<tr>
+										<th width="11%" class="image">Image</th>
+										<th width="30%" class="name">Product Name</th>
+										<th width="34%"class="description" >Description</th>
+										<th width="15%" class="quantity">Quantity</th>
+										<th width="10%"class="price">Price</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php $price = 0;?>
+									<div class="row">
+										<div class="col-xs-6">
+											@foreach($data as $key => $data)
 
-										</tr>
-										<?php $price = 0;?>
-										<div class="row">
-											<div class="col-xs-6">
-												@foreach($data as $key => $data)
 
+											<?php
+											$value = Auth::id().';'.$data->id_product;
+											if (request()->session()->has($value)){
+												?>
+
+												<tr>
+													<td class="image"><img title="product" alt="product" src="images/{{$data->url_image}}" width="100%"></td>
+													<td class="name"><a href="#"><strong>{{$data->product_name}}</strong></a></td>
+													<td class="description"><small>{{$data->product_description}}</small></td>
+													<td class="quantity"><input type="text" onchange="changePrice(this)" name="{{$data->id_product}}" id="{{$data->id_product}}" class="form-control input-sm" value="{{request()->session()->get($value)}}"></td>
+													&nbsp;
+													<td class="price"><strong>{{$data->price}} <span class="text-muted">$</span></strong></td>
+												</tr>
 
 												<?php
-												$value = Auth::id().';'.$data->id_product;
-												if (request()->session()->has($value)){
-													?>
+												$price += $data->price * request()->session()->get($value);
 
-													<tr>
-														<td class="image"><span class="cartImage" alt="product" src="images/{{$data->url_image}}" ></span></td>
-														<td class="name"><a href="#"><strong>{{$data->product_name}}</strong></a></td>
-														<td class="description"><small>{{$data->product_description}}</small></td>
-														<td class="quantity"><input type="text" onchange="changePrice(this)" name="{{$data->id_product}}" id="{{$data->id_product}}" class="form-control input-sm" value="{{request()->session()->get($value)}}"></td>
-														&nbsp;
-														<td class="price"><strong>{{$data->price}} <span class="text-muted">$</span></strong></td>
-													</tr>
+											} ?>
 
-													<?php
-													$price += $data->price * request()->session()->get($value);
-
-												} ?>
-
-												@endforeach
-											</div>
+											@endforeach
 										</div>
-									</table>
-								</div>
-							</CENTER>
+									</div>
+								</tbody>
+							</table>
 						</div>
-						<hr>
-						<div class="row">
-							<div class="text-center">
-								<div class="col-xs-9">
-									<h6 class="text-right">Added items?</h6>
-								</div>
-								<div class="col-xs-3">
-									<button type="button" class="btn btn-default btn-sm btn-block">
-										Update cart
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div class="panel-footer">
-							<div class="row text-center">
-								<div class="col-xs-9">
-									<h4 class="text-right">Total <strong> {{$price}} $ </strong></h4>
-								</div>
-								<div class="col-xs-3">
-									<button type="button" class="btn btn-success btn-block">
-										Checkout
-									</button>
-									<a href="/basket/delete"><button type="button" class="btn btn-success btn-block">
-										Delete Orders
-									</button></a>
-									<a href='/shop/mail'><button type="button" class="btn btn-success btn-block">
-									PURCHASE</button></a>
-
-								</div>
+					</CENTER>
+				</div>
+				
+				<div class="row">
+					<div class="pull-right">
+						<div class="span4 pull-right">
+							<table align="right" class="table table-striped table-bordered " width="20%">
+								<tr>
+									<td><span class="extra bold">Total :</span></td>
+									<td><span class="bold"><strong> {{$price}} $ </strong></span></td>
+								</tr>
+							</table>
+							<div class="updateArea">		
+								<input href="/basket/delete" type="submit" value="Delete order" class="btn btn-success pull-right mr10">
+							
+								<a href="/shop/mail"  class="btn btn-primary btn-default">checkout<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
-	</section>
+	</div>
+</div>
+</section>
 </div>
 
 <script>

@@ -15,7 +15,7 @@ class ItemsForm extends Form
 
        $this
        		->add('Product name','text',[
-       			'rules'=> 'required|min:5'
+       			'rules'=> 'required|min:5|max:18'
        		])
 
        		->add('Product description','textarea',[

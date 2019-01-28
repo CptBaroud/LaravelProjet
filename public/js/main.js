@@ -138,3 +138,16 @@ function verifName(champ)
 				return false;
 			}
 		}
+		function verifNameShop(champ)
+	{
+			if(champ.value.length < 2 || champ.value.length > 18)
+			{
+				surligne(champ, true);
+				return false;
+			}
+			else
+			{
+				surligne(champ, false);
+				return true;
+			} 
+		}
