@@ -216,6 +216,16 @@ class ActivitiesController extends Controller
 
 			public function Delete($id){
 
+				$data_img = DB::table('image_activity')->select('id_image')->where('id_activity',$id)->get();
+
+				foreach ($data_img as $img) {
+
+					DB::table('comments_image')->where('id_image',$img->id_image)->delete();
+
+				}
+
+				DB::table('image_activity')->where('id_activity',$id)->delete();
+
 				DB::table('activities')->where('id_activity',$id)->delete();
 
 				return redirect('/activities');
@@ -233,6 +243,16 @@ class ActivitiesController extends Controller
 				return back()->withMessage('The comment has been reported');
 			}
 
+
+
+				public function DeleteImageActivity(Request $request, $id){
+
+					DB::table('comments_image')->where('id_image',$id)->delete();
+
+					DB::table('image_activity')->where('id_image',$id)->delete();
+
+					return back();
+				}
 
 				public function Update(Request $request, $id){
 
