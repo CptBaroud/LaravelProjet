@@ -71,16 +71,16 @@ jQuery(function($) {
                 modalHtml += "</span>";
                 modalHtml += "<span class='carouselGallery-modal-imagetext' style=' overflow-y: auto'>";
                 modalHtml += "<p>" + imagetext + "</p>";
-                modalHtml += "<p> Like : "+ numberlike +" </p>";
+                modalHtml += "<p> Number of registered : "+ numberlike +" </p>";
                 modalHtml += "</br>";
                 modalHtml += "</br>";
                 modalHtml += "<a href='activities/"+id+"'><button type='button' class='btn btn-sm btn-outline-success'>See more</button></a>";
                 modalHtml += "</br>";
                 modalHtml += "</br>";
                 if(hasalreadylike){
-                    modalHtml += "<a href='/activities/unlike/" + id + "'>"  + "<button type='button' class='btn btn-sm btn-outline-success'>Liked</button></a>"
+                    modalHtml += "<a href='/activities/unlike/" + id + "'>"  + "<button type='button' class='btn btn-sm btn-outline-success'>Registered</button></a>"
                 }else{
-                    modalHtml += "<a href='activities\\like\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Like</button></a>";
+                    modalHtml += "<a href='activities\\like\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Register</button></a>";
                 }if(perms === 1){
                     modalHtml += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
                     modalHtml += "<a href='activities\\delete\\"+ id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Delete</button></a>";
