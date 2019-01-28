@@ -82,6 +82,14 @@ th, td {
 											} ?>
 
 											@endforeach
+											<tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>{{$price}} $ </strong></td>
+                        </tr>
 										</div>
 									</div>
 								</tbody>
@@ -90,23 +98,19 @@ th, td {
 					</CENTER>
 				</div>
 				
-				<div class="row">
-					<div class="pull-right">
-						<div class="span4 pull-right">
-							<table align="right" class="table table-striped table-bordered " width="20%">
-								<tr>
-									<td><span class="extra bold">Total :</span></td>
-									<td><span class="bold"><strong> {{$price}} $ </strong></span></td>
-								</tr>
-							</table>
-							<div class="updateArea">		
+				<div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <a href="/shop"><button class="btn btn-block btn-light">Continue Shopping</button></a>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <a href="/shop/mail"><button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button></a>
+                </div>
+            </div>
+        </div>
+				<div class="updateArea">		
 								<input href="/basket/delete" type="submit" value="Delete order" class="btn btn-success pull-right mr10">
-							
-								<a href="/shop/mail"  class="btn btn-primary btn-default">checkout<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
 							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 
 		</div>

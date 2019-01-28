@@ -33,7 +33,7 @@
       <div>
       <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</a>
       <div class="dropdown-menu" aria-labelledby="dropdown01">
-        <a class="dropdown-item" href="/shop/PriceFilterDesc">Forward price by price</a>
+        <a class="dropdown-item" href="/shop/PriceFilterDesc">Forward sort by price</a>
         <a class="dropdown-item" href="/shop/PriceFilterAsc">Backward sort by price</a>
       </div>
      </div>
@@ -74,7 +74,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
 
-            <a href="\shop\achat\{{ $data->id_product}}"><img class="card-img-top" src= "/images/{{$data->url_image}}" height="250 px"
+            <a href="/basket\add\{{$data->id_product}}"><img class="card-img-top" src= "/images/{{$data->url_image}}" height="250 px"
                                          width="241 px" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">

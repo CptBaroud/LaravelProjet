@@ -26,11 +26,7 @@ class ShopController extends Controller
 
   public function Itemform(FormBuilder $formBuilder){
 
-    $Itemform = $formBuilder->create(ItemsForm::class, [
-      'data' => [
-        'admin' => true
-      ]
-    ]);
+    $Itemform = $formBuilder->create(ItemsForm::class);
 
 
     if(auth()->guest()) {
@@ -109,7 +105,9 @@ class ShopController extends Controller
         'url_image'=>$user->title
       ));
     }
-
+      DB::table('product')->where('id_product',$save)
+                          ->update(['product_name' => $request->name,'product_description' => $request->description,'price' => $request->number]);
+    
     return redirect('/shop');
   }
 
