@@ -15,13 +15,15 @@ class ShopController extends Controller
 {
 
   public function index(){
-
+    if (Auth::user()!=null){
+      $permission = Auth::user()->permissions;
+    }
     $data = DB::table('product')->orderBy('purchase_number','desc')
                                 ->take(3)
                                 ->get();
     $category = DB::table('categories')->orderBy('category_name', 'desc')
                                        ->get();
-    return view('shop.shop', compact('data','category'));
+    return view('shop.shop', compact('data','category', 'permission'));
   }
 
   public function Itemform(FormBuilder $formBuilder){
@@ -107,7 +109,7 @@ class ShopController extends Controller
     }
       DB::table('product')->where('id_product',$save)
                           ->update(['product_name' => $request->name,'product_description' => $request->description,'price' => $request->number]);
-    
+
     return redirect('/shop');
   }
 
@@ -125,14 +127,20 @@ class ShopController extends Controller
   }
 
   public function Category($id){
+    if (Auth::user()!=null){
+      $permission = Auth::user()->permissions;
+    }
     $data = DB::table('product')->where('id_category', '=', $id)
     ->get();
     $category = DB::table('categories')
     ->get();
 
-    return view('shop.shop', compact('data','category'));
+    return view('shop.shop', compact('data','category','permission'));
   }
   public function PriceFilterDesc(){
+    if (Auth::user()!=null){
+      $permission = Auth::user()->permissions;
+    }
     $data = DB::table('product')->orderBy('price', 'desc')
                                 ->get();
 
@@ -146,7 +154,7 @@ class ShopController extends Controller
 
     $category = DB::table('categories')->orderBy('category_name', 'desc')
                                        ->get();
-    return view('shop.shop', compact('data','category'));
+    return view('shop.shop', compact('data','category','permission'));
   }
 
  public function fetch(Request $request)
@@ -174,11 +182,14 @@ class ShopController extends Controller
   }
 public function display($product_name)
   {
+    if (Auth::user()!=null){
+      $permission = Auth::user()->permissions;
+    }
     $data = DB::table('product')->where('product_name',$product_name)
                                 ->get();
     $category = DB::table('categories')->orderBy('category_name', 'desc')
                                        ->get();
-    return view('shop.shop', compact('data','category'));
+    return view('shop.shop', compact('data','category', 'permission'));
   }
 
 }

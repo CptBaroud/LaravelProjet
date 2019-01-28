@@ -2,7 +2,7 @@
 
 @section('content')
 <div>
-
+@if($permission == '1')
   <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Shop</h1>
@@ -18,6 +18,7 @@
     {{ csrf_field() }}
   </div>
 </section>
+@endif
 
 <div class="container">
 
@@ -84,8 +85,10 @@
               <p class="card-text">{{$data->product_description}}</p>
               <div class="btn-group">
                 <a href="/basket\add\{{$data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Add</button></a>
+                @if($permission == '1')
                 <a href="/shop\delete\{{ $data->id_product}}"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
                 <a href="/shop\edit\{{ $data->id_product}}"> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                @endif
               </div>
             </div>
             <div class="card-footer">
