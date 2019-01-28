@@ -92,7 +92,7 @@
                          data-numberlike="{{$likes}}"
                          data-hasalreadylike="{{$ok}}"
                          data-ida="{{$data[0]->id_activity}}"
-                         data-perms="1"
+                         data-perms="{{$permission}}"
                          data-imagepath="/images/{{$images_activity->url_image}}">
                         <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
                             <img class="img-responsive"

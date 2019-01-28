@@ -18,6 +18,7 @@ class ConnectionController extends Controller
 	public function log_out(){
 
 		Auth::logout();
+		Toastr::success('You are disconnected', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return redirect('/');
 
 	}
@@ -37,7 +38,7 @@ class ConnectionController extends Controller
 		);
 
 		if(Auth::attempt($userdata)){
-
+			Toastr::success('You are connected', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 			return redirect('/');
 
 		} else {
@@ -45,10 +46,10 @@ class ConnectionController extends Controller
 			return back()->withInput()->withErrors([
 
 				'password' => 'Wrong Email or Password.'
+				Toastr::error('Wrong Email or Password', 'Error', ["positionClass" => "toast-top-center"]);
 
 			]);
 
 		}
-
 	}
 }

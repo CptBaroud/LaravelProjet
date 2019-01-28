@@ -63,6 +63,7 @@ class dlpicture extends Controller
 		header("Expires: 0"); 
 		readfile("$archive_file_name");
 		exit;
+		Toastr::success('Image downloaded', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return back();
 	}
 

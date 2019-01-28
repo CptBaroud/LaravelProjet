@@ -75,7 +75,7 @@ jQuery(function ($) {
                                             console.log(data[0].id_comment);
                                             modalComment += "<a href='/activities/comment/like/'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>"
                                         }
-                                        modalComment += "<a href='activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Report</button></a>";
+                                        modalComment += "<a href='\\activities\\" + id + "\\images\\showComment\\report\\"+ data[0].id_comment +"'> <button type='button' class='btn btn-sm btn-outline-secondary'>Report</button></a>";
                                     } else if(perms ===0){
                                         modalComment += "" + data[i].nbr_likes + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'>"
                                     }
@@ -85,7 +85,7 @@ jQuery(function ($) {
                                 if (perms === 1) {
                                     modalComment += "<a href='\\activities\\image\\delete\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Delete</button></a>";
                                 } else if (perms === 2) {
-                                    modalComment += "<a href='\\activities\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-primary'>Report</button></a>";
+                                    modalComment += "<a href='\\activities\\" + id + "\\images\\showComment\\report\\"+ data[0].id_comment +"'> <button type='button' class='btn btn-sm btn-outline-primary'>Report</button></a>";
                                 }
                                 modalComment += "</span></div></div>";
                                 modalComment += "</div></div></div></div></div></div>";

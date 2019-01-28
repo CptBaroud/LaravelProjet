@@ -1,16 +1,16 @@
-date/time         : 2019-01-23, 11:20:07, 30ms
+date/time         : 2019-01-28, 14:08:47, 388ms
 computer name     : DESKTOP-26BBMB6
 user name         : Fransosiche
 registered owner  : Utilisateur Windows
 operating system  : Windows NT New Tablet PC x64 build 9200
 system language   : French
-system up time    : 14 hours 26 minutes
+system up time    : 5 hours 30 minutes
 program up time   : 11 seconds
 processors        : 4x Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz
-physical memory   : 3518/8110 MB (free/total)
-free disk space   : (C:) 573,92 GB
+physical memory   : 3438/8110 MB (free/total)
+free disk space   : (C:) 570,69 GB
 display mode      : 1920x1080, 32 bit
-process id        : $22a0
+process id        : $34c0
 allocated memory  : 25,99 MB
 command line      : C:\wamp64\sendmail\sendmail.exe -t -i
 executable        : sendmail.exe
@@ -22,7 +22,7 @@ exception number  : 1
 exception class   : EIdConnectTimeout
 exception message : Connect timed out.
 
-main thread ($2864):
+main thread ($3ee8):
 0041fa42 +000e sendmail.exe IdException                    112   +1 EIdException.Toss
 0044092e +014e sendmail.exe IdIOHandlerStack               279  +38 DoConnectTimeout
 00440b4c +01d8 sendmail.exe IdIOHandlerStack               346  +55 TIdIOHandlerStack.ConnectClient
@@ -33,37 +33,37 @@ main thread ($2864):
 00445cc8 +00a4 sendmail.exe IdExplicitTLSClientServerBase  257  +23 TIdExplicitTLSClient.Connect
 0045ab7b +0017 sendmail.exe IdSMTP                         373   +2 TIdSMTP.Connect
 004b5f14 +1060 sendmail.exe sendmail                       808 +326 initialization
-75a58482 +0022 KERNEL32.DLL                                         BaseThreadInitThunk
+75008482 +0022 KERNEL32.DLL                                         BaseThreadInitThunk
 
-thread $32f8:
-75a58482 +22 KERNEL32.DLL  BaseThreadInitThunk
+thread $40a0:
+75008482 +22 KERNEL32.DLL  BaseThreadInitThunk
 
-thread $17f8:
-75a58482 +22 KERNEL32.DLL  BaseThreadInitThunk
+thread $4020:
+75008482 +22 KERNEL32.DLL  BaseThreadInitThunk
 
-thread $2d78:
-75a58482 +22 KERNEL32.DLL  BaseThreadInitThunk
+thread $145c:
+75008482 +22 KERNEL32.DLL  BaseThreadInitThunk
 
 stack dump:
 0019fcbc  47 fa 41 00 de fa ed 0e - 01 00 00 00 07 00 00 00  G.A.............
-0019fccc  d0 fc 19 00 47 fa 41 00 - a0 50 3b 02 34 b0 43 00  ....G.A..P;.4.C.
-0019fcdc  e8 b0 3c 02 54 fd 19 00 - 20 fd 19 00 ec fc 19 00  ..<.T...........
+0019fccc  d0 fc 19 00 47 fa 41 00 - a0 50 ad 00 34 b0 43 00  ....G.A..P..4.C.
+0019fcdc  a8 b0 ae 00 54 fd 19 00 - 20 fd 19 00 ec fc 19 00  ....T...........
 0019fcec  7d 00 00 00 00 00 00 00 - 33 09 44 00 04 fd 19 00  }.......3.D.....
 0019fcfc  c8 4b 40 00 20 fd 19 00 - 2c fd 19 00 c8 4b 40 00  .K@.....,....K@.
 0019fd0c  20 fd 19 00 4b 02 00 00 - 00 00 00 00 00 00 00 00  ....K...........
-0019fd1c  c0 9a 38 02 58 fd 19 00 - 51 0b 44 00 58 fd 19 00  ..8.X...Q.D.X...
+0019fd1c  c0 9a aa 00 58 fd 19 00 - 51 0b 44 00 58 fd 19 00  ....X...Q.D.X...
 0019fd2c  60 fd 19 00 c8 4b 40 00 - 58 fd 19 00 b4 4e 4b 00  `....K@.X....NK.
-0019fd3c  b0 f4 34 02 b0 f4 34 02 - 90 69 3a 02 00 00 00 00  ..4...4..i:.....
-0019fd4c  00 00 00 00 00 00 00 00 - b0 f4 34 02 74 fd 19 00  ..........4.t...
+0019fd3c  e0 67 a7 00 e0 67 a7 00 - 90 69 ac 00 00 00 00 00  .g...g...i......
+0019fd4c  00 00 00 00 00 00 00 00 - e0 67 a7 00 74 fd 19 00  .........g..t...
 0019fd5c  52 55 46 00 88 fd 19 00 - c8 4b 40 00 74 fd 19 00  RUF......K@.t...
-0019fd6c  b4 4e 4b 01 b0 f4 34 02 - bc fd 19 00 a5 4a 44 00  .NK...4......JD.
-0019fd7c  b0 f4 34 02 3c 56 46 00 - 83 15 44 00 94 fd 19 00  ..4.<VF...D.....
+0019fd6c  b4 4e 4b 01 e0 67 a7 00 - bc fd 19 00 a5 4a 44 00  .NK..g.......JD.
+0019fd7c  e0 67 a7 00 3c 56 46 00 - 83 15 44 00 94 fd 19 00  .g..<VF...D.....
 0019fd8c  5f 4d 40 00 bc fd 19 00 - e8 fd 19 00 c8 4b 40 00  _M@..........K@.
-0019fd9c  bc fd 19 00 b4 4e 4b 00 - b0 f4 34 02 50 f3 34 02  .....NK...4.P.4.
-0019fdac  12 57 46 00 b0 f4 34 02 - 00 00 00 00 50 f3 34 02  .WF...4.....P.4.
+0019fd9c  bc fd 19 00 b4 4e 4b 00 - e0 67 a7 00 80 66 a7 00  .....NK..g...f..
+0019fdac  12 57 46 00 e0 67 a7 00 - 00 00 00 00 80 66 a7 00  .WF..g.......f..
 0019fdbc  e0 fd 19 00 cd 5c 44 00 - b4 4e 4b 00 ff 00 00 00  .....\D..NK.....
 0019fdcc  80 ab 45 00 b4 4e 4b 00 - b4 4e 4b 00 ff 00 00 00  ..E..NK..NK.....
-0019fddc  50 f3 34 02 80 ff 19 00 - 1a 5f 4b 00 f4 fd 19 00  P.4......_K.....
+0019fddc  80 66 a7 00 80 ff 19 00 - 1a 5f 4b 00 f4 fd 19 00  .f......._K.....
 0019fdec  c8 4b 40 00 80 ff 19 00 - 00 fe 19 00 c8 4b 40 00  .K@..........K@.
 
 disassembling:

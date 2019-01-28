@@ -14,6 +14,7 @@ use Auth;
 use File;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Support\Facades\Input;
+use Toastr;
 
 class IdeaBoxController extends Controller{
 
@@ -58,7 +59,7 @@ class IdeaBoxController extends Controller{
 			fclose($FH);
 		};
 
-		return (new StreamedResponse($callback, 200, $headers))->sendContent();
+		return (new StreamedResponse($callback, 200, $headers))->sendContent()->Toastr::success('Users registered downloaded !', 'SUCCESS', ["positionClass" => "toast-top-center"]);;
 	}
 
 	public function Form(FormBuilder $FormBuilder){
@@ -90,7 +91,7 @@ class IdeaBoxController extends Controller{
 			'creation_date' => date("Y/m/d"),
 			'id_image'=>$id,
 			'id'=>auth::user()->id));
-
+		Toastr::success('Idea created', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return redirect('/idea_box');
 	}
 
@@ -113,7 +114,7 @@ class IdeaBoxController extends Controller{
 		->update(['name' => $request->name,
 			'description' => $request->description,
 			'price' => $request->number]);
-
+		Toastr::success('Idea updated', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
 		return redirect('/idea_box');
 	}
@@ -151,6 +152,8 @@ class IdeaBoxController extends Controller{
 		$user_notify->notify(new Notifications());
 
 		DB::table('ideas_box')->where('id_idea', $request->id_idea)->delete();
+
+		Toastr::success('IdeaSaved', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
 
 		return redirect('/activities');
@@ -198,6 +201,8 @@ class IdeaBoxController extends Controller{
 
 		$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
 
+		Toastr::success('Idea edited', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+
 		return view('ideabox.ideaboxedit',compact('data', 'url_image'));
 	}
 
@@ -205,6 +210,8 @@ class IdeaBoxController extends Controller{
 	public function Delete($id){
 
 		DB::table('ideas_box')->where('id_idea',$id)->delete();
+
+		Toastr::success('Idea Deleted', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
 		return back();
 
@@ -218,7 +225,7 @@ class IdeaBoxController extends Controller{
 			$user_notify = \App\Users::find($admin->id);
 			$user_notify->notify(new report());
 		}
-
+		Toastr::warning('Reported', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return redirect('/idea_box');
 	}
 

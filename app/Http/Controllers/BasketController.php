@@ -39,11 +39,12 @@ class BasketController extends Controller{
 			$value = Auth::id().';'.$data->id_product;
 			if($request->session()->has($value)){
 
-			 	$request->session()->forget($value);
+				$request->session()->forget($value);
 
 			}
 
 		}
+		Toastr::success('Basket Deleted', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return back();
 	}
 
@@ -54,7 +55,7 @@ class BasketController extends Controller{
 		} else {
 			$request->session()->put($value, $request->session()->get($value)+1);
 		}
-
+		Toastr::success('Product added', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return redirect()->action('BasketController@Index');
 
 	}

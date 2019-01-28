@@ -20,6 +20,7 @@ class mailcontroller extends Controller
 		}
 		DB::table('product')->where('id_product',$id)
 		->increment('purchase_number',1);
+		Toastr::success('Mail send', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return back();
 	}
 }

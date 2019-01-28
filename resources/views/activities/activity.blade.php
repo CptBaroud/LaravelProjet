@@ -87,7 +87,7 @@
                                  data-hasalreadylike="{{$ok}}"
                                  data-id="{{$data->id_activity}}"
                                  data-imagepath="images/{{$image[0]->url_image}}"
-                                 data-perms="1"
+                                 data-perms="{{$permission}}"
                                  data-posturl="">
                                 <div class="hovereffect carouselGallery-item carouselGallery-item-meta">
                                     <img class="img-responsive" src="images/{{$image[0]->url_image}}"
