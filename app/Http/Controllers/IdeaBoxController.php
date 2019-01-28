@@ -30,35 +30,35 @@ class IdeaBoxController extends Controller{
 	{
 		$user = array();
 
-			$data = DB::table('ideas_box')->where('id_idea', $id)->get();
+		$data = DB::table('ideas_box')->where('id_idea', $id)->get();
 
-			$headers = [
-							'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
-					,   'Content-type'        => 'text/csv'
-					,   'Content-Disposition' => 'attachment; filename=users_ideas_box.csv'
-					,   'Expires'             => '0'
-					,   'Pragma'              => 'public'
-			];
+		$headers = [
+			'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
+			,   'Content-type'        => 'text/csv'
+			,   'Content-Disposition' => 'attachment; filename=users_ideas_box.csv'
+			,   'Expires'             => '0'
+			,   'Pragma'              => 'public'
+		];
 
-			$current_value = $data[0]->likes;
-			$tab = explode(';',$current_value);
-			for($i = 0; $i < count($tab)-1; $i++){
-				$data_user = DB::table('users')->where('id', $tab[$i])->get();
-				$user[$i] = $data_user[0]->last_name.' '.$data_user[0]->first_name;
+		$current_value = $data[0]->likes;
+		$tab = explode(';',$current_value);
+		for($i = 0; $i < count($tab)-1; $i++){
+			$data_user = DB::table('users')->where('id', $tab[$i])->get();
+			$user[$i] = $data_user[0]->last_name.' '.$data_user[0]->first_name;
+		}
+
+		$callback = function() use ($user)
+		{
+			$FH = fopen('php://output', 'w');
+
+			for($i = 0; $i < count($user); $i++){
+				fputcsv($FH, array($user[$i]));
 			}
 
-			 $callback = function() use ($user)
-				{
-						$FH = fopen('php://output', 'w');
+			fclose($FH);
+		};
 
-						for($i = 0; $i < count($user); $i++){
-							fputcsv($FH, array($user[$i]));
-						}
-
-						fclose($FH);
-				};
-
-				 return (new StreamedResponse($callback, 200, $headers))->sendContent();
+		return (new StreamedResponse($callback, 200, $headers))->sendContent();
 	}
 
 	public function Form(FormBuilder $FormBuilder){
@@ -119,8 +119,8 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Savetodb(Request $request){
-
-		DB::table('ideas_box')->where('id_idea', $request->id_idea)->delete();
+		$id_user = DB::table('ideas_box')->where('id_idea', $request->id_idea)->select('id')->get();
+		
 
 		$user = new file;
 		if(Input::hasFile('file')){
@@ -146,7 +146,11 @@ class IdeaBoxController extends Controller{
 
 
 
-		auth()->user()->notify(new Notifications());
+		$user_notify = \App\Users::find($id_user[0]->id);
+
+		$user_notify->notify(new Notifications());
+
+		DB::table('ideas_box')->where('id_idea', $request->id_idea)->delete();
 
 
 		return redirect('/activities');
@@ -166,9 +170,9 @@ class IdeaBoxController extends Controller{
 		$id_user = Auth::id();
 		$data = DB::table('ideas_box')->where('id_idea', $id)->get();
 		$current_value = $data[0]->likes;
-				DB::table('ideas_box')->where('id_idea', $id)->update(array(
-					'likes'=>$current_value.$id_user.';'
-				));
+		DB::table('ideas_box')->where('id_idea', $id)->update(array(
+			'likes'=>$current_value.$id_user.';'
+		));
 
 		return back();
 	}
@@ -179,9 +183,9 @@ class IdeaBoxController extends Controller{
 		$data =DB::table('ideas_box')->where('id_idea', $id_idea)->get();
 
 		$current_value_likes = str_replace($id_user.';',"",$data[0]->likes);
-				DB::table('ideas_box')->where('id_idea', $id_idea)->update(array(
-					'likes'=>$current_value_likes
-				));
+		DB::table('ideas_box')->where('id_idea', $id_idea)->update(array(
+			'likes'=>$current_value_likes
+		));
 
 		return back();
 
