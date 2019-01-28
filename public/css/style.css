@@ -17,6 +17,13 @@ footer > .font-weight-light {
     color: white;
 }
 
+.badge-notify{
+   background:red;
+   position:relative;
+   top: -20px;
+   left: -35px;
+}
+
 .button-cookie{
     background: grey;
     color: black ;

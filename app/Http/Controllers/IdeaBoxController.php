@@ -7,6 +7,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use App\Http\Controllers\Controller;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\Notifications;
+use App\Notifications\Report;
 use App\Forms\IdeaForm;
 use DB;
 use Auth;

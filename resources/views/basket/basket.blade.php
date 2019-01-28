@@ -5,7 +5,7 @@ table{
 	border: 1px solid black;
 	border-collapse: collapse;
 	table-layout: fixed;
-  
+	
 }
 
 th, td {
@@ -20,13 +20,13 @@ th, td {
 		
 	}
 	.checkout
-{
-    float: right;
-}
-.updateArea
-{
-    float: left;
-}
+	{
+		    float: right;
+	}
+	.updateArea
+	{
+		    float: left;
+	}
 </style>
 <?php
 
@@ -83,13 +83,13 @@ th, td {
 
 											@endforeach
 											<tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>{{$price}} $ </strong></td>
-                        </tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												
+												<td><strong>Total</strong></td>
+												<td class="text-right"><strong>{{$price}} $ </strong></td>
+											</tr>
 										</div>
 									</div>
 								</tbody>
@@ -99,18 +99,18 @@ th, td {
 				</div>
 				
 				<div class="col mb-2">
-            <div class="row">
-                <div class="col-sm-12  col-md-6">
-                    <a href="/shop"><button class="btn btn-block btn-light">Continue Shopping</button></a>
-                </div>
-                <div class="col-sm-12 col-md-6 text-right">
-                    <a href="/shop/mail"><button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button></a>
-                </div>
-            </div>
-        </div>
+					<div class="row">
+						<div class="col-sm-12  col-md-6">
+							<a href="/shop"><button class="btn btn-block btn-light">Continue Shopping</button></a>
+						</div>
+						<div class="col-sm-12 col-md-6 text-right">
+							<a href="/shop/mail/{{$data->id_product}}"><button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button></a>
+						</div>
+					</div>
+				</div>
 				<div class="updateArea">		
-								<input href="/basket/delete" type="submit" value="Delete order" class="btn btn-success pull-right mr10">
-							</div>
+					<input href="/basket/delete" type="submit" value="Delete order" class="btn btn-success pull-right mr10">
+				</div>
 			</div>
 
 		</div>

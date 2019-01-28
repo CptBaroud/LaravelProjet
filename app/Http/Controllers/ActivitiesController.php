@@ -10,6 +10,7 @@ use DB;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Input;
+use App\Notifications\reportcomment;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
