@@ -2,11 +2,6 @@
 
 @section('content')
     <?php
-    $image = DB::table('image')
-        ->join('activities', 'image.id_image', '=', 'activities.id_image')
-        ->where('image.id_image', $data[0]->id_image)
-        ->select('url_image')
-        ->get();
 
     $images_activity = DB::table('image_activity')
         ->join('activities', 'image_activity.id_activity', '=', 'activities.id_activity')
@@ -14,18 +9,6 @@
         ->select('image_activity.url_image', 'image_activity.id_image')
         ->get();
 
-    $ok = false;
-    $tab = array();
-    $id_user = Auth::id();
-    $comment = DB::table('comments_image')->where('id_image', $images_activity[0]->id_image)->get();
-    $current_value = $comment[0]->likes;
-    $tab = explode(';', $current_value);
-    for ($i = 0; $i < count($tab) - 1; $i++) {
-        if ($tab[$i] == $id_user) {
-            $ok = true;
-        }
-    }
-    $likes = count($tab) - 1;
     ?>
     <main role="main">
         <section class="jumbotron text-center">
@@ -38,6 +21,30 @@
         <div class="container">
             <div class="row">
                 @foreach($images_activity as $key => $images_activity)
+
+                <?php
+
+                    $ok = false;
+                    $tab = array();
+                    $id_user = Auth::id();
+                    $comment = DB::table('comments_image')->where('id_image', $images_activity->id_image)->get();
+
+                    if(isset($comment[0])){
+                      $current_value = $comment[0]->likes;
+                      $tab = explode(';', $current_value);
+                      for ($i = 0; $i < count($tab) - 1; $i++) {
+                          if ($tab[$i] == $id_user) {
+                              $ok = true;
+                          }
+                      }
+                      $likes = count($tab) - 1;
+                    } else
+                    {
+                      $likes = 0;
+                    }
+
+
+                ?>
 
                         @if($data[0]->recursivity == '1')
                             <?php
