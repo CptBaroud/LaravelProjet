@@ -1,9 +1,9 @@
 @extends('template')
 
+
 @section('content')
-<br>
 @foreach($data as $key => $data)
-<div class="container">
+<div class="container" style="margin-bottom: 25px; margin-top: 25px">
 	<div class="row">
 		<form action="{{ url('/shop/update')}}/{{$data->id_product}}" method="post" role="form" enctype="multipart/form-data" onsubmit="return verifForm(this)">
 			@csrf

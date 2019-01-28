@@ -73,5 +73,5 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('js/displayIdeaBox.js')}}"></script>
+    <script src="{{asset('js/displayIdea.js')}}"></script>
 @endsection
