@@ -86,7 +86,7 @@ if(isset($_GET['accept-cookies'])){
                             echo 'active';
                         }
                         echo("'>
-                            <a class='nav-link text-warning' href='/admin'>Page Admin</a>
+                            <a class='nav-link text-warning' href='/admin'>Admin</a>
                             </li>");
                     }
                 } else {
