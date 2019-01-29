@@ -8,9 +8,11 @@
                 <p class="lead text-muted">In this section, you'll be able to see all the different ideas that has been
                     proposed by our students.</p>
             </div>
+            @if($user_connected)
             <a href='idea_box/create'>
                 <button type="button" class="btn btn-dark">Add a new idea</button>
             </a>
+            @endif
         </section>
         <div class="container">
             <div class="row">

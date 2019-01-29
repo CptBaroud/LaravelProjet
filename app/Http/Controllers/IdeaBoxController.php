@@ -19,16 +19,29 @@ use Toastr;
 class IdeaBoxController extends Controller{
 
 	public function index(){
-		if (Auth::user()!=null){
-			$permission = Auth::user()->permissions;
+		if (!Auth::user()!=null){
+
+		$user_connected = false;
+		$permission = 0;
+
+		} else {
+		$user_connected = true;
+		$permission = Auth::user()->permissions;
 		}
+
 		$data = DB::table('ideas_box')->get();
 
-		return view('ideabox.ideabox', compact('permission', 'data'));
+		return view('ideabox.ideabox', compact('permission', 'data', 'user_connected'));
 	}
+
 
 	public function DownloadUsers($id)
 	{
+
+		if (!Auth::user()!=null || Auth::user()->permissions = 0){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/');
+		} else {
 		$user = array();
 
 		$data = DB::table('ideas_box')->where('id_idea', $id)->get();
@@ -59,17 +72,28 @@ class IdeaBoxController extends Controller{
 			fclose($FH);
 		};
 
-		return (new StreamedResponse($callback, 200, $headers))->sendContent()->Toastr::success('Users registered downloaded !', 'SUCCESS', ["positionClass" => "toast-top-center"]);;
+		return (new StreamedResponse($callback, 200, $headers))->sendContent()->Toastr::success('Users registered downloaded !', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+	}
 	}
 
 	public function Form(FormBuilder $FormBuilder){
 
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/');
+		} else {
+
 		$Formular = $FormBuilder-> create(IdeaForm::class);
 
 		return view('ideabox.ideaboxcreation', compact('Formular'));
+		}
 	}
 
 	public function Create(){
+
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 
 		request()->validate([
 			'Picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -92,21 +116,26 @@ class IdeaBoxController extends Controller{
 			'id_image'=>$id,
 			'id'=>auth::user()->id));
 		Toastr::success('Idea created', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+		}
 		return redirect('/idea_box');
+
 	}
 
 
 	public function Update(Request $request, $id){
 
-		$user = new file;
-		if(Input::hasFile('file')){
-			$file = Input::file('file');
-			$file->move(public_path(). '/images', $file->getClientOriginalName());
-			$user->title = $file->getClientOriginalName();
-			$id = DB::getPdo()->lastInsertId();
-			DB::table('image')->where('id_image', $request->id_image)->update(array(
-				'url_image'=>$user->title
-			));
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
+			$user = new file;
+			if(Input::hasFile('file')){
+				$file = Input::file('file');
+				$file->move(public_path(). '/images', $file->getClientOriginalName());
+				$user->title = $file->getClientOriginalName();
+				$id = DB::getPdo()->lastInsertId();
+				DB::table('image')->where('id_image', $request->id_image)->update(array(
+					'url_image'=>$user->title
+				));
 		}
 
 		DB::table('ideas_box')
@@ -115,13 +144,17 @@ class IdeaBoxController extends Controller{
 			'description' => $request->description,
 			'price' => $request->number]);
 		Toastr::success('Idea updated', 'SUCCESS', ["positionClass" => "toast-top-center"]);
-
+		}
 		return redirect('/idea_box');
 	}
 
 	public function Savetodb(Request $request){
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/idea_box');
+		} else {
 		$id_user = DB::table('ideas_box')->where('id_idea', $request->id_idea)->select('id')->get();
-		
+
 
 		$user = new file;
 		if(Input::hasFile('file')){
@@ -157,31 +190,38 @@ class IdeaBoxController extends Controller{
 
 
 		return redirect('/activities');
+		}
 
 	}
 
 	public function Save($id){
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/idea_box');
+		} else {
 		$data = DB::table('ideas_box')->where('id_idea',$id)->get();
 
 		$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
 
 		return view('ideabox.ideaboxsave',compact('data', 'url_image', 'id'));
+		}
 	}
 
 	public function Like($id){
-
+		if (!Auth::user()!=null){
 		$id_user = Auth::id();
 		$data = DB::table('ideas_box')->where('id_idea', $id)->get();
 		$current_value = $data[0]->likes;
 		DB::table('ideas_box')->where('id_idea', $id)->update(array(
 			'likes'=>$current_value.$id_user.';'
 		));
-
+		}
 		return back();
 	}
 
 	public function UnLike(Request $request, $id_idea)
 	{
+		if (!Auth::user()!=null){
 		$id_user = Auth::id();
 		$data =DB::table('ideas_box')->where('id_idea', $id_idea)->get();
 
@@ -189,6 +229,7 @@ class IdeaBoxController extends Controller{
 		DB::table('ideas_box')->where('id_idea', $id_idea)->update(array(
 			'likes'=>$current_value_likes
 		));
+		}
 
 		return back();
 
@@ -196,29 +237,40 @@ class IdeaBoxController extends Controller{
 
 
 	public function Edit($id){
-		$data = DB::table('ideas_box')->
-		where('id_idea',$id)->get();
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/idea_box');
+		} else {
+			$data = DB::table('ideas_box')->
+			where('id_idea',$id)->get();
 
-		$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
+			$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
 
-		Toastr::success('Idea edited', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+			Toastr::success('Idea edited', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
-		return view('ideabox.ideaboxedit',compact('data', 'url_image'));
+			return view('ideabox.ideaboxedit',compact('data', 'url_image'));
+		}
 	}
 
 
 	public function Delete($id){
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/idea_box');
+		} else {
+			DB::table('ideas_box')->where('id_idea',$id)->delete();
 
-		DB::table('ideas_box')->where('id_idea',$id)->delete();
+			Toastr::success('Idea Deleted', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
-		Toastr::success('Idea Deleted', 'SUCCESS', ["positionClass" => "toast-top-center"]);
-
-		return back();
+			return back();
+		}
 
 	}
 
 	public function Report($id){
-
+		if (!Auth::user()!=null || Auth::user()->permissions != 2){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		$admin = DB::table('users')->where('permissions', '1')->select('id')->get();
 
 		foreach ($admin as $key => $admin) {
@@ -226,6 +278,7 @@ class IdeaBoxController extends Controller{
 			$user_notify->notify(new report());
 		}
 		Toastr::warning('Reported', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+		}
 		return redirect('/idea_box');
 	}
 
