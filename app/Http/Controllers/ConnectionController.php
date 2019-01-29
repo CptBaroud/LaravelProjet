@@ -46,9 +46,10 @@ class ConnectionController extends Controller
 			return back()->withInput()->withErrors([
 
 				'password' => 'Wrong Email or Password.'
-				Toastr::error('Wrong Email or Password', 'Error', ["positionClass" => "toast-top-center"]);
+				
 
 			]);
+			Toastr::error('Wrong Email or Password', 'Error', ["positionClass" => "toast-top-center"]);
 
 		}
 	}
