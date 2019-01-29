@@ -9,12 +9,18 @@
         ->select('image_activity.url_image', 'image_activity.id_image')
         ->get();
 
+    $image = DB::table('image')->where('id_image', $data[0]->id_image)->select('url_image')->get();
+
     ?>
     <main role="main">
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">{{$data[0]->name}}</h1>
                 <p class="lead text-muted">{{$data[0]->description}}</p>
+                <img class="img-responsive"
+                     src="/images/{{$image[0]->url_image}}"
+                     height="50%"
+                     width="50%" alt="">
             </div>
         </section>
 
@@ -109,8 +115,19 @@
                     <hr>
                 @endforeach
             </div>
+            <?php
+            $upload_images_right = false;
+            if($data[0]->recursivity == 0){
 
+              $date1 = new DateTime($data[0]->date);
 
+              $date2 = new DateTime(date('Y-m-d'));
+              if($date2->getTimestamp() - $date1->getTimestamp() > 0){
+                $upload_images_right = true;
+              }
+            }
+            ?>
+            @if($data[0]->recursivity != 0 || $upload_images_right)
             <div class='card'>
                 <div class='card-block'>
                     <form action="{{ url('/activities')}}/{{$data[0]->id_activity}}" method="post"
@@ -126,6 +143,8 @@
                     </form>
                 </div>
             </div>
+            @endif
+
         </div>
     </main>
 @endsection
