@@ -9,21 +9,31 @@ use App\Forms\ItemsForm;
 use DB;
 use Auth;
 use File;
+use Toastr;
 use Illuminate\Support\Facades\Input;
 use App\Post;
 class ShopController extends Controller
 {
 
   public function index(){
-    if (Auth::user()!=null){
+
+    if (!Auth::user()!=null){
+      Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+      return back();
+
+    } else {
+
       $permission = Auth::user()->permissions;
+
+      $data = DB::table('product')->orderBy('purchase_number','desc')
+                                  ->take(3)
+                                  ->get();
+      $category = DB::table('categories')->orderBy('category_name', 'desc')
+                                         ->get();
+      return view('shop.shop', compact('data','category', 'permission'));
     }
-    $data = DB::table('product')->orderBy('purchase_number','desc')
-                                ->take(3)
-                                ->get();
-    $category = DB::table('categories')->orderBy('category_name', 'desc')
-                                       ->get();
-    return view('shop.shop', compact('data','category', 'permission'));
+
   }
 
   public function Itemform(FormBuilder $formBuilder){
@@ -45,6 +55,11 @@ class ShopController extends Controller
   }
 
   public function CreateItems(){
+
+    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+      Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+      return redirect('/');
+    } else {
 
     request()->validate([
       'Picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -85,17 +100,32 @@ class ShopController extends Controller
       return redirect('/shop');
 
     }
+
+    }
   }
   public function Delete($id){
 
+    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+      Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+    } else {
+
     DB::table('product')->where('id_product',$id)->delete();
     DB::table('categories')->where('id_category',$id)->delete();
+
+    }
 
     return redirect('/shop');
 
   }
 
   public function Update(Request $request, $id){
+
+    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+      Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+      return redirect('/');
+    } else {
+
     $save = $id;
     $user = new file;
     if(Input::hasFile('file')){
@@ -110,7 +140,10 @@ class ShopController extends Controller
       DB::table('product')->where('id_product',$save)
                           ->update(['product_name' => $request->name,'product_description' => $request->description,'price' => $request->number]);
 
+
+
     return redirect('/shop');
+  }
   }
 
   public function Edit($id){
