@@ -12,8 +12,7 @@ if(isset($_GET['accept-cookies'])){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" href="images/favicone.png" />
 
     <title>CESI BDE</title>
     {!! Html::style('css/bootstrap.min.css') !!}
@@ -21,8 +20,8 @@ if(isset($_GET['accept-cookies'])){
     {!! Html::style('css/business-frontpage.css') !!}
     {!! Html::style('css/style.css') !!}
     {!! Html::style('css/login.css') !!}
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    {!! Html::style('css/toastr.min.css') !!}
+    {!! Html::style('css/jquery.dataTables.css') !!}
 
 </head>
 
@@ -231,9 +230,15 @@ if(isset($_GET['accept-cookies'])){
                     <li>
                         <a href="/purchasemention" class="font-weight-light text-light">Purchase General conditions</a>
                     </li>
+                    
+                    @if(isset(Auth::user()->permissions))
+                    <?php $permissions = Auth::user()->permissions; ?>
+                    @if ($permissions === 2) {
                     <li>
                         <a href="/dlpicture" class="font-weight-light text-light">Download all pictures from website</a>
                     </li>
+                    @endif
+                    @endif
                 </ul>
 
             </div>
@@ -246,12 +251,13 @@ if(isset($_GET['accept-cookies'])){
         <!-- Copyright -->
     </div>
 </footer>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+<script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{asset('js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="{{asset('js/popper.min.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{asset('js/toastr.min.js')}}"></script>
 <script src="{{asset('js/login.js')}}"></script>
 {!! Toastr::message() !!}
 
