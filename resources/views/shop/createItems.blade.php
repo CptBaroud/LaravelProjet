@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+	@csrf
     {!!form($Itemform)!!}
 </div>
 <p>
