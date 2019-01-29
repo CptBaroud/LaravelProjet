@@ -23,17 +23,20 @@ class ShopController extends Controller
       return back();
 
     } else {
+      try{
+        $permission = Auth::user()->permissions;
 
-      $permission = Auth::user()->permissions;
-
-      $data = DB::table('product')->orderBy('purchase_number','desc')
-                                  ->take(3)
-                                  ->get();
-      $category = DB::table('categories')->orderBy('category_name', 'desc')
-                                         ->get();
-      return view('shop.shop', compact('data','category', 'permission'));
+        $data = DB::table('product')->orderBy('purchase_number','desc')
+        ->take(3)
+        ->get();
+        $category = DB::table('categories')->orderBy('category_name', 'desc')
+        ->get();
+        return view('shop.shop', compact('data','category', 'permission'));
+      }
+      catch(Exception $e){
+        echo $e->getMessage();
+      }
     }
-
   }
 
   public function Itemform(FormBuilder $formBuilder){
@@ -42,23 +45,22 @@ class ShopController extends Controller
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
+      $Itemform = $formBuilder->create(ItemsForm::class);
 
-    $Itemform = $formBuilder->create(ItemsForm::class);
 
-
-    if(auth()->guest()) {
+      if(auth()->guest()) {
         return redirect('connection')->withErrors([
           'password' => 'Please Log In'
 
         ]);
-
+      } 
+      else {
+        return view('shop.createItems', compact('Itemform'));
       }
-  else {
-      return view('shop.createItems', compact('Itemform'));
-    }
-    return view('shop.createItems', compact('Itemform'));
 
-  }
+      return view('shop.createItems', compact('Itemform'));
+
+    }
   }
 
 
@@ -69,46 +71,60 @@ class ShopController extends Controller
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
+      try{
+        request()->validate([
+          'Picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+        ]);
 
-    request()->validate([
-      'Picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-    ]);
+        $imageName = time() . '.' . request()->Picture->getClientOriginalExtension();
+        request()->Picture->move(public_path('images'), $imageName);
+      }
+      catch(Exception $e){
+        echo $e->getMessage();
+      }
 
-    $imageName = time() . '.' . request()->Picture->getClientOriginalExtension();
-    request()->Picture->move(public_path('images'), $imageName);
-
-    if(!empty($_POST)){
-      $reponse = DB::table('categories')->select('category_name')
-                                        ->where('category_name','=', $_POST['Category_name'])
-                                        ->get();
+      if(!empty($_POST)){
+        $reponse = DB::table('categories')->select('category_name')
+        ->where('category_name','=', $_POST['Category_name'])
+        ->get();
 
 
 
-      if ($reponse == '[]') {
-        DB::table('categories')->insert(array('category_name' => $_POST['Category_name']));
-         $id = DB::getPdo()->lastInsertId();;
-         echo "<script>console.log( 'Debug Objects: " . $reponse . "' );</script>";
+        if ($reponse == '[]') {
+          try{
+            DB::table('categories')->insert(array('category_name' => $_POST['Category_name']));
+            $id = DB::getPdo()->lastInsertId();;
+            echo "<script>console.log( 'Debug Objects: " . $reponse . "' );</script>";
 
-        DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$id));
+            DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$id));
 
-        $id = DB::getPdo()->lastInsertId();;
+            $id = DB::getPdo()->lastInsertId();;
 
-        DB::table('product')->where('id_product',$id)->update(['url_image' => $imageName]);
+            DB::table('product')->where('id_product',$id)->update(['url_image' => $imageName]);
+          }
+          catch(Exception $e){
+            echo $e->getMessage();
+          }
 
-      }else {
-        $idCategory = DB::table('categories')->select('id_category')
-                                             ->where('category_name','=', $_POST['Category_name'])
-                                             ->get();
-        $idCategory = substr($idCategory, 16, -2);
-        DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$idCategory));
-        $id = DB::getPdo()->lastInsertId();;
 
-        DB::table('product')->where('id_product',$id)->update(['url_image' => $imageName]);
+        }else {
+          try{
+            $idCategory = DB::table('categories')->select('id_category')
+            ->where('category_name','=', $_POST['Category_name'])
+            ->get();
+            $idCategory = substr($idCategory, 16, -2);
+            DB::table('product')->insert(array('Product_name'=>$_POST['Product_name'],'Product_description'=>$_POST['Product_description'],'Price'=>$_POST['Price'],'url_image' => $_FILES["Picture"]["name"],'purchase_number'=>'0','id_category'=>$idCategory));
+            $id = DB::getPdo()->lastInsertId();;
+
+            DB::table('product')->where('id_product',$id)->update(['url_image' => $imageName]);
+          }
+          catch(Exception $e){
+            echo $e->getMessage();
+          }
+        }
+        return redirect('/shop');
 
       }
-      return redirect('/shop');
-
-    }
 
     }
   }
@@ -118,9 +134,13 @@ class ShopController extends Controller
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
     } else {
-
-    DB::table('product')->where('id_product',$id)->delete();
-    DB::table('categories')->where('id_category',$id)->delete();
+      try{
+        DB::table('product')->where('id_product',$id)->delete();
+        DB::table('categories')->where('id_category',$id)->delete();
+      }
+      catch(Exception $e){
+        echo $e->getMessage();
+      }
 
     }
 
@@ -134,25 +154,30 @@ class ShopController extends Controller
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
+      try{
+        $save = $id;
+        $user = new file;
+        if(Input::hasFile('file')){
+          $file = Input::file('file');
+          $file->move(public_path(). '/images', $file->getClientOriginalName());
+          $user->title = $file->getClientOriginalName();
+          $id = DB::getPdo()->lastInsertId();
+          DB::table('product')->where('id_product', $save)->update(array(
+            'url_image'=>$user->title
+          ));
+        }
 
-    $save = $id;
-    $user = new file;
-    if(Input::hasFile('file')){
-      $file = Input::file('file');
-      $file->move(public_path(). '/images', $file->getClientOriginalName());
-      $user->title = $file->getClientOriginalName();
-      $id = DB::getPdo()->lastInsertId();
-      DB::table('product')->where('id_product', $save)->update(array(
-        'url_image'=>$user->title
-      ));
+        DB::table('product')->where('id_product',$save)
+        ->update(['product_name' => $request->name,'product_description' => $request->description,'price' => $request->number]);
+
+
+
+        return redirect('/shop');
+      }
+      catch(Exception $e){
+        echo $e->getMessage();
+      }
     }
-      DB::table('product')->where('id_product',$save)
-                          ->update(['product_name' => $request->name,'product_description' => $request->description,'price' => $request->number]);
-
-
-
-    return redirect('/shop');
-  }
   }
 
   public function Edit($id){
@@ -161,7 +186,7 @@ class ShopController extends Controller
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
-    $data = DB::table('product')->where('id_product',$id)->get();
+      $data = DB::table('product')->where('id_product',$id)->get();
       return view('shop.shopedit',compact('data'));
     }
   }
@@ -174,16 +199,20 @@ class ShopController extends Controller
       return back();
 
     } else {
+      try{
+        $permission = Auth::user()->permissions;
 
-    $permission = Auth::user()->permissions;
+        $data = DB::table('product')->where('id_category', '=', $id)
+        ->get();
+        $category = DB::table('categories')
+        ->get();
 
-    $data = DB::table('product')->where('id_category', '=', $id)
-    ->get();
-    $category = DB::table('categories')
-    ->get();
-
-    return view('shop.shop', compact('data','category','permission'));
-  }
+        return view('shop.shop', compact('data','category','permission'));
+      }
+      catch(Exception $e){
+        echo $e->getMessage();
+      }
+    }
   }
 
 
@@ -194,76 +223,95 @@ class ShopController extends Controller
       return back();
 
     } else {
-      $permission = Auth::user()->permissions;
+      try{
+        $permission = Auth::user()->permissions;
 
-    $data = DB::table('product')->orderBy('price', 'desc')
-                                ->get();
+        $data = DB::table('product')->orderBy('price', 'desc')
+        ->get();
 
-    $category = DB::table('categories')->orderBy('category_name', 'desc')
-                                       ->get();
-    return view('shop.shop', compact('data','category'));
+        $category = DB::table('categories')->orderBy('category_name', 'desc')
+        ->get();
+        return view('shop.shop', compact('data','category'));
+      }
+      catch(Exception $e){
+        echo $e->getMessage();
+      }
+    }
+
   }
+  public function PriceFilterasc(){
 
-  }
-   public function PriceFilterasc(){
+   if (!Auth::user()!=null){
+     Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
-     if (!Auth::user()!=null){
-       Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+     return back();
 
-       return back();
-
-     } else {
-
+   } else {
+    try{
       $permission = Auth::user()->permissions;
       $data = DB::table('product')->orderBy('price', 'asc')->get();
 
       $category = DB::table('categories')->orderBy('category_name', 'desc')
-                                         ->get();
+      ->get();
       return view('shop.shop', compact('data','category','permission'));
     }
+    catch(Exception $e){
+      echo $e->getMessage();
+    }
   }
+}
 
- public function fetch(Request $request)
+public function fetch(Request $request)
+{
+
+ if($request->get('query'))
  {
+  try{
+    $query = $request->get('query');
+    $data = DB::table('product')
+    ->where('product_name', 'LIKE', "%{$query}%")
+    ->get();
+    $product = DB::table('product')
+    ->where('product_name', 'LIKE', "%{$query}%")
+    ->get();
+    $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+    foreach($data as $row)
+    {
 
-     if($request->get('query'))
-     {
-      $query = $request->get('query');
-      $data = DB::table('product')
-        ->where('product_name', 'LIKE', "%{$query}%")
-        ->get();
-        $product = DB::table('product')
-        ->where('product_name', 'LIKE', "%{$query}%")
-        ->get();
-      $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
-      foreach($data as $row)
-      {
+     $output .= "<li><a href='/shop/request/{$row->product_name}'>".$row->product_name."</a></li>";
+   }
+   $output .= '</ul>';
+   print $output;
+ }
+ catch(Exception $e){
+  echo $e->getMessage();
+}
+}
 
-       $output .= "<li><a href='/shop/request/{$row->product_name}'>".$row->product_name."</a></li>";
-      }
-      $output .= '</ul>';
-      print $output;
-     }
-
-  }
+}
 
 
 public function display($product_name)
-  {
-    if (!Auth::user()!=null){
-      Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+{
+  if (!Auth::user()!=null){
+    Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
-      return back();
+    return back();
 
-    } else {
+  } else {
+    try{
       $permission = Auth::user()->permissions;
 
       $data = DB::table('product')->where('product_name',$product_name)
-                                ->get();
+      ->get();
       $category = DB::table('categories')->orderBy('category_name', 'desc')
-                                         ->get();
+      ->get();
       return view('shop.shop', compact('data','category', 'permission'));
     }
+    catch(Exception $e){
+      echo $e->getMessage();
+    }
   }
+}
 
 }

@@ -32,18 +32,23 @@ class ConnectionController extends Controller
 	}
 
 	public function processing(){
+		try{ 
 
-		request()->validate([
+			request()->validate([
 
-			'email' => ['required', 'email'],
-			'password' => ['required']
+				'email' => ['required', 'email'],
+				'password' => ['required']
 
-		]);
+			]);
 
-		$userdata = array(
-			'email'      => request('email'),
-			'password'      => request('password')
-		);
+			$userdata = array(
+				'email'      => request('email'),
+				'password'      => request('password')
+			);
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
 
 		if(Auth::attempt($userdata)){
 			Toastr::success('You are connected', 'SUCCESS', ["positionClass" => "toast-top-center"]);

@@ -15,26 +15,31 @@ class RegistrationController extends Controller
 	}
 
 	public function processing(){
-
 		$email = request('email');
 
 		$test = DB::table('users')->where('email', $email)->get();
 
 
 		if(!isset($test[0]->id)){
-			$Users = new \App\Users;
-			$Users->last_name = request('last_name');
-			$Users->first_name = request('first_name');
-			$Users->location = request('location');
-			$Users->email = request('email');
-			$Users->password = bcrypt(request('password'));
-			$Users->permissions = 0;
-			$Users->last_attempt = date("Y/m/d");
-			Toastr::success('You have been registered sucessfully', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+			try{
+				$Users = new \App\Users;
+				$Users->last_name = request('last_name');
+				$Users->first_name = request('first_name');
+				$Users->location = request('location');
+				$Users->email = request('email');
+				$Users->password = bcrypt(request('password'));
+				$Users->permissions = 0;
+				$Users->last_attempt = date("Y/m/d");
+				Toastr::success('You have been registered sucessfully', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
-			$Users->save();
+				$Users->save();
 
-			return redirect('/');
+				return redirect('/');
+				catch(Exception $e){
+					echo $e->getMessage();
+				}
+
+			}
 		}
 		else{
 			Toastr::error('This email adress already exists', 'ERROR', ["positionClass" => "toast-top-center"]);

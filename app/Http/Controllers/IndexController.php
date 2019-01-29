@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
 	public function index(){
-        $data = DB::table('activities')->get();
+		try{
+			$data = DB::table('activities')->get();
 			return view('welcome', compact('data'));
+		}
+	}
+	catch(Exception $e){
+		echo $e->getMessage();
 	}
 }
