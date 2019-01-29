@@ -71,7 +71,7 @@ th, td {
 													<td class="image"><img title="product" alt="product" src="images/{{$data->url_image}}" width="100%"></td>
 													<td class="name"><a href="#"><strong>{{$data->product_name}}</strong></a></td>
 													<td class="description"><small>{{$data->product_description}}</small></td>
-													<td class="quantity"><input type="text" onchange="changePrice(this)" name="{{$data->id_product}}" id="{{$data->id_product}}" class="form-control input-sm" value="{{request()->session()->get($value)}}"></td>
+													<td class="quantity"><input type="number" min="1" max="100" onchange="changePrice(this)" name="{{$data->id_product}}" id="{{$data->id_product}}" class="form-control input-sm" value="{{request()->session()->get($value)}}"></td>
 													&nbsp;
 													<td class="price"><strong>{{$data->price}} <span class="text-muted">$</span></strong></td>
 												</tr>
@@ -123,6 +123,9 @@ th, td {
 	function changePrice(val) {
 		let product_id = val.id;
 		let product_value = val.value;
+		if(product_value == ""){
+			product_value = 1;
+		}
 
 		let url1 = "/basket/change/";
 		let url2 = "/value/";

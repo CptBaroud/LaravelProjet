@@ -38,6 +38,11 @@ class ShopController extends Controller
 
   public function Itemform(FormBuilder $formBuilder){
 
+    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+      Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+      return redirect('/');
+    } else {
+
     $Itemform = $formBuilder->create(ItemsForm::class);
 
 
@@ -47,12 +52,16 @@ class ShopController extends Controller
 
         ]);
 
-}
+      }
   else {
       return view('shop.createItems', compact('Itemform'));
     }
     return view('shop.createItems', compact('Itemform'));
+
   }
+  }
+
+
 
   public function CreateItems(){
 
@@ -147,22 +156,27 @@ class ShopController extends Controller
   }
 
   public function Edit($id){
+
+    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+      Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+      return redirect('/');
+    } else {
     $data = DB::table('product')->where('id_product',$id)->get();
-
-    return view('shop.shopedit',compact('data'));
-  }
-
-  public function Purchase($id){
-    DB::table('product')
-    ->where('id_product',$id)
-    ->increment('purchase_number',1);
-    return redirect('/shop');
+      return view('shop.shopedit',compact('data'));
+    }
   }
 
   public function Category($id){
-    if (Auth::user()!=null){
-      $permission = Auth::user()->permissions;
-    }
+
+    if (!Auth::user()!=null){
+      Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+      return back();
+
+    } else {
+
+    $permission = Auth::user()->permissions;
+
     $data = DB::table('product')->where('id_category', '=', $id)
     ->get();
     $category = DB::table('categories')
@@ -170,10 +184,18 @@ class ShopController extends Controller
 
     return view('shop.shop', compact('data','category','permission'));
   }
+  }
+
+
   public function PriceFilterDesc(){
-    if (Auth::user()!=null){
+    if (!Auth::user()!=null){
+      Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+      return back();
+
+    } else {
       $permission = Auth::user()->permissions;
-    }
+
     $data = DB::table('product')->orderBy('price', 'desc')
                                 ->get();
 
@@ -181,17 +203,29 @@ class ShopController extends Controller
                                        ->get();
     return view('shop.shop', compact('data','category'));
   }
-   public function PriceFilterasc(){
-    $data = DB::table('product')->orderBy('price', 'asc')
-                                ->get();
 
-    $category = DB::table('categories')->orderBy('category_name', 'desc')
-                                       ->get();
-    return view('shop.shop', compact('data','category','permission'));
+  }
+   public function PriceFilterasc(){
+
+     if (!Auth::user()!=null){
+       Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+       return back();
+
+     } else {
+
+      $permission = Auth::user()->permissions;
+      $data = DB::table('product')->orderBy('price', 'asc')->get();
+
+      $category = DB::table('categories')->orderBy('category_name', 'desc')
+                                         ->get();
+      return view('shop.shop', compact('data','category','permission'));
+    }
   }
 
  public function fetch(Request $request)
-    {
+ {
+
      if($request->get('query'))
      {
       $query = $request->get('query');
@@ -209,20 +243,27 @@ class ShopController extends Controller
       }
       $output .= '</ul>';
       print $output;
-
-
      }
+
   }
+
+
 public function display($product_name)
   {
-    if (Auth::user()!=null){
+    if (!Auth::user()!=null){
+      Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+      return back();
+
+    } else {
       $permission = Auth::user()->permissions;
-    }
-    $data = DB::table('product')->where('product_name',$product_name)
+
+      $data = DB::table('product')->where('product_name',$product_name)
                                 ->get();
-    $category = DB::table('categories')->orderBy('category_name', 'desc')
-                                       ->get();
-    return view('shop.shop', compact('data','category', 'permission'));
+      $category = DB::table('categories')->orderBy('category_name', 'desc')
+                                         ->get();
+      return view('shop.shop', compact('data','category', 'permission'));
+    }
   }
 
 }

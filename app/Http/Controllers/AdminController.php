@@ -10,49 +10,27 @@ use App\Forms\IdeaForm;
 use DB;
 use DataTables;
 use App\Users;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-
+use Toastr;
 
 class AdminController extends Controller{
 
 	public function index(){
-		return view('admin');
-
-	}
-/*
-	public function Delete($id){
-		DB::table('users')->where('id',$id)->delete();
-
-		return redirect('/admin');
-
-	}
-
-	public function Save($id){
-
-		$input = Input::all();
-		$first_name = 'first_name'.$id;
-		$last_name = 'last_name'.$id;
-		$email = 'email'.$id;
-		$location = 'location'.$id;
-		$password = 'password'.$id;
-		$permissions = 'permissions'.$id;
-
-		if(isset($input[$password])){
-			DB::table('users')->where('id',$id)->update(['last_name' => $input[$last_name],
-			'first_name' => $input[$first_name],'email' => $input[$email], 'location' => $input[$location],
-			'password' => bcrypt($input[$password]), 'permissions' => $input[$permissions]]);
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/');
 		} else {
-			DB::table('users')->where('id',$id)->update(['last_name' => $input[$last_name],
-			'first_name' => $input[$first_name],'email' => $input[$email], 'location' => $input[$location],
-			'permissions' => $input[$permissions]]);
-		}
+		return view('admin');
+	}
 
+	}
 
-		return redirect('/admin');
-	}*/
 
 	function postdata(Request $request)
 	    {
+
+
 	        $validation = Validator::make($request->all(), [
 	            'first_name' => 'required',
 	            'last_name'  => 'required',
@@ -96,15 +74,22 @@ class AdminController extends Controller{
 
 		public function removedata(Request $request)
 		{
+
+			if (!Auth::user()!=null || Auth::user()->permissions != 1){
+				Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+				return redirect('/');
+			} else {
 				$users = Users::find($request->input('id'));
 				if($users->delete())
 				{
 						echo 'Data Deleted';
 				}
+			}
 		}
 
 		function fetchdata(Request $request)
 			{
+
 					$id = $request->input('id');
 					$users = Users::find($id);
 					$output = array(
@@ -116,14 +101,20 @@ class AdminController extends Controller{
 
 					);
 					echo json_encode($output);
+
 			}
 
 		public function get_Datatable(){
+			if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			} else {
+
+
 	      $users = Users::select('id', 'first_name', 'last_name', 'location', 'email', 'permissions');
 	      return Datatables::of($users)
 	             ->addColumn('action', function($users){
 	                 return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$users->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="#" class="btn btn-xs btn-danger delete" id="'.$users->id.'"><i class="glyphicon glyphicon-remove"></i> Delete</a>';
 	             })
 	             ->make(true);
+					}
 	     }
 }

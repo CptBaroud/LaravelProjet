@@ -73,7 +73,6 @@ Route::get('/markAsRead',function(){
 // SHOP \\
 //ALL
 Route::get('/shop',array('as' => 'shop', 'uses' => 'ShopController@index'));
-Route::get('/shop/purchase/{id}', array('as' => 'shop_achat', 'uses' => 'shopController@Purchase'));
 Route::get('/shop/category/{id}', array('as' => 'shop_category', 'uses' => 'shopController@Category'));
 Route::get('/shop/PriceFilterDesc', array('as' => 'shop_Price_fitler_Desc', 'uses' => 'shopController@PriceFilterDesc'));
 Route::get('/shop/PriceFilterAsc', array('as' => 'shop_Price_fitler_Asc', 'uses' => 'shopController@PriceFilterAsc'));
