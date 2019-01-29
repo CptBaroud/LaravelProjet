@@ -32,7 +32,7 @@
 				<br>
 			</address>
 			<address>
-				<abbr title="Email">E:</abbr>
+				<abbr title="Email">Email:</abbr>
 				<a >bdecesisaintnazaire44@gmail.com</a>
 			</address>
 		</div>
