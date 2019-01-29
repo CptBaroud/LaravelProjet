@@ -11,16 +11,23 @@ class ConnectionController extends Controller
 {
 
 	public function index(){
-
-		return view('registration.connection');
-
+		if (Auth::user()!=null){
+			Toastr::warning("You are already logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return back();
+		} else {
+			return view('registration.connection');
+		}
 	}
 
 	public function log_out(){
-
-		Auth::logout();
-		Toastr::success('You are disconnected', 'SUCCESS', ["positionClass" => "toast-top-center"]);
-		return redirect('/');
+		if (Auth::user()=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return back();
+		} else {
+			Auth::logout();
+			Toastr::success('You are disconnected', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+			return redirect('/');
+		}
 
 	}
 

@@ -21,17 +21,28 @@ class ActivitiesController extends Controller
 {
 	public function index(FormBuilder $formBuilder)
 	{
+		if (!Auth::user()!=null){
 
-		if (Auth::user()!=null){
-			$permission = Auth::user()->permissions;
+		$user_connected = false;
+		$permission = 0;
+
+		} else {
+
+		$user_connected = true;
+		$permission = Auth::user()->permissions;
 		}
+
 		$data = DB::table('activities')->get();
-		return view('activities.activity', compact('data', 'permission'));
+		return view('activities.activity', compact('data', 'permission', 'user_connected'));
 
 	}
 
 	public function DownloadUsers($id)
 	{
+		if (!Auth::user()!=null || Auth::user()->permissions = 0){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/');
+		} else {
 		$user = array();
 		$data = DB::table('activities')->where('id_activity', $id)->get();
 
@@ -62,31 +73,41 @@ class ActivitiesController extends Controller
 		};
 
 		return (new StreamedResponse($callback, 200, $headers))->sendContent();
+		}
 	}
 
 	public function showActivity($id)
 	{
-		if (Auth::user()!=null){
+		$id_activity = $id;
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+			return back();
+		} else {
 			$permission = Auth::user()->permissions;
+			$data = DB::table('activities')->where('id_activity', $id_activity)->get();
+			return view('activities.showActivity', compact('data','permission'));
 		}
-		$data = DB::table('activities')->where('id_activity', $id)->get();
-		return view('activities.showActivity', compact('data','permission'));
 	}
 
 	public function AddPicture($id)
 	{
-		$id_activity = $id;
-		$user = new file;
-		if(Input::hasFile('file')){
-			$file = Input::file('file');
-			$file->move(public_path(). '/images', $file->getClientOriginalName());
-			$user->title = $file->getClientOriginalName();
-			$id = DB::getPdo()->lastInsertId();
-			DB::table('image_activity')->insert(array(
-				'url_image'=>$user->title,
-				'id_activity'=>$id_activity
-			));
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
+		} else {
+			$id_activity = $id;
+			$user = new file;
+			if(Input::hasFile('file')){
+				$file = Input::file('file');
+				$file->move(public_path(). '/images', $file->getClientOriginalName());
+				$user->title = $file->getClientOriginalName();
+				$id = DB::getPdo()->lastInsertId();
+				DB::table('image_activity')->insert(array(
+					'url_image'=>$user->title,
+					'id_activity'=>$id_activity
+				));
+			}
 		}
 		return back();
 
@@ -95,6 +116,10 @@ class ActivitiesController extends Controller
 
 	public function SendComment(Request $request, $id_image)
 	{
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/activities');
+		} else {
 		$id_user = Auth::id();
 		$user_name = Auth::user()->first_name.' '.Auth::user()->last_name;
 
@@ -108,18 +133,26 @@ class ActivitiesController extends Controller
 		Toastr::success('Comment ADDED', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
 		return back();
-
+	}
 	}
 
 	public function DeleteComment(Request $request, $id_comment)
 	{
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/activities');
+		} else {
 		DB::table('comments_image')->where('id_comment', $id_comment)->delete();
 		Toastr::success('Comment deleted', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 		return back();
+		}
 	}
 
 	public function LikeComment(Request $request, $id_comment)
 	{
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		$id_user = Auth::id();
 		$data =DB::table('comments_image')->where('id_comment', $id_comment)->get();
 		$current_value_likes = $data[0]->likes;
@@ -128,13 +161,16 @@ class ActivitiesController extends Controller
 			'likes'=>$current_value_likes.$id_user.';',
 			'nbr_likes' => $current_value_nbr_likes + 1
 		));
-
+	}
 		return back();
 
 	}
 
 	public function UnLikeComment(Request $request, $id_comment)
 	{
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		$id_user = Auth::id();
 		$data =DB::table('comments_image')->where('id_comment', $id_comment)->get();
 
@@ -144,7 +180,7 @@ class ActivitiesController extends Controller
 			'likes'=>$current_value_likes,
 			'nbr_likes' => $current_value_nbr_likes - 1
 		));
-
+	}
 		return back();
 
 	}
@@ -152,7 +188,10 @@ class ActivitiesController extends Controller
 	public function showComments($id, $id_image)
 	{
 
-
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/activities');
+		} else {
 
 		if (Auth::user()!=null){
 			$permission = Auth::user()->permissions;
@@ -167,11 +206,15 @@ class ActivitiesController extends Controller
 
 
 		return view('activities.showcomments', compact('comments','id_image', 'url', 'permission'));
+		}
 	}
 
 
 
 	public function Like($id){
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		$ok = false;
 		$tab = array();
 		$id_user = Auth::id();
@@ -190,11 +233,15 @@ class ActivitiesController extends Controller
 			));
 		}
 		Toastr::success('Activity liked successfully', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+		}
 		return back();
 	}
 
 	public function UnLike(Request $request, $id)
 	{
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		$id_user = Auth::id();
 		$data =DB::table('activities')->where('id_activity', $id)->get();
 
@@ -202,11 +249,14 @@ class ActivitiesController extends Controller
 		DB::table('activities')->where('id_activity', $id)->update(array(
 			'users_registered'=>$current_value_likes
 		));
-
+	}
 		return back();
 
 	}
 	public function ReportActivity($id){
+		if (!Auth::user()!=null || Auth::user()->permissions != 2){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		$admin = DB::table('users')->where('permissions', '1')->select('id')->get();
 
 		foreach ($admin as $key => $admin) {
@@ -214,10 +264,17 @@ class ActivitiesController extends Controller
 			$user_notify->notify(new report());
 		}
 		Toastr::success('Activity reported', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+	}
 		return back();
 	}
 
 	public function Edit($id){
+
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/activities');
+		} else {
+
 		$data = DB::table('activities')->where('id_activity',$id)->get();
 
 		$url_image = DB::table('image')->where('id_image',$data[0]->id_image)->select('url_image')->get();
@@ -226,9 +283,15 @@ class ActivitiesController extends Controller
 
 		return view('activities.activityedit',compact('data', 'url_image'));
 	}
+	}
 
 
 	public function Delete($id){
+
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+		} else {
 
 		$data_img = DB::table('image_activity')->select('id_image')->where('id_activity',$id)->get();
 
@@ -243,13 +306,15 @@ class ActivitiesController extends Controller
 		DB::table('activities')->where('id_activity',$id)->delete();
 
 		Toastr::success('Activity deleted', 'SUCCESS', ["positionClass" => "toast-top-center"]);
-
+		}
 		return redirect('/activities');
 
 	}
 
 	public function report($id, $id_comment){
-
+		if (!Auth::user()!=null || Auth::user()->permissions != 2){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		$admin = DB::table('users')->where('permissions', '1')->select('id')->get();
 
 		foreach ($admin as $key => $admin) {
@@ -257,12 +322,18 @@ class ActivitiesController extends Controller
 			$user_notify->notify(new reportcomment());
 		}
 		Toastr::success('Activity reported', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+		}
 		return back();
 	}
 
 
 
 	public function DeleteImageActivity(Request $request, $id){
+
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/activities');
+		} else {
 
 		DB::table('comments_image')->where('id_image',$id)->delete();
 
@@ -271,8 +342,14 @@ class ActivitiesController extends Controller
 
 		return back();
 	}
+	}
 
 	public function Update(Request $request, $id){
+
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+
+		} else {
 
 		$user = new file;
 		if(Input::hasFile('file')){
@@ -293,7 +370,7 @@ class ActivitiesController extends Controller
 
 		Toastr::success('Activity updated', 'SUCCESS', ["positionClass" => "toast-top-center"]);
 
-
+		}
 		return redirect('/activities');
 	}
 
@@ -310,6 +387,9 @@ class ActivitiesController extends Controller
 
 	public function store(FormBuilder $formBuilder)
 	{
+		if (!Auth::user()!=null){
+			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		} else {
 		request()->validate([
 			'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:32736',
 		]);
@@ -334,7 +414,7 @@ class ActivitiesController extends Controller
 				'id_image'=>$id));
 		}
 		Toastr::success('Activity stored', 'SUCCESS', ["positionClass" => "toast-top-center"]);
-
+	}
 		return redirect(route('activitiesIndex'));
 	}
 

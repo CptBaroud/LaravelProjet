@@ -38,6 +38,14 @@ Route::get('/idea_box/report/{id}', array('as' => 'idea_box_report', 'uses' => '
 
 
 // ACTIVITIES \\
+//1
+Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'ActivitiesController@create']);
+Route::get('/activities/image/delete/{id_image}', ['as'=>'activitiesDeleteImage', 'uses'=>'ActivitiesController@DeleteImageActivity']);
+Route::get('/activities/comment/delete/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@DeleteComment']);
+Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'ActivitiesController@Delete'));
+Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'ActivitiesController@Edit'));
+Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'ActivitiesController@Update'));
+
 //ALL
 Route::get('/activities', ['as'=>'activitiesIndex', 'uses'=>'ActivitiesController@index']);
 Route::post('/activities/store', array('as'=>'activitiesStore', 'uses'=>'ActivitiesController@store'));
@@ -49,14 +57,6 @@ Route::get('/activities/{id}/images/{id_image}', ['as'=>'activitiesComment', 'us
 Route::post('/activities/comment/images/{id_image}', ['as'=>'activitiesCommentSend', 'uses'=>'ActivitiesController@SendComment']);
 Route::get('/activities/comment/like/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@LikeComment']);
 Route::get('/activities/comment/unlike/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@UnLikeComment']);
-
-//1
-Route::get('/activities/create', ['as'=>'activitiesCreate', 'uses'=>'ActivitiesController@create']);
-Route::get('/activities/image/delete/{id_image}', ['as'=>'activitiesDeleteImage', 'uses'=>'ActivitiesController@DeleteImageActivity']);
-Route::get('/activities/comment/delete/{id_comment}', ['as'=>'activitiesComment', 'uses'=>'ActivitiesController@DeleteComment']);
-Route::get('/activities/delete/{id}', array('as' => 'Activity_Delete', 'uses' => 'ActivitiesController@Delete'));
-Route::get('/activities/edit/{id}', array('as' => 'Activity_Edit', 'uses' => 'ActivitiesController@Edit'));
-Route::post('/activities/update/{id}', array('as' => 'Activity_Update', 'uses' => 'ActivitiesController@Update'));
 
 //2
 Route::get('/activities/download_users/{id}', array('as'=>'activitiesDownloadUsers', 'uses'=>'ActivitiesController@DownloadUsers'));

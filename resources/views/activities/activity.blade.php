@@ -6,9 +6,11 @@
                 <h1 class="jumbotron-heading">Activities</h1>
                 <p class="lead text-muted">You will find the different activities there</p>
             </div>
+            @if($user_connected)
             <a href='/activities/create'>
                 <button type="button" class="btn btn-dark">Add a new actvity</button>
             </a>
+            @endif
         </section>
 
         <div class="container">
