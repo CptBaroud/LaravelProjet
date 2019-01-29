@@ -13,14 +13,10 @@
 
     ?>
     <main role="main">
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">{{$data[0]->name}}</h1>
-                <p class="lead text-muted">{{$data[0]->description}}</p>
-                <img class="img-responsive"
-                     src="/images/{{$image[0]->url_image}}"
-                     height="50%"
-                     width="50%" alt="">
+        <section class="jumbotron text-center" style="background-image: url('/images/{{$image[0]->url_image}}'); background-repeat: no-repeat;">
+            <div class="container" style="background: rgba(31,31,31,0.75)">
+                <h1 class="jumbotron-heading" >{{$data[0]->name}}</h1>
+                <p class="lead font-weight-light">{{$data[0]->description}}</p>
             </div>
         </section>
 
@@ -128,8 +124,8 @@
             }
             ?>
             @if($data[0]->recursivity != 0 || $upload_images_right)
-            <div class='card'>
-                <div class='card-block'>
+            <div class='container' style="margin-top: 35px; margin-bottom: 35px">
+
                     <form action="{{ url('/activities')}}/{{$data[0]->id_activity}}" method="post"
                           enctype="multipart/form-data">
 
@@ -141,7 +137,7 @@
                         <button type="submit" class="btn btn-primary"> Add Pitcure</button>
 
                     </form>
-                </div>
+
             </div>
             @endif
 
