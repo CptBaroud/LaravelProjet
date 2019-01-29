@@ -35,10 +35,10 @@ class RegistrationController extends Controller
 				$Users->save();
 
 				return redirect('/');
-				catch(Exception $e){
-					echo $e->getMessage();
-				}
 
+			}
+			catch(Exception $e){
+				echo $e->getMessage();
 			}
 		}
 		else{

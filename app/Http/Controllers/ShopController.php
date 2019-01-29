@@ -17,7 +17,7 @@ class ShopController extends Controller
 
   public function index(){
 
-    if (!Auth::user()!=null){
+    if (Auth::user()==null){
       Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
       return back();
@@ -41,7 +41,7 @@ class ShopController extends Controller
 
   public function Itemform(FormBuilder $formBuilder){
 
-    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+    if (Auth::user()==null || Auth::user()->permissions != 1){
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
@@ -67,7 +67,7 @@ class ShopController extends Controller
 
   public function CreateItems(){
 
-    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+    if (Auth::user()==null || Auth::user()->permissions != 1){
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
@@ -130,7 +130,7 @@ class ShopController extends Controller
   }
   public function Delete($id){
 
-    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+    if (Auth::user()==null || Auth::user()->permissions != 1){
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
     } else {
@@ -150,7 +150,7 @@ class ShopController extends Controller
 
   public function Update(Request $request, $id){
 
-    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+    if (Auth::user()==null || Auth::user()->permissions != 1){
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
@@ -182,7 +182,7 @@ class ShopController extends Controller
 
   public function Edit($id){
 
-    if (!Auth::user()!=null || Auth::user()->permissions != 1){
+    if (Auth::user()==null || Auth::user()->permissions != 1){
       Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
       return redirect('/');
     } else {
@@ -193,7 +193,7 @@ class ShopController extends Controller
 
   public function Category($id){
 
-    if (!Auth::user()!=null){
+    if (Auth::user()==null){
       Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
       return back();
@@ -217,7 +217,7 @@ class ShopController extends Controller
 
 
   public function PriceFilterDesc(){
-    if (!Auth::user()!=null){
+    if (Auth::user()==null){
       Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
       return back();
@@ -231,7 +231,7 @@ class ShopController extends Controller
 
         $category = DB::table('categories')->orderBy('category_name', 'desc')
         ->get();
-        return view('shop.shop', compact('data','category'));
+        return view('shop.shop', compact('data','category','permission'));
       }
       catch(Exception $e){
         echo $e->getMessage();
@@ -241,7 +241,7 @@ class ShopController extends Controller
   }
   public function PriceFilterasc(){
 
-   if (!Auth::user()!=null){
+   if (Auth::user()==null){
      Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
      return back();
@@ -293,7 +293,7 @@ public function fetch(Request $request)
 
 public function display($product_name)
 {
-  if (!Auth::user()!=null){
+  if (Auth::user()==null){
     Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 
     return back();

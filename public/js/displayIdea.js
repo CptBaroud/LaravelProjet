@@ -53,7 +53,7 @@ jQuery(function ($) {
                 if (hasalreadylike) {
                     modalIdea += "<a href='\\idea_box\\unlike\\" + id + "'>" + numberlike + "<input type='image' id='image' alt='' src='https://pngimage.net/wp-content/uploads/2018/06/pouce-vert-png-2.png' height='8%' width='8%'></a>";
                 } else {
-                    modalIdea += "<a href='/idea_box/like/" + id + "'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>";
+                    modalIdea += "<a href='\\idea_box\\like\\" + id + "'>" + numberlike + "<input type='image' id='image' alt='' src='http://www.stickpng.com/assets/images/585e4e6ccb11b227491c339e.png' height='10%' width='10%'></a>";
                 }if(perms ===  1){
                     modalIdea += "<a href='\\idea_box\\edit\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Edit</button></a>";
                     modalIdea += "<a href='\\idea_box\\save\\" + id + "'> <button type='button' class='btn btn-sm btn-outline-secondary'>Save</button></a>";

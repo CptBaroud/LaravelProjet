@@ -2,13 +2,14 @@
 
 @section('content')
 <div>
-@if($permission == '1')
   <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Shop</h1>
       <p class="lead text-muted">In this section, you'll be able to see all the different product that has been proposed to our students.</p>
     </div>
+    @if($permission == '1')
     <a href= '/shop/create'> <button type="button" class="btn btn-dark">Add a product</button></a>
+    @endif
     <p><br></p>
     <div class="form-group" my-2 my-lg-0>
       <input type="text" name="product_name" id="product_name" class="form-control input-lg" placeholder="Enter a product" />
@@ -18,7 +19,6 @@
     {{ csrf_field() }}
   </div>
 </section>
-@endif
 
 <div class="container">
 
@@ -26,18 +26,17 @@
 
     <div class="col-lg-3">
       <p><br></p>
-            @foreach($category as $key => $category)
+      @foreach($category as $key => $category)
       <div class="list-group">
         <a href="/shop/category/{{ $category->id_category}}" class="list-group-item">{{$category->category_name}}</a>
       </div>
       @endforeach
       <div>
-      <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</a>
-      <div class="dropdown-menu" aria-labelledby="dropdown01">
-        <a class="dropdown-item" href="/shop/PriceFilterDesc">Forward sort by price</a>
-        <a class="dropdown-item" href="/shop/PriceFilterAsc">Backward sort by price</a>
+        <div <div class="list-group">
+          <a href="/shop/PriceFilterDesc" class="list-group-item">Forward sort by price</a>
+          <a href="/shop/PriceFilterAsc" class="list-group-item">Backward sort by price</a>
+        </div>
       </div>
-     </div>
 
     </div>
     <div class="col-lg-9">
@@ -75,8 +74,8 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
 
-          <img class="card-img-top" src= "/images/{{$data->url_image}}" height="250 px"
-                                         width="241 px" alt="">
+            <img class="card-img-top" src= "/images/{{$data->url_image}}" height="250 px"
+            width="241 px" alt="">
             <div class="card-body">
               <h4 class="card-title">
                 <a href="/basket\add\{{$data->id_product}}">{{$data->product_name}}</a>
@@ -108,8 +107,9 @@
 </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
   $(document).ready(function(){
 

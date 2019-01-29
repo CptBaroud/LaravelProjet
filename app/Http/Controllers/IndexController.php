@@ -14,8 +14,8 @@ class IndexController extends Controller
 			$data = DB::table('activities')->get();
 			return view('welcome', compact('data'));
 		}
-	}
-	catch(Exception $e){
-		echo $e->getMessage();
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
 	}
 }

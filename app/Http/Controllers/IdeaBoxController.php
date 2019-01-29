@@ -43,7 +43,7 @@ class IdeaBoxController extends Controller{
 	public function DownloadUsers($id)
 	{
 
-		if (!Auth::user()!=null || Auth::user()->permissions = 0){
+		if (Auth::user()==null || Auth::user()->permissions = 0){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 			return redirect('/');
 		} else {
@@ -88,7 +88,7 @@ class IdeaBoxController extends Controller{
 
 	public function Form(FormBuilder $FormBuilder){
 
-		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+		if (Auth::user()==null){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 			return redirect('/');
 		} else {
@@ -106,7 +106,7 @@ class IdeaBoxController extends Controller{
 
 	public function Create(){
 
-		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+		if (Auth::user()==null){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 		} else {
 			try{
@@ -144,7 +144,7 @@ class IdeaBoxController extends Controller{
 
 	public function Update(Request $request, $id){
 
-		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+		if (Auth::user()==null || Auth::user()->permissions != 1){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 		} else {
 			try{
@@ -174,7 +174,7 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Savetodb(Request $request){
-		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+		if (Auth::user()==null || Auth::user()->permissions != 1){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 			return redirect('/idea_box');
 		} else {
@@ -225,7 +225,7 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Save($id){
-		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+		if (Auth::user()==null || Auth::user()->permissions != 1){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 			return redirect('/idea_box');
 		} else {
@@ -243,7 +243,7 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Like($id){
-		if (!Auth::user()!=null){
+		if (Auth::user()!=null){
 			try{
 				$id_user = Auth::id();
 				$data = DB::table('ideas_box')->where('id_idea', $id)->get();
@@ -261,7 +261,7 @@ class IdeaBoxController extends Controller{
 
 	public function UnLike(Request $request, $id_idea)
 	{
-		if (!Auth::user()!=null){
+		if (Auth::user()!=null){
 			try{
 				$id_user = Auth::id();
 				$data =DB::table('ideas_box')->where('id_idea', $id_idea)->get();
@@ -282,7 +282,7 @@ class IdeaBoxController extends Controller{
 
 
 	public function Edit($id){
-		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+		if (Auth::user()==null || Auth::user()->permissions != 1){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 			return redirect('/idea_box');
 		} else {
@@ -304,7 +304,7 @@ class IdeaBoxController extends Controller{
 
 
 	public function Delete($id){
-		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+		if (Auth::user()==null || Auth::user()->permissions != 1){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 			return redirect('/idea_box');
 		} else {
@@ -323,7 +323,7 @@ class IdeaBoxController extends Controller{
 	}
 
 	public function Report($id){
-		if (!Auth::user()!=null || Auth::user()->permissions != 2){
+		if (Auth::user()==null || Auth::user()->permissions != 2){
 			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
 		} else {
 			try{

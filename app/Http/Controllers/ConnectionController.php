@@ -20,7 +20,7 @@ class ConnectionController extends Controller
 	}
 
 	public function log_out(){
-		if (Auth::user()=null){
+		if (Auth::user()==null){
 			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 			return back();
 		} else {

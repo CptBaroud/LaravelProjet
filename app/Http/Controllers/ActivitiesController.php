@@ -182,7 +182,7 @@ class ActivitiesController extends Controller
 //like comment function 
 	public function LikeComment(Request $request, $id_comment)
 	{
-		if (!Auth::user()!=null){
+		if (Auth::user()==null){
 			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 		} else {
 			try{
@@ -205,7 +205,7 @@ class ActivitiesController extends Controller
 //unlike comment function
 	public function UnLikeComment(Request $request, $id_comment)
 	{
-		if (!Auth::user()!=null){
+		if (Auth::user()==null){
 			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
 		} else {
 			try{
@@ -462,56 +462,61 @@ class ActivitiesController extends Controller
 
 	public function create(FormBuilder $formBuilder)
 	{
-		$form = $this->getForm();
-		return view('activities.createActivities', compact('form'));
-	}
-//function to store the new idea
-	public function store(FormBuilder $formBuilder)
-	{
-		if (!Auth::user()!=null){
-			Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+		if (!Auth::user()!=null || Auth::user()->permissions != 1){
+			Toastr::warning("You arent able to do that!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			return redirect('/activities');
 		} else {
-			try{
-				request()->validate([
-					'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:32736',
-				]);
-
-				$form = $this->getForm();
-				$imageName = time() . '.' . request()->image->getClientOriginalExtension();
-				request()->image->move(public_path('images'), $imageName);
-
-				if(!empty($imageName) && !empty($form->getFieldValues())){
-					DB::table('image')->insert(array(
-						'url_image' => $_FILES["image"]["name"]));
-					$id = DB::getPdo()->lastInsertId();;
-
-					DB::table('image')->where('id_image',$id)->update(['url_image' => $imageName]);
-					DB::table('activities')->insert(array(
-						'name'=>$_POST['nom'],
-						'description'=>$_POST['content'],
-						'price'=>$_POST['price'],
-						'date' => $_POST['date'],
-						'id' => Auth::id(),
-						'recursivity' => $_POST['recuring'],
-						'id_image'=>$id));
-				}
-				Toastr::success('Activity stored', 'SUCCESS', ["positionClass" => "toast-top-center"]);
-			}
-			catch(Exception $e){
-				echo $e->getMessage();
-			}
+			$form = $this->getForm();
+			return view('activities.createActivities', compact('form'));
 		}
-		return redirect(route('activitiesIndex'));
-	}
+	}	
+//function to store the new idea
+		public function store(FormBuilder $formBuilder)
+		{
+			if (!Auth::user()!=null){
+				Toastr::warning("You arent logged!", 'WARNING', ["positionClass" => "toast-top-center"]);
+			} else {
+				try{
+					request()->validate([
+						'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:32736',
+					]);
+
+					$form = $this->getForm();
+					$imageName = time() . '.' . request()->image->getClientOriginalExtension();
+					request()->image->move(public_path('images'), $imageName);
+
+					if(!empty($imageName) && !empty($form->getFieldValues())){
+						DB::table('image')->insert(array(
+							'url_image' => $_FILES["image"]["name"]));
+						$id = DB::getPdo()->lastInsertId();;
+
+						DB::table('image')->where('id_image',$id)->update(['url_image' => $imageName]);
+						DB::table('activities')->insert(array(
+							'name'=>$_POST['nom'],
+							'description'=>$_POST['content'],
+							'price'=>$_POST['price'],
+							'date' => $_POST['date'],
+							'id' => Auth::id(),
+							'recursivity' => $_POST['recuring'],
+							'id_image'=>$id));
+					}
+					Toastr::success('Activity stored', 'SUCCESS', ["positionClass" => "toast-top-center"]);
+				}
+				catch(Exception $e){
+					echo $e->getMessage();
+				}
+			}
+			return redirect(route('activitiesIndex'));
+		}
 //function to get the form
-	public function getForm()
-	{
-		return $this->formBuilder->create(PostForm::class, [
-			'data' => [
-				'admin' => true
-			]
-		]);
+		public function getForm()
+		{
+			return $this->formBuilder->create(PostForm::class, [
+				'data' => [
+					'admin' => true
+				]
+			]);
+		}
+
+
 	}
-
-
-}
