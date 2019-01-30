@@ -19,14 +19,15 @@ class PostForm extends Form
                 'rules' => 'required'
             ])
                 ->add('content', 'textarea', [
-                'label' => 'Descritpion',
+                'label' => 'Description',
                 'rules' => 'required'
             ])
             ->add('date', 'datetime-local', [
-                'label' => 'Date de l\'evenement'
+                'label' => 'Event time'
             ])
-            ->add('price', 'text', [
-                'label' => 'Price'
+            ->add('price', 'number', [
+                'label' => 'Price',
+                'rules'=> 'required|max:200'
             ])
             ->add('image', 'file', [
                 'label' => 'Picture'

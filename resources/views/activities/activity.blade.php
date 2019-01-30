@@ -4,11 +4,11 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Activities</h1>
-                <p class="lead text-muted">You will find the different activities there</p>
+                <p class="lead text-muted">You will find the different activities here</p>
             </div>
             @if($user_connected)
             <a href='/activities/create'>
-                <button type="button" class="btn btn-dark">Add a new actvity</button>
+                <button type="button" class="btn btn-dark">Add a new activity</button>
             </a>
             @endif
         </section>
@@ -73,6 +73,12 @@
                                   $date1->modify('+1 year');
 
                                 }
+
+                                ?>
+                            @endif
+                               @if($activity[0]->recursivity == '0')
+                                <?php
+                                $date1 = new DateTime($activity[0]->date);
 
                                 ?>
                             @endif
