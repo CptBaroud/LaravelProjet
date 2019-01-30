@@ -31,18 +31,19 @@
                         <input name='number' class="form-control" value="{{$data->price}}" onblur="verifNumber(this)">
                     </div>
 
-	<div class="form-group">
-		<label  for="Picture">Recursivity</label>
-		<select name="recursivity" class="form-control">
-				<option value="0"></option>
-			  <option value="1">weekly</option>
-			  <option value="2">monthly</option>
-			  <option value="3">annual</option>
-		</select>
-	</div>
-	<button type="submit" class="btn btn-primary">Save to activities</button>
-</form>
-
-@endforeach
+                    <div class="form-group">
+                        <label for="Picture">Recursivity</label>
+                        <select name="recursivity" class="form-control">
+                            <option value="0"></option>
+                            <option value="1">weekly</option>
+                            <option value="2">monthly</option>
+                            <option value="3">annual</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save to activities</button>
+                </form>
+        </div>
+    </div>
+    @endforeach
 
 @endsection
